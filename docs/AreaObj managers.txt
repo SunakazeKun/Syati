@@ -1,0 +1,97 @@
+Name                       Size Manager             Notes
+----------------------------------------------------------------------
+AreaMoveSphere               16 AreaObjMgr
+AudioEffectArea              16 AreaObjMgr
+BeeWallShortDistArea         16 AreaObjMgr
+BgmChangeArea                16 AreaObjMgr
+BgmVolumeFadeArea             4 AreaObjMgr
+BindEnd                      64 AreaObjMgr          unused & useless
+BlueStarGuidance             16 AreaObjMgr
+CameraRepulsiveArea         128 AreaObjMgr          unused
+CancelBeeMorphArea           16 AreaObjMgr
+Celestrial                    4 AreaObjMgr
+ClipDrawArea                 64 AreaObjMgr
+CollisionArea                64 AreaObjMgr
+CometFireDanceArea            4 AreaObjMgr
+CometHopperArea               4 AreaObjMgr
+CometNoSpinArea               4 AreaObjMgr
+CometRainbowArea              4 AreaObjMgr
+CubeCamera                  160 CubeCameraMgr
+CumulativeTimerSwitchArea     4 AreaObjMgr
+DarkMatterArea              128 AreaObjMgr
+DashChargeArea                8 AreaObjMgr
+DeathArea                    64 AreaObjMgr
+DemoPlayerForbidUpdateArea    4 AreaObjMgr
+DodoryuClosedArea             8 AreaObjMgr
+DreamerDeadCountArea          1 AreaObjMgr
+DrillHoleHiddenArea          16 AreaObjMgr
+Effect                       64 AreaObjMgr
+EnforceJumpArea               4 AreaObjMgr
+ExtraWallCheckArea           16 AreaObjMgr
+ExtraWallCheckCylinder       16 AreaObjMgr
+Falls                        32 AreaObjMgr
+ForbidJump                    8 AreaObjMgr          unused
+ForbidSupportTicoArea        32 AreaObjMgr
+ForbidTriangleJump           16 AreaObjMgr
+ForbidWaterSearch            16 AreaObjMgr          unused
+ForceDashCube                16 AreaObjMgr
+GlaringLightArea             64 GlaringLightAreaMgr
+Haze                         16 AreaObjMgr
+HeavySteering                16 AreaObjMgr
+HipDropGuidance              16 AreaObjMgr          unused / useless
+ImageEffectArea              32 ImageEffectAreaMgr
+LensFlareArea                64 AreaObjMgr
+LightArea                   128 LightAreaHolder
+MarioNoCapArea                4 AreaObjMgr
+MercatorCube                  1 AreaObjMgr
+MessageArea                  16 AreaObjMgr
+MirrorArea                   16 AreaObjMgr
+MorphSwitchArea              64 AreaObjMgr
+NoMessageArea                 1 AreaObjMgr
+NonSleep                     16 AreaObjMgr
+Onimasu                      32 AreaObjMgr          unused / useless
+PipeMode                      4 AreaObjMgr          unused
+PlaneCircularMode            16 AreaObjMgr          unused
+PlaneCollision               16 AreaObjMgr
+PlaneMode                    16 AreaObjMgr
+PlayerMorphLimitArea          4 AreaObjMgr
+PlayerSeArea                  8 AreaObjMgr          unused / useless
+PlayerSideRetainOffArea       8 AreaObjMgr
+PullBack                    128 AreaObjMgr
+QuakeEffectArea              16 AreaObjMgr          unused
+RaceJudge                    64 AreaObjMgr          unused / useless
+RasterScrollArea             64 AreaObjMgr
+RecoveryFloorControlArea     16 AreaObjMgr
+RepeatBlockShadowChangeArea   8 AreaObjMgr
+RollingWaterBreakArea         4 AreaObjMgr
+SceneChangeArea               8 AreaObjMgr
+SceneExitArea                 8 AreaObjMgr          unused / useless
+ShadeCube                    64 AreaObjMgr          unused / useless
+ShadowColorArea              32 AreaObjMgr
+ShadowFarClipCtrlArea        16 AreaObjMgr
+SlopeRunningCancelArea        4 AreaObjMgr
+SmokeEffectColorArea         16 AreaObjMgr
+SoundEmitterCube              8 AreaObjMgr
+SoundEmitterSphere            8 AreaObjMgr
+SoundPlayArea                16 AreaObjMgr
+SpinCloudFrontDefineArea     32 AreaObjMgr
+SpinGuidance                 16 AreaObjMgr
+SpinSwitchArea               64 AreaObjMgr
+StoryBookAreaText            64 AreaObjMgr
+StoryBookAreaWarp             8 AreaObjMgr
+SunLightArea                 64 AreaObjMgr
+SwitchArea                   64 AreaObjMgr
+TamakoroJumpGuidance         16 AreaObjMgr
+TamakoroMoveGuidance         16 AreaObjMgr
+TicoSeedGuidance             16 AreaObjMgr          unused
+TogepinAttackFoulArea        16 AreaObjMgr
+TowerModeCylinder             4 AreaObjMgr
+TripodBossStepStart          64 AreaObjMgr          unused / useless
+ViewGroupCtrl                64 AreaObjMgr
+WarpCube                     64 WarpCubeMgr
+Water                        64 WaterAreaMgr
+WorldMapAccessArea            4 AreaObjMgr          unused / useless
+WorldMapSyncSoundEmitterCube  8 AreaObjMgr
+YoshiCaptureGuidanceArea      8 AreaObjMgr
+YoshiEatGuidanceArea          8 AreaObjMgr
+YoshiSendOffArea              4 AreaObjMgr

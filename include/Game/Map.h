@@ -1,0 +1,17 @@
+#pragma once
+
+#include "Game/Map/BezierRail.h"
+#include "Game/Map/CollisionCategorizedKeeper.h"
+#include "Game/Map/CollisionParts.h"
+#include "Game/Map/HitInfo.h"
+#include "Game/Map/KCollisionServer.h"
+#include "Game/Map/LightZoneDataHolder.h"
+#include "Game/Map/PlanetMapCreator.h"
+#include "Game/Map/ProductMapCreator.h"
+#include "Game/Map/RailGraph.h"
+#include "Game/Map/RailGraphEdge.h"
+#include "Game/Map/RailGraphIter.h"
+#include "Game/Map/RailGraphNode.h"
+#include "Game/Map/RailGraphNodeSelecter.h"
+#include "Game/Map/RailPart.h"
+#include "Game/Map/StageSwitch.h"
