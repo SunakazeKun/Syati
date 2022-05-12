@@ -252,6 +252,6 @@ with open("SB4P01.map", "r") as f:
 
 # Write all symbol files
 for region in REGIONS:
-    with open(f"deps/symbols/{region}.txt", "w") as f:
+    with open(f"symbols/{region}.txt", "w") as f:
         for line in SYMBOLS[region]:
             f.write(line)
