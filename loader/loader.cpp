@@ -2,9 +2,18 @@
 
 namespace syati {
     // Crash debugger patch
+#if defined(TWN) || defined(KOR)
+    kmWrite32(0x804B7E00, 0x60000000);
+    kmWrite32(0x804B7EC4, 0x60000000);
+    kmWrite32(0x805B67B4, 0x60000000);
+#else
     kmWrite32(0x804B7D90, 0x60000000);
     kmWrite32(0x804B7E54, 0x60000000);
     kmWrite32(0x805B66B4, 0x60000000);
+#endif
+
+    // Entry point
+    kmBranch(0x80474E50, init);
 
     void init() {
         OSReport("SYATI -- Initializing binary '%s'\n", KAMEK_BINARY_NAME);
@@ -126,6 +135,4 @@ namespace syati {
         __sync();
         __isync();
     }
-
-    kmBranch(0x80474E50, init);
 }

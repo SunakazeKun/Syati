@@ -3,8 +3,6 @@
 #include "revolution.h"
 #include "JSystem.h"
 
-struct _GXColor;
-
 void PSVECKillElement(const Vec *, const Vec *, const Vec *);
 
 namespace MR {
@@ -109,14 +107,14 @@ namespace MR {
 	bool blendAngle(f32, f32, f32);
 	f32 lerp(u8, u8, f32);
 	f32 lerp(f32, f32, f32);
-	f32 lerp(_GXColor, _GXColor, f32);
+	f32 lerp(GXColor, GXColor, f32);
 	void sortSmall(long, f32 *, long *);
 	void sortSmall(long, u32 *, long *);
 	void PSvecBlend(const TVec3f *, const TVec3f *, f32, f32);
 	void vecBlend(const TVec3f &, const TVec3f &, TVec3f *, f32);
 	void vecBlendNormal(const TVec3f &, const TVec3f &, TVec3f *, f32);
 	void vecBlendSphere(const TVec3f &, const TVec3f &, TVec3f *, f32);
-	void blendColor(_GXColor *, _GXColor const &, _GXColor const &, f32);
+	void blendColor(GXColor *, GXColor const &, GXColor const &, f32);
 	void turnVecToPlane(TVec3f *, const TVec3f &, const TVec3f &);
 	void getRotatedAxisY(TVec3f *, const TVec3f &);
 	void getRotatedAxisZ(TVec3f *, const TVec3f &);
