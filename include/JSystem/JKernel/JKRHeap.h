@@ -29,7 +29,7 @@ public:
     JKRHeap* becomeSystemHeap();
     JKRHeap* becomeCurrentHeap();
     void destroy(JKRHeap *);
-    static void* alloc(u32, s32, JKRHeap *);
+    static void* alloc(u32, int, JKRHeap *);
     static void free(void *, JKRHeap *);
     void free(void *);
     void freeAll();

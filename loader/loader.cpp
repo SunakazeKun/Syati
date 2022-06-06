@@ -1,138 +1,261 @@
 #include "loader.h"
 
-namespace syati {
-    // Crash debugger patch
+
+/**********************************************************************************************************************/
+/* Entry point and crash debugger patches                                                                             */
+/**********************************************************************************************************************/
 #if defined(TWN) || defined(KOR)
-    kmWrite32(0x804B7E00, 0x60000000);
-    kmWrite32(0x804B7EC4, 0x60000000);
-    kmWrite32(0x805B67B4, 0x60000000);
+	kmWrite32(0x804B7E00, 0x60000000);
+	kmWrite32(0x804B7EC4, 0x60000000);
+	kmWrite32(0x805B64A8, 0x60000000); // thanks Hackio
+	kmWrite32(0x805B67B4, 0x60000000);
+
+	// Entry point
+	kmBranch(0x804B7DA8, init);
 #else
-    kmWrite32(0x804B7D90, 0x60000000);
-    kmWrite32(0x804B7E54, 0x60000000);
-    kmWrite32(0x805B66B4, 0x60000000);
+	kmWrite32(0x804B7D90, 0x60000000);
+	kmWrite32(0x804B7E54, 0x60000000);
+	kmWrite32(0x805B63A8, 0x60000000); // thanks Hackio
+	kmWrite32(0x805B66B4, 0x60000000);
+
+	// Entry point
+	kmBranch(0x804B7D38, init);
 #endif
 
-    // Entry point
-    kmBranch(0x80474E50, init);
 
-    void init() {
-        OSReport("SYATI -- Initializing binary '%s'\n", KAMEK_BINARY_NAME);
+/**********************************************************************************************************************/
+/* Initialization                                                                                                     */
+/**********************************************************************************************************************/
+void init() {
+	OSReport("SYATI -- Initializing binary '%s'\n", KAMEK_BINARY_NAME);
 
-        u32 fg = 0xFFFFFFFF;
-        u32 bg = 0x00000000;
-        u8 headerBuffer[32];
-        KamekHeader* kamekHeader = (KamekHeader*)&headerBuffer;
-        DVDFileInfo fileHandle;
-
-
-        // 1 -- Verify that file exists and create file handle
-        s32 pathID = DVDConvertPathToEntrynum(KAMEK_BINARY_NAME);
-
-        if (pathID < 0) {
-            OSFatal(&fg, &bg, "SYATI -- ERROR\n\nFailed to locate binary file '%s'\n", KAMEK_BINARY_NAME);
-        }
-
-        if (!DVDFastOpen(pathID, &fileHandle)) {
-            OSFatal(&fg, &bg, "SYATI -- ERROR\n\nFailed to create file handle for '%s'\n", KAMEK_BINARY_NAME);
-        }
-
-        OSReport("SYATI -- Binary located: faddr = %p, fsize = %d\n", fileHandle.mStartAddr, fileHandle.mLength);
+	u32 fg = 0xFFFFFFFF;
+	u32 bg = 0x00000000;
+	DVDFileInfo fileHandle;
 
 
-        // 2 -- Verify Kamek header is correct
-        DVDReadPrio(&fileHandle, headerBuffer, 32, 0, 2);
+	// 1 -- Verify that file exists and create file handle
+	int pathID = DVDConvertPathToEntrynum(KAMEK_BINARY_NAME);
 
-        if (kamekHeader->magic1 != 'Kame' || kamekHeader->magic2 != 'k\0') {
-            OSFatal(&fg, &bg, "SYATI -- ERROR\n\nBinary appears to be corrupted!\n");
-        }
-        if (kamekHeader->version != 1) {
-            OSFatal(&fg, &bg, "SYATI -- ERROR\n\nIncompatible version %d!", kamekHeader->version);
-        }
+	if (pathID < 0) {
+		OSFatal(&fg, &bg, "SYATI -- ERROR\n\nFailed to locate binary file '%s'\n", KAMEK_BINARY_NAME);
+	}
 
-        OSReport("SYATI -- Kamek header: codeSize = %d, bssSize = %d\n", kamekHeader->codeSize, kamekHeader->bssSize);
+	if (!DVDFastOpen(pathID, &fileHandle)) {
+		OSFatal(&fg, &bg, "SYATI -- ERROR\n\nFailed to create file handle for '%s'\n", KAMEK_BINARY_NAME);
+	}
 
-
-        // 3 -- Preload contents
-        JKRHeap *heap = MR::getStationedHeapNapa();
-        u32 linkedSize = kamekHeader->codeSize + kamekHeader->bssSize;
-        u32 kamekSize = fileHandle.mLength - sizeof(KamekHeader) - kamekHeader->codeSize;
-        u8 *linkedBuffer = new (heap, 32) u8[linkedSize];
-        u8 *kamekBuffer = new (heap, 32) u8[kamekSize];
-
-        DVDReadPrio(&fileHandle, linkedBuffer, kamekHeader->codeSize, sizeof(KamekHeader), 2);
-        DVDReadPrio(&fileHandle, kamekBuffer, kamekSize, sizeof(KamekHeader) + kamekHeader->codeSize, 2);
-        DVDClose(&fileHandle);
+	OSReport("SYATI -- Binary located: faddr = %p, fsize = %d\n", fileHandle.mStartAddr, fileHandle.mLength);
 
 
-        // 4 -- Clear BSS section
-        u8* bssStart = linkedBuffer + kamekHeader->codeSize;
-        u8* bssEnd = linkedBuffer + linkedSize;
+	// 2 -- Read entire binary
+	JKRHeap* heap = JKRHeap::sSystemHeap;
+	u32 alignedBinarySize = (fileHandle.mLength + 0x1F) & ~0x1F;
+	u8* binary = new (JKRHeap::sSystemHeap, 32) u8[alignedBinarySize];
 
-        while (bssStart < bssEnd) {
-            *bssStart++ = 0;
-        }
+	if (!binary) {
+		OSFatal(&fg, &bg, "SYATI -- ERROR\n\nOut of memory for binary.");
+	}
+
+	DVDReadPrio(&fileHandle, binary, alignedBinarySize, 0, 2);
+	DVDClose(&fileHandle);
 
 
-        // 5 -- Link everything and delete linking information buffer
-        link(linkedBuffer, linkedSize, kamekBuffer, kamekSize);
-        delete kamekBuffer;
+	// 3 -- Verify header
+	KamekHeader* kamekHeader = (KamekHeader*)binary;
+
+	if (kamekHeader->magic1 != 'Kame' || kamekHeader->magic2 != 'k\0') {
+		OSFatal(&fg, &bg, "SYATI -- ERROR\n\nBinary appears to be corrupted!\n");
+	}
+	if (kamekHeader->version != 1) {
+		OSFatal(&fg, &bg, "SYATI -- ERROR\n\nIncompatible version %d!", kamekHeader->version);
+	}
+
+	OSReport("SYATI -- Kamek header: codeSize = %d, bssSize = %d\n", kamekHeader->codeSize, kamekHeader->bssSize);
 
 
-        OSReport("SYATI -- Initialization done!\n");
-    }
+	u32 codeSize = kamekHeader->codeSize;
+	u32 bssSize = kamekHeader->bssSize;
+	u32 linkedSize = codeSize + bssSize;
+	u32 kamekSize = fileHandle.mLength - sizeof(KamekHeader) - codeSize;
 
-    void link(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize) {
-        OSReport("SYATI -- Linked binary: addr = %p, size = %d\n", linkedBuffer, linkedSize);
-        OSReport("SYATI -- Linking info (tmp): addr = %p, size = %d\n", kamekBuffer, kamekSize);
+	u8 *linkedBuffer = new (JKRHeap::sSystemHeap, 32) u8[linkedSize];
+	u8 *kamekBuffer = binary + sizeof(KamekHeader) + codeSize;
 
-        u32 text = (u32)linkedBuffer;
-        const u8* input = kamekBuffer;
-        const u8* end = input + kamekSize;
+	if (!linkedBuffer) {
+		OSFatal(&fg, &bg, "SYATI -- ERROR\n\nOut of memory for code.");
+	}
 
-        while (input < end) {
-            u32 cmdHeader = *((u32 *)input);
-            input += 4;
 
-            u8 cmd = cmdHeader >> 24;
-            u32 address = cmdHeader & 0xFFFFFF;
-            if (address == 0xFFFFFE) {
-                // Absolute address
-                address = *((u32 *)input);
-                input += 4;
-            }
-            else {
-                // Relative address
-                address += text;
-            }
+	// 4 -- Copy code from binary and clear BSS section
+	u8 *codeStart = linkedBuffer;
+	u8 *codeEnd = linkedBuffer + codeSize;
+	u8 *codeSrc = binary + sizeof(KamekHeader);
 
-            switch (cmd) {
-                kDispatchCommand(Addr32);
-                kDispatchCommand(Addr16Lo);
-                kDispatchCommand(Addr16Hi);
-                kDispatchCommand(Addr16Ha);
-                kDispatchCommand(Rel24);
-                kDispatchCommand(Write32);
-                kDispatchCommand(Write16);
-                kDispatchCommand(Write8);
-                kDispatchCommand(CondWritePointer);
-                kDispatchCommand(CondWrite32);
-                kDispatchCommand(CondWrite16);
-                kDispatchCommand(CondWrite8);
-                kDispatchCommand(Branch);
-                kDispatchCommand(BranchLink);
-            default:
-                OSReport("Unknown command: %d\n", cmd);
-            }
+	while (codeStart < codeEnd) {
+		*codeStart++ = *codeSrc++;
+	}
 
-            register u32 cacheAddr = address;
-            asm{
-                dcbst r0, cacheAddr
-                sync
-                icbi r0, cacheAddr
-            }
-        }
+	u8 *bssStart = linkedBuffer + codeSize;
+	u8 *bssEnd = linkedBuffer + linkedSize;
 
-        __sync();
-        __isync();
-    }
+	while (bssStart < bssEnd) {
+		*bssStart++ = 0;
+	}
+
+
+	// 5 -- Link everything and delete binary buffer
+	link(linkedBuffer, linkedSize, kamekBuffer, kamekSize);
+	JKRHeap::free(binary, heap);
+
+	OSReport("SYATI -- Initialization done!\n");
+}
+
+
+/**********************************************************************************************************************/
+/* Runtime linking                                                                                                    */
+/**********************************************************************************************************************/
+static inline u32 resolveAddress(u32 text, u32 address) {
+	return address & 0x80000000 ? address : (text + address);
+}
+
+#define kCommandHandler(name) \
+	static inline const u8 *kHandle##name(const u8 *input, u32 text, u32 address)
+#define kDispatchCommand(name) \
+	case k##name: input = kHandle##name(input, text, address); break
+
+kCommandHandler(Addr32) {
+	u32 target = resolveAddress(text, *(const u32 *)input);
+	*(u32 *)address = target;
+	return input + 4;
+}
+kCommandHandler(Addr16Lo) {
+	u32 target = resolveAddress(text, *(const u32 *)input);
+	*(u16 *)address = target & 0xFFFF;
+	return input + 4;
+}
+kCommandHandler(Addr16Hi) {
+	u32 target = resolveAddress(text, *(const u32 *)input);
+	*(u16 *)address = target >> 16;
+	return input + 4;
+}
+kCommandHandler(Addr16Ha) {
+	u32 target = resolveAddress(text, *(const u32 *)input);
+	*(u16 *)address = target >> 16;
+	if (target & 0x8000)
+		*(u16 *)address += 1;
+	return input + 4;
+}
+kCommandHandler(Rel24) {
+	u32 target = resolveAddress(text, *(const u32 *)input);
+	u32 delta = target - address;
+	*(u32 *)address &= 0xFC000003;
+	*(u32 *)address |= (delta & 0x3FFFFFC);
+	return input + 4;
+}
+kCommandHandler(Write32) {
+	u32 value = *(const u32 *)input;
+	*(u32 *)address = value;
+	return input + 4;
+}
+kCommandHandler(Write16) {
+	u32 value = *(const u32 *)input;
+	*(u16 *)address = value & 0xFFFF;
+	return input + 4;
+}
+kCommandHandler(Write8) {
+	u32 value = *(const u32 *)input;
+	*(u8 *)address = value & 0xFF;
+	return input + 4;
+}
+kCommandHandler(CondWritePointer) {
+	u32 target = resolveAddress(text, *(const u32 *)input);
+	u32 original = ((const u32 *)input)[1];
+	if (*(u32 *)address == original)
+		*(u32 *)address = target;
+	return input + 8;
+}
+kCommandHandler(CondWrite32) {
+	u32 value = *(const u32 *)input;
+	u32 original = ((const u32 *)input)[1];
+	if (*(u32 *)address == original)
+		*(u32 *)address = value;
+	return input + 8;
+}
+kCommandHandler(CondWrite16) {
+	u32 value = *(const u32 *)input;
+	u32 original = ((const u32 *)input)[1];
+	if (*(u16 *)address == (original & 0xFFFF))
+		*(u16 *)address = value & 0xFFFF;
+	return input + 8;
+}
+kCommandHandler(CondWrite8) {
+	u32 value = *(const u32 *)input;
+	u32 original = ((const u32 *)input)[1];
+	if (*(u8 *)address == (original & 0xFF))
+		*(u8 *)address = value & 0xFF;
+	return input + 8;
+}
+kCommandHandler(Branch) {
+	*(u32 *)address = 0x48000000;
+	return kHandleRel24(input, text, address);
+}
+kCommandHandler(BranchLink) {
+	*(u32 *)address = 0x48000001;
+	return kHandleRel24(input, text, address);
+}
+
+
+void link(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize) {
+	OSReport("SYATI -- Linked binary: addr = %p, size = %d\n", linkedBuffer, linkedSize);
+	OSReport("SYATI -- Linking info (tmp): addr = %p, size = %d\n", kamekBuffer, kamekSize);
+
+	u32 text = (u32)linkedBuffer;
+	const u8* input = kamekBuffer;
+	const u8* end = input + kamekSize;
+
+	while (input < end) {
+		u32 cmdHeader = *((u32 *)input);
+		input += 4;
+
+		u8 cmd = cmdHeader >> 24;
+		u32 address = cmdHeader & 0xFFFFFF;
+		if (address == 0xFFFFFE) {
+			// Absolute address
+			address = *((u32 *)input);
+			input += 4;
+		} else {
+			// Relative address
+			address += text;
+		}
+
+		switch (cmd) {
+			kDispatchCommand(Addr32);
+			kDispatchCommand(Addr16Lo);
+			kDispatchCommand(Addr16Hi);
+			kDispatchCommand(Addr16Ha);
+			kDispatchCommand(Rel24);
+			kDispatchCommand(Write32);
+			kDispatchCommand(Write16);
+			kDispatchCommand(Write8);
+			kDispatchCommand(CondWritePointer);
+			kDispatchCommand(CondWrite32);
+			kDispatchCommand(CondWrite16);
+			kDispatchCommand(CondWrite8);
+			kDispatchCommand(Branch);
+			kDispatchCommand(BranchLink);
+			default:
+				OSReport("SYATI -- Unknown command: %d\n", cmd);
+		}
+		
+		register u32 cacheAddr = address;
+		asm {
+			dcbst r0, cacheAddr
+			sync
+			icbi r0, cacheAddr
+		}
+	}
+
+	__sync();
+	__isync();
 }
