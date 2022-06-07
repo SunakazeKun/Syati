@@ -12,17 +12,23 @@
 #define KAMEK_BINARY_NAME "/CustomCode/CustomCode_KOR.bin"
 #endif
 
+#define RAW_BINARY_ADDRESS_END 0x935e0000
 
-void init();
-void link(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize);
+namespace syati {
+    struct KamekHeader {
+        u32 magic1;
+        u16 magic2;
+        u16 version;
+        u32 bssSize;
+        u32 codeSize;
+    };
 
-
-struct KamekHeader {
-    u32 magic1;
-    u16 magic2;
-    u16 version;
-    u32 bssSize;
-    u32 codeSize;
+    void LoaderMain();
+    void LoaderOpenBinary(void **binaryPtr, u32 *sizePtr);
+    void LoaderCloseBinary(void *binary, u32 size);
+    void LoaderVerifyHeader(KamekHeader *header);
+    void LoaderAllocatePatch(void *binary, u32 size, u8 **patchBufferPtr, u32 *patchSizePtr,  u8 **linkingInfoPtr, u32 *linkingSizePtr);
+    void LoaderRuntimeLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize);
 };
 
 
