@@ -3,7 +3,15 @@
 #include "revolution.h"
 #include "Game/LiveActor/LiveActor.h"
 #include "Game/LiveActor/LodCtrl.h"
+#include "Game/LiveActor/ModelObj.h"
 #include "Game/MapObj/MapObjActorInitInfo.h"
+#include "Game/MapObj/MapParts/FloaterFloatingForce.h"
+#include "Game/MapObj/MapParts/FloaterFloatingForceTypeNormal.h"
+#include "Game/MapObj/MapParts/MapPartsRailGuideDrawer.h"
+#include "Game/MapObj/MapParts/MapPartsRailMover.h"
+#include "Game/MapObj/MapParts/MapPartsRailPosture.h"
+#include "Game/MapObj/MapParts/MapPartsRailRotator.h"
+#include "Game/MapObj/MapParts/MapPartsRotator.h"
 
 class MapObjActor : public LiveActor {
 public:
@@ -47,23 +55,23 @@ public:
 
 	const char* mObjName;
 	LodCtrl* mLodCtrl;
-	u32* mBloomModel;
+	ModelObj* mBloomModel;
 	u32* _9C;
 	u32* mProjmapEffectMtxSetter;
-	u32* mRailMover;
-	u32* mRotator;
-	u32* mRailRotator;
-	u32* mRailPosture;
-	u32* mRailGuideDrawer;
+	MapPartsRailMover* mRailMover;
+	MapPartsRotator* mRotator;
+	MapPartsRailRotator* mRailRotator;
+	MapPartsRailPosture* mRailPosture;
+	MapPartsRailGuideDrawer* mRailGuideDrawer;
 	bool _B8;
 	bool _B9;
-	bool _BA;
+	bool mUseMirrorReflectionModelInfo;
 	bool mPlayAppearSe;
 	Nerve* mNrvWait;
 	Nerve* mNrvMove;
 	Nerve* mNrvDone;
 	s32 _C8;
-	s32 _CC;
+	int mLodModelMovementList;
 };
 
 namespace MapObjActorUtil {
