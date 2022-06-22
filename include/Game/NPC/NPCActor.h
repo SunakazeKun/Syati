@@ -145,56 +145,52 @@ public:
     void setDefault();
 
     const char* _0;
-    u8 _4;
-    const char* _8;
-    u8 _C;
-    u8 _D;
-    u8 _E;
-    u8 _F;
-    const char* _10;
-    f32 _14;
-    f32 _18;
-    f32 _1C;
-    u32 _20;
-    u32 _24;
-    u8 _28;
-    u8 _29;
-    u8 _2A;
-    u8 _2B;
-    u8 _2C;
-    u32 _30;
-    u32 _34;
-    u8 _38;
-    u8 _39;
-    u8 _3A;
-    u8 _3B;
-    u32 _3C;
-    u8 _40;
-    f32 _44;
-    u8 _48;
-    u32 _4C;
-    f32 _50;
-    TVec3f _54;
-    u32 _60;
-    u8 _64;
-    u8 _65;
-    f32 _68;
-    u8 _6C;
-    u8 _6D;
-    u8 _6E;
-    u8 _6F;
-    u8 _70;
-    u32 _74;
-    u32 _78;
-    u8 _7C;
-    f32 _80;
-    f32 _84;
-    f32 _88;
-    f32 _8C;
-    u32 _90;
-    u8 _94;
-    u8 _95;
-    Nerve* _98;
-    Nerve* _9C;
-    Nerve* _A0;
+    bool mInitModel;                     // _4
+    const char* mModelName;              // _8
+    bool mInitAppear;                    // _C
+    bool _D;
+    bool mInitTalkCtrl;                  // _E
+    bool mUseDirectTalk;                 // _F
+    const char* mTalkMsgLabel;           // _10
+    TVec3f mTalkOffset;                  // _14
+    MtxPtr mTalkMtx;                     // _20
+    const char* mTalkJoint;              // _24
+    bool _28;
+    bool mInitScene;                     // _29
+    bool mInitLightCtrl;                 // _2A
+    bool mInitEffectKeeper;              // _2B
+    bool mInitSound;                     // _2C
+    const char* mSoundObjName;           // _30
+    s32 mSoundObjsCount;                 // _34
+    bool mInitSearchTurtle;              // _38
+    bool mInitDefaultPos;                // _39
+    bool mInitLodCtrlNPC;                // _3A
+    bool mInitSpine;                     // _3B
+    s32 mSpineStateCount;                // _3C
+    bool mInitBinder;                    // _40
+    f32 mBinderRadius;                   // _44
+    bool mInitHitSensor;                 // _48
+    const char* mBodySensorJoint;        // _4C
+    f32 mBodySensorRadius;               // _50
+    TVec3f mBodySensorOffset;            // _54
+    s32 mHitSensorCount;                 // _60
+    bool mInitSphereShadow;              // _64
+    bool mInitBcsvShadow;                // _65
+    f32 mSphereShadowRadius;             // _68
+    bool mInitRailRider;                 // _6C
+    bool mUseSwitchWriteDead;            // _6D
+    bool mUseStageSwitchSyncAppear;      // _6E
+    bool mInitDead;                      // _6F
+    bool mInitStarPointerTarget;         // _70
+    const char* mStarPointerTargetJoint; // _74
+    const char* mJointCtrlName;          // _78
+    bool _7C;
+    TVec3f mStarPointerTargetOffset;     // _80
+    f32 mStarPointerTargetRadius;        // _8C
+    s32 mSceneType;                      // _90
+    bool mReactSupportTicoSpin;          // _94
+    bool mInitYoshiLockOnTarget;         // _95
+    Nerve* mWaitNerve;                   // _98
+    Nerve* mTalkNerve;                   // _9C
+    Nerve* mReactionNerve;               // _A0
 };
