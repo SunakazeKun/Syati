@@ -5,11 +5,19 @@
 
 class ClippingJudge : public NameObj {
 public:
-    ClippingJudge(const char *);
+    ClippingJudge(const char *pName);
 
     virtual ~ClippingJudge();
-    virtual void init(const JMapInfoIter &);
+    virtual void init(const JMapInfoIter &rIter);
     virtual void movement();
 
-    u8 _0[0x380];
+    bool isJudgedToClipFrustum(const TVec3f &, f32, s32) const;
+    void calcViewingVolume(THex3f *, f32);
+
+    THex3f _14;
+    THex3f _74[8];
+};
+
+namespace MR {
+    ClippingJudge* getClippingJudge();
 };

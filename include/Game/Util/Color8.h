@@ -4,10 +4,10 @@
 
 class Color8 {
 public:
-	Color8(u8, u8, u8, u8);
+	Color8(u8 r, u8 g, u8 b, u8 a);
 
-	u8 mRed; // _0
-	u8 mGreen; // _1
-	u8 mBlue; // _2
-	u8 mAlpha; // _3
+	u8 r;   // _0
+	u8 g; // _1
+	u8 b;  // _2
+	u8 a; // _3
 };

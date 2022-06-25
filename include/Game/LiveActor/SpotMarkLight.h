@@ -5,9 +5,11 @@
 
 class SpotMarkLight : public PartsModel {
 public:
-	SpotMarkLight(LiveActor *pHost, f32, f32, MtxPtr pMtx);
+	SpotMarkLight(LiveActor *pHost, f32 hScale, f32 vScale, MtxPtr pMtx);
 
 	virtual ~SpotMarkLight();
 	virtual void control();
 	virtual void calcAndSetBaseMtx();
+
+	bool mIsDisappeared; // _9F
 };

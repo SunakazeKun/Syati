@@ -17,3 +17,5 @@ namespace JGeometry {
 		TPartition3<f32> mPlanes[6];
 	};
 };
+
+typedef JGeometry::THexahedron3<f32> THex3f;
