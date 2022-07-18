@@ -3,8 +3,8 @@
 #include "revolution.h"
 
 namespace MR {
-	void startStageBGM(const char *, bool);
-	void startStageBGMFromStageName(const char *, const char *, s32);
+	bool startStageBGM(const char *, bool);
+	bool startStageBGMFromStageName(const char *, const char *, s32);
 	void stopStageBGM(u32);
 	void unlockStageBGM();
 	void moveVolumeStageBGM(f32, u32);

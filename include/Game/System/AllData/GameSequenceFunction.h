@@ -10,7 +10,11 @@ class GameSequenceFunction {
 public:
 	static GameSequenceInGame* getGameSequenceInGame();
 
+	static void changeSceneStageMarioFaceShipGalaxy(s32 spawnId, s32 scenario);
+
 	static void changeToScenarioSelect(const char *pStageName);
+
+	static bool hasStageResultSequence();
 
 	static const char* getClearedStageName();
 	static s32 getClearedPowerStarId();

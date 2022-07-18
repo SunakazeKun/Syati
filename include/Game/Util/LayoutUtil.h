@@ -3,6 +3,7 @@
 #include "revolution.h"
 
 class LayoutActor;
+class IconAButton;
 
 namespace MR {
 	void setTextBoxArgNumberRecursive(LayoutActor *, const char *, s32, s32);
@@ -43,4 +44,5 @@ namespace MR {
 	bool isExecuteCalcAnimLayout(const LayoutActor *pLayout);
 	bool isExecuteDrawLayout(const LayoutActor *pLayout);
 
+	IconAButton* createAndSetupIconAButton(LayoutActor *pLayout, bool, bool);
 };

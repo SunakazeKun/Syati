@@ -28,13 +28,13 @@ kmBranch(0x804B7D38, syati::LoaderMain);
 /**********************************************************************************************************************/
 namespace syati {
 	void LoaderMain() {
-		OSReport("SYATI -- Initializing binary '%s'\n", KAMEK_BINARY_NAME);
+		OSReport("SYATI -- Initializing binary\n");
 
 		// 1 -- Load the binary and load it into memory
 		void *binary;
 		u32 size;
 
-		LoaderOpenBinary(&binary, &size);
+		LoaderOpenBinary(&binary, &size, KAMEK_BINARY_NAME);
 		LoaderVerifyHeader((KamekHeader*)binary);
 
 		// 2 -- Allocate patch block and link custom code into the game
@@ -49,7 +49,7 @@ namespace syati {
 		OSReport("SYATI -- Initialization done!\n");
 	}
 
-	void LoaderOpenBinary(void **binaryPtr, u32 *sizePtr) {
+	void LoaderOpenBinary(void **binaryPtr, u32 *sizePtr, const char *binaryName) {
 		DVDFileInfo fileHandle;
 
 		// Setup OSFatal colors
@@ -57,14 +57,14 @@ namespace syati {
 		u32 bg = 0x00000000;
 
 		// Verify that file exists and create file handle
-		int pathID = DVDConvertPathToEntrynum(KAMEK_BINARY_NAME);
+		int pathID = DVDConvertPathToEntrynum(binaryName);
 
 		if (pathID < 0) {
-			OSFatal(&fg, &bg, "SYATI -- ERROR\n\nFailed to locate '%s'\n", KAMEK_BINARY_NAME);
+			OSFatal(&fg, &bg, "SYATI -- ERROR\n\nFailed to locate %s\n", binaryName);
 		}
 
 		if (!DVDFastOpen(pathID, &fileHandle)) {
-			OSFatal(&fg, &bg, "SYATI -- ERROR\n\nFailed to create file handle for '%s'\n", KAMEK_BINARY_NAME);
+			OSFatal(&fg, &bg, "SYATI -- ERROR\n\nFailed to create file handle for %s\n", binaryName);
 		}
 
 		OSReport("SYATI -- File handle: faddr = %p, fsize = %d\n", fileHandle.mStartAddr, fileHandle.mLength);

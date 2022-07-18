@@ -34,16 +34,16 @@ public:
 
 class StageSwitchFunction {
 public:
-    static SwitchIdInfo* createSwitchIdInfo(const char *, const JMapInfoIter &l, bool);
-    static void onSwitchBySwitchIdInfo(const SwitchIdInfo &);
-    static void offSwitchBySwitchIdInfo(const SwitchIdInfo &);
-    static bool isOnSwitchBySwitchIdInfo(const SwitchIdInfo &);
+    static SwitchIdInfo* createSwitchIdInfo(const char *, const JMapInfoIter &rIter, bool);
+    static void onSwitchBySwitchIdInfo(const SwitchIdInfo &rInfo);
+    static void offSwitchBySwitchIdInfo(const SwitchIdInfo &rInfo);
+    static bool isOnSwitchBySwitchIdInfo(const SwitchIdInfo &rInfo);
     static void onGlobalSwitchById(int);
 };
 
 class StageSwitchCtrl {
 public:
-    StageSwitchCtrl(const JMapInfoIter &);
+    StageSwitchCtrl(const JMapInfoIter &rIter);
 
     void onSwitchA();
     void offSwitchA();
@@ -58,19 +58,19 @@ public:
     void onSwitchDead();
     void offSwitchDead();
     bool isValidSwitchDead() const;
-    bool isOnAllSwitchAfterB(s32) const;
-    bool isOnAnyOneSwitchAfterB(s32) const;
+    bool isOnAllSwitchAfterB(s32 count) const;
+    bool isOnAnyOneSwitchAfterB(s32 count) const;
     bool isOnSwitchParam() const;
     bool isValidSwitchParam() const;
 
-    SwitchIdInfo* mSW_A; // _0
-    SwitchIdInfo* mSW_B; // _4
-    SwitchIdInfo* mSW_Appear; // _8
-    SwitchIdInfo* mSW_Dead; // _C
-    u8 _10;
-    SwitchIdInfo* mSW_Param; // _14
+    SwitchIdInfo* mSwitchA;      // _0
+    SwitchIdInfo* mSwitchB;      // _4
+    SwitchIdInfo* mSwitchAppear; // _8
+    SwitchIdInfo* mSwitchDead;   // _C
+    bool mIsSwitchDeadAuto;      // _10
+    SwitchIdInfo* mSwitchParam;  // _14
 };
 
 namespace MR {
-    StageSwitchCtrl* createStageSwitchCtrl(NameObj *, const JMapInfoIter &);
+    StageSwitchCtrl* createStageSwitchCtrl(NameObj *pObject, const JMapInfoIter &rIter);
 };
