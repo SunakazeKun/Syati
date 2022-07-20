@@ -68,7 +68,7 @@ bool OSIsEnableInterrupts();
 /*
 * Real-time clock API
 */
-s64 OSGetTick();
+u32 OSGetTick();
 u32 OSGetTime();
 
 #ifdef __cplusplus
