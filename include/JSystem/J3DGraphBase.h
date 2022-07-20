@@ -3,6 +3,7 @@
 #include "JSystem/J3DGraphBase/J3DAnimation.h"
 #include "JSystem/J3DGraphBase/J3DDrawBuffer.h"
 //#include "JSystem/J3DGraphBase/J3DGD.h"
+#include "JSystem/J3DGraphBase/J3DGXColor.h"
 //#include "JSystem/J3DGraphBase/J3DJoint.h"
 #include "JSystem/J3DGraphBase/J3DJointTree.h"
 #include "JSystem/J3DGraphBase/J3DMaterial.h"

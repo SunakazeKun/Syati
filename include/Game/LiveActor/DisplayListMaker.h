@@ -3,7 +3,6 @@
 #include "JSystem.h"
 #include "Game/System/ResourceHolder.h"
 
-class J3DGXColor;
 class MaterialCtrl;
 class FogCtrl;
 class MatColorCtrl;

@@ -11,6 +11,8 @@ extern Func __ctor_end;
 void init() {
     for (Func* f = &__ctor_loc; f < &__ctor_end; f++)
         (*f)();
+
+    MR::getRandom(0, (s32)sizeof(J3DGXColor));
 }
 
 #if defined(TWN) || defined(KOR)
