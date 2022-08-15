@@ -111,9 +111,9 @@ namespace MR {
 	void sortSmall(long, f32 *, long *);
 	void sortSmall(long, u32 *, long *);
 	void PSvecBlend(const TVec3f *, const TVec3f *, f32, f32);
-	void vecBlend(const TVec3f &, const TVec3f &, TVec3f *, f32);
-	void vecBlendNormal(const TVec3f &, const TVec3f &, TVec3f *, f32);
-	void vecBlendSphere(const TVec3f &, const TVec3f &, TVec3f *, f32);
+	void vecBlend(TVec3f *, const TVec3f &, const TVec3f &, f32);
+	void vecBlendNormal(TVec3f *, const TVec3f &, const TVec3f &, f32);
+	void vecBlendSphere(TVec3f *, const TVec3f &, const TVec3f &, f32);
 	void blendColor(GXColor *, GXColor const &, GXColor const &, f32);
 	void turnVecToPlane(TVec3f *, const TVec3f &, const TVec3f &);
 	void getRotatedAxisY(TVec3f *, const TVec3f &);

@@ -10,7 +10,9 @@ struct J3DGXColor {
     void operator=(GXColor color);
 
     union {
-        u8 r, g, b, a;
+        struct {
+            u8 r, g, b, a;
+        };
         u32 rgba;
     };
 };
