@@ -26,4 +26,5 @@ namespace MR {
     void scanf32(const char *pString, const char *pField, f32 *pDest);
     void scanu8x4(const char *pString, const char *pField, u8 *pDest);
     void scanf32x4(const char *pString, const char *pField, f32 *pDest);
+    void makeClearTimeString(wchar_t* paneTxt, u32 value);
 };

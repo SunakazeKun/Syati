@@ -43,7 +43,7 @@ public:
 	u8 mSavedTicoCoin;             // _61
 	u8 mNotifyTicoCoin;            // _62
 	u8 _63;
-	s32 _64;
+	s32 mCurrentClearTime;
 	u8 _68;
 	JMapLinkInfo* mRestartMarioNo; // _6C
 	s32 _70;
