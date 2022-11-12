@@ -6,16 +6,23 @@ class LayoutActor;
 class IconAButton;
 
 namespace MR {
+	void createAndAddPaneCtrl(LayoutActor*, const char*, u32);
+
 	void setTextBoxArgNumberRecursive(LayoutActor *, const char *, s32, s32);
 	void setTextBoxGameMessageRecursive(LayoutActor *, const char *, const char *);
 	void setTextBoxMessageRecursive(LayoutActor *, const char *, const wchar_t *);
 	void setTextBoxFormatRecursive(LayoutActor* layout, const char* paneName, const wchar_t* string ...);
-
+	void setTextBoxNumberRecursive(LayoutActor* layout, const char* paneName, s32);
 	void showPaneRecursive(LayoutActor *pLayout, const char *pPaneName);
 	void hidePaneRecursive(LayoutActor *pLayout, const char *pPaneName);
 
+	void calcScreenPosition(TVec2f*, const TVec3f&);
+
+	void emitEffect(LayoutActor *pLayout, const char *pEffectName);
+
 	void startAnim(LayoutActor *, const char *, u32);
 	void startAnimAndSetFrameAndStop(LayoutActor *, const char *, f32, u32);
+	void startPaneAnim(LayoutActor *, const char*, const char*, u32);
 	bool isAnimStopped(const LayoutActor *, u32);
 
 
