@@ -4,9 +4,18 @@
 #include "Game/NameObj/NameObj.h"
 #include "Game/MapObj/MapObjConnector.h"
 
-class CoinHostInfo;
+//class CoinHostInfo;
 class AirBubble;
 class FlashingCtrl;
+
+class CoinHostInfo {
+public:
+	CoinHostInfo();
+	s32 _0;
+	s32 _4;
+	s32 _8;
+	s32 _C;
+};
 
 class Coin : public LiveActor {
 public:

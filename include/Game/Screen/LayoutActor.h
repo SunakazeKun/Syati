@@ -34,7 +34,7 @@ public:
 	s32 getNerveStep() const;
 	void updateSpine();
 
-	// get trans
+	TVec2f getTrans() const;
 	void setTrans(const TVec2f &);
 	// createPaneMtxRef
 	// getPaneMtxRef

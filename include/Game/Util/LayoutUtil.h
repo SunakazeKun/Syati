@@ -25,7 +25,8 @@ namespace MR {
 	void startPaneAnim(LayoutActor *, const char*, const char*, u32);
 	bool isAnimStopped(const LayoutActor *, u32);
 
-
+	void setAnimRate(LayoutActor *pLayout, f32 f, u32 rate);
+	bool isStep(const LayoutActor *pLayout, s32 step);
 	bool isFirstStep(const LayoutActor *pLayout);
 	bool isLessStep(const LayoutActor *pLayout, s32 step);
 	bool isGreaterStep(const LayoutActor *pLayout, s32 step);
