@@ -20,6 +20,8 @@ namespace MR {
 
 	void emitEffect(LayoutActor *pLayout, const char *pEffectName);
 
+	void setFollowPos(const TVec2f*, const LayoutActor*, const char*);
+
 	void startAnim(LayoutActor *, const char *, u32);
 	void startAnimAndSetFrameAndStop(LayoutActor *, const char *, f32, u32);
 	void startPaneAnim(LayoutActor *, const char*, const char*, u32);

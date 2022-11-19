@@ -2,6 +2,8 @@
 
 #include "syati.h"
 
+class RumbleCalculatorCosMultLinear;
+
 class CountUpPaneRumbler {
 public:
     CountUpPaneRumbler(LayoutActor*, const char*);
@@ -10,4 +12,8 @@ public:
     void reset();
     bool isRumbling();
     void connectPane(LayoutActor*, const char*);
+    
+    RumbleCalculatorCosMultLinear* mRumbleCalculatorCosMultLinear;
+    f32 _04;
+    f32 _08;
 };
