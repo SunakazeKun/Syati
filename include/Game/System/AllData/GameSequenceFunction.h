@@ -4,7 +4,8 @@
 
 class JMapIdInfo;
 class GameSequenceInGame;
-class PlayInStageResultHolder;
+
+#include "Game/System/PlayResultInStageHolder.h"
 
 class GameSequenceFunction {
 public:
@@ -21,7 +22,7 @@ public:
 	static s32 getClearedStarPieceNum();
 	static s32 getClearedCoinNum();
 
-	static PlayInStageResultHolder* getPlayInStageResultHolder();
+	static PlayResultInStageHolder* getPlayResultInStageHolder();
 
 	static void collectTicoCoinInStage();
 	static bool isCollectTicoCoinInStage();

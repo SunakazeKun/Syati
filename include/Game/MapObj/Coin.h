@@ -3,19 +3,10 @@
 #include "Game/LiveActor/LiveActor.h"
 #include "Game/NameObj/NameObj.h"
 #include "Game/MapObj/MapObjConnector.h"
+#include "Game/MapObj/AirBubble.h"
 
-//class CoinHostInfo;
-class AirBubble;
+class CoinHostInfo;
 class FlashingCtrl;
-
-class CoinHostInfo {
-public:
-	CoinHostInfo();
-	s32 _0;
-	s32 _4;
-	s32 _8;
-	s32 _C;
-};
 
 class Coin : public LiveActor {
 public:
@@ -56,7 +47,7 @@ public:
 
     CoinHostInfo* mCoinHostInfo;
     FlashingCtrl* mFlashingCtrl;
-    AirBubble* mAirBubble;
+    PartsModel* mAirBubble;
     MapObjConnector* mConnector;
 	TVec3f mShadowVec;
     TVec3f mClippingDistance;
