@@ -2,8 +2,7 @@
 
 #include "revolution.h"
 #include "JSystem.h"
-
-class ArchiveHolder;
+#include "JSystem/JKernel/JKRDvdRipper.h"
 
 class FileHolder {
 public:
@@ -19,6 +18,8 @@ public:
     void requestMountArchive(const char *, JKRHeap *, bool);
 
     JKRArchive* createAndAddArchive(void *, JKRHeap *, const char *);
+    void* receiveFile(const char*);
+    void* requestLoadToMainRAM(const char*, unsigned char*, JKRHeap *, JKRDvdRipper::EAllocDirection, bool);
 
     u8 _0[0x24];
     FileHolder* mHolder; // _24

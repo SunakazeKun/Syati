@@ -10,6 +10,6 @@ namespace MR {
     JKRArchive* loadToMainRAM(const char *, u8 *, JKRHeap *, int);
     JKRArchive* mountArchive(const char *, JKRHeap *, bool);
 
-    void* recieveFile(const char *);
+    void* receiveFile(const char *);
     JKRArchive* mountAsyncArchive(const char *);
 };
