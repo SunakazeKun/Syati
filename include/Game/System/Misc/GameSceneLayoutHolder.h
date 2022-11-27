@@ -70,6 +70,10 @@ public:
     OneUpBoard* mOneUpBoard; // 0x2C
     NoteCounter* mNoteCounter; // 0x30
     CounterLayoutController* mCounterLayoutController; // 0x34
+
+    //#ifdef ALL
+    LayoutActor* mTimerLayout;
+    //#endif
 };
 
 namespace MR {

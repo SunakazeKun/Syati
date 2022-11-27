@@ -35,8 +35,4 @@ public:
 	LayoutActor* mStarCounter;
 	LayoutActor* mMarioMeter;
 	LayoutActor* mCometMedalCounter;
-
-	#ifdef ALL // PTD
-	LayoutActor* mTimerLayout;
-	#endif
 };
