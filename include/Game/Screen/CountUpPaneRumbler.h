@@ -2,7 +2,7 @@
 
 #include "Game/Screen/LayoutActor.h"
 #include "Game/Util.h"
-#include "Game/System/RumbleCalculator.h"
+#include "Game/Screen/RumbleCalculator.h"
 
 class CountUpPaneRumbler {
 public:
