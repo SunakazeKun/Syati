@@ -18,7 +18,7 @@ public:
     TVec3f _C;
     f32 _18;
     f32 _1C;
-    f32 _20;
+    f32 mRumbleStrength;
 };
 
 class RumbleCalculatorCosMultLinear : public RumbleCalculator {
