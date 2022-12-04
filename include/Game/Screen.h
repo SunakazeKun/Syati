@@ -2,6 +2,7 @@
 
 #include "Game/Screen/ButtonPaneController.h"
 #include "Game/Screen/CounterLayoutAppearer.h"
+#include "Game/Screen/GameSceneLayoutHolder.h"
 #include "Game/Screen/CounterLayoutController.h"
 #include "Game/Screen/IconAButton.h"
 #include "Game/Screen/LayoutActor.h"

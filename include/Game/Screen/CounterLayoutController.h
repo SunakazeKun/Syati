@@ -4,6 +4,7 @@
 #include "Game/Screen/LayoutActor.h"
 
 class MarioMeter;
+class RedCoinCounter;
 
 class CounterLayoutController : public LayoutActor {
 public:
@@ -35,4 +36,6 @@ public:
 	LayoutActor* mStarCounter;
 	LayoutActor* mMarioMeter;
 	LayoutActor* mCometMedalCounter;
+
+	RedCoinCounter* mPTDRedCoinCounter;
 };
