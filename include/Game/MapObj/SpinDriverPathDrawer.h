@@ -2,6 +2,7 @@
 
 #include "revolution.h"
 #include "Game/LiveActor/LiveActor.h"
+#include "JSystem/JUtility/JUTTexture.h"
 
 class SpinDriverShootPath;
 
@@ -13,11 +14,12 @@ public:
 
 	void initDraw();
 
-	u32* mTexBlue;
-	u32* mTexGreen;
-	u32* mTexPink;
-	u32* mTexMask;
+	JUTTexture* mTexBlue;
+	JUTTexture* mTexGreen;
+	JUTTexture* mTexPink;
+	JUTTexture* mTexMask;
 	bool mDrawAtOpa;
+	JUTTexture* newTexture;
 };
 
 namespace MR {

@@ -8,6 +8,8 @@
 #define SUPER_SPIN_DRIVER_GREEN 1
 #define SUPER_SPIN_DRIVER_PINK 2
 
+#define SUPER_SPIN_DRIVER_RED 3
+
 class SuperSpinDriver : public LiveActor {
 public:
 	SuperSpinDriver(const char *, s32);

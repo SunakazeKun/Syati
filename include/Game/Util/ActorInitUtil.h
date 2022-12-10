@@ -2,9 +2,9 @@
 
 #include "revolution.h"
 #include "JSystem.h"
+#include "JSystem/JUtility/JUTTexture.h"
 
 class LiveActor;
-class JUTTexture;
 
 namespace MR {
     // two unknown functions here
@@ -28,6 +28,7 @@ namespace MR {
     void initSensors(LiveActor * pActor, const char * modelName, const char * funcName);
     void initSwitches(LiveActor * pActor, const JMapInfoIter & rIter, const char * modelName, const char * funcName);
 
-    JUTTexture* loadTexFromArc(LiveActor * pActor, const char *, const char *);
-    JUTTexture* loadTexFromArc(LiveActor * pActor, const char *);
+    ResTIMG* loadTexFromArc(LiveActor * pActor, const char *, const char *);
+    ResTIMG* loadTexFromArc(LiveActor * pActor, const char *);
+    ResTIMG* loadTexFromArc(const char *, const char *, ResTIMG*);
 };

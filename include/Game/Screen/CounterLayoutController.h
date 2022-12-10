@@ -36,6 +36,4 @@ public:
 	LayoutActor* mStarCounter;
 	LayoutActor* mMarioMeter;
 	LayoutActor* mCometMedalCounter;
-
-	RedCoinCounter* mPTDRedCoinCounter;
 };
