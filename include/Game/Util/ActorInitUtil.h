@@ -31,4 +31,5 @@ namespace MR {
     ResTIMG* loadTexFromArc(LiveActor * pActor, const char *, const char *);
     ResTIMG* loadTexFromArc(LiveActor * pActor, const char *);
     ResTIMG* loadTexFromArc(const char *, const char *, ResTIMG*);
+    ResTIMG* loadTexFromArc(const char *, const char *);
 };

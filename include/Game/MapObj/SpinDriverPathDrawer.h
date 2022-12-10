@@ -19,7 +19,7 @@ public:
 	JUTTexture* mTexPink;
 	JUTTexture* mTexMask;
 	bool mDrawAtOpa;
-	JUTTexture* newTexture;
+	//JUTTexture* newTexture;
 };
 
 namespace MR {
