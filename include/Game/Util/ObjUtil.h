@@ -183,4 +183,6 @@ namespace MR {
     
     bool tryFindLinkNamePos(const NameObj *, const char *, TVec3f *, TVec3f *);
     bool tryFindLinkNamePos(const NameObj *, const char *, MtxPtr);
+
+    void requestPointLight(const LiveActor*, TVec3f, Color8, f32, s32);
 };

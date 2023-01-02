@@ -13,6 +13,7 @@ public:
     void initAfterPlacementForAttributeEffect(Mtx *);
     void setBinder(Binder *);
     void addEffect(const char *, LiveActor *);
+    void createEmitter(const char*);
     void registerEffect(const char *, Mtx *, const char *, const char *);
 
     void updateAttributeEffect();
