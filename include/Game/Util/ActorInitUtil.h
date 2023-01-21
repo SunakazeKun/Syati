@@ -17,9 +17,10 @@ namespace MR {
     // ??? makeInitActorPath(const char *, const char *);
     bool isValidInitActorPath(const char *, const char *);
 
-    void processInitFunction(LiveActor * pActor, const JMapInfoIter & rIter, const char * modelName, bool unk1, const char * funcName, bool unk2);
-    void processInitFunction(LiveActor * pActor, const char * modelName, bool unk1, bool unk2);
-    void processInitFunction(LiveActor * pActor, const char * modelName, bool unk1, const char * funcName, bool unk2);
+    void processInitFunction(LiveActor * pActor, const JMapInfoIter & rIter, const char * modelName, const char * animArchiveName, const char * funcName, bool unk2);
+    //This one needs a different name
+    void processInitFunction_(LiveActor * pActor, const char * modelName, const char * animArchiveName, bool unk2);
+    void processInitFunction(LiveActor * pActor, const char * modelName, const char * animArchiveName, const char * funcName, bool unk2);
 
     void initDefaultPos(LiveActor * pActor, const JMapInfoIter & rIter);
     void getDefaultPos(LiveActor * pActor, const JMapInfoIter & rIter);
