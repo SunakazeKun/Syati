@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Game/MapObj/BenefitItemObj.h"
+#include "Game/MapObj/BenefitItemLifeUp.h"
 #include "Game/MapObj/BlackHole.h"
 #include "Game/MapObj/ChipBase.h"
 #include "Game/MapObj/ChipCounter.h"
