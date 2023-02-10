@@ -17,11 +17,17 @@ def dep(path, name):
 
 
 REGIONS = ["PAL", "USA", "JAP", "TWN", "KOR"]
+LETTERS = ['P', 'E', 'J', 'W', 'K']
 
 MWCCEPPC = dep("deps/CodeWarrior/mwcceppc.exe", "CodeWarrior compiler")
 KAMEK = dep("deps/Kamek/Kamek.exe", "Kamek linker")
 SYMBOLS = dep("symbols", "Symbols folder")
 
+def getregionletter(region: str):
+    for i in range(0, len(REGIONS)):
+        reg = REGIONS[i]
+        if region == reg:
+            return LETTERS[i]
 
 def build(region: str):
     compile_cmd = f"{MWCCEPPC} -c -Cpp_exceptions off -nodefaults -proc gekko -fp hard -lang=c++ -O4,s -inline on " \
@@ -29,7 +35,8 @@ def build(region: str):
                   f"-i include -I- -i loader -D{region} loader/loader.cpp -o loader/loader.o"
 
     kamek_cmd = f"{KAMEK} loader/loader.o -static=0x80001800 -externals={SYMBOLS}/{region}.txt " \
-                f"-output-riiv=loader/riivo_{region}.xml"
+                f"-output-riiv=loader/riivo_{region}.xml " \
+                f"-output-kamek=loader/Loader{getregionletter(region)}.bin"
 
     print(f"Building target {region}!")
 
