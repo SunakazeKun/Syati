@@ -3,8 +3,8 @@
 #include "revolution.h"
 #include "Game/MapObj/MapObjActor.h"
 #include "Game/MapObj/MapObjActorInitInfo.h"
+#include "Game/MapObj/BenefitItemObj.h"
 
-class BenefitItemObj;
 class ActorCameraInfo;
 
 class SimpleBreakableObj : public MapObjActor {

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Game/MapObj/BenefitItemObj.h"
+#include "Game/MapObj/BenefitItemLifeUp.h"
 #include "Game/MapObj/BlackHole.h"
 #include "Game/MapObj/ChipBase.h"
 #include "Game/MapObj/ChipCounter.h"
@@ -21,6 +23,7 @@
 #include "Game/MapObj/MapObjConnector.h"
 #include "Game/MapObj/MorphItemCollection.h"
 #include "Game/MapObj/MorphItemObjNeo.h"
+#include "Game/MapObj/PowerStar.h"
 #include "Game/MapObj/RailMoveObj.h"
 #include "Game/MapObj/Shellfish.h"
 #include "Game/MapObj/SimpleBreakableObj.h"
