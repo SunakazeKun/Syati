@@ -34,6 +34,7 @@ s32 NANDGetLength(NANDFileInfo*, u32*);
 s32 NANDCreate(const char*, u8, u8);
 s32 NANDRead(NANDFileInfo*, void*, u32);
 s32 NANDWrite(NANDFileInfo*, const void*, u32);
+s32 NANDClose(NANDFileInfo*);
 
 #ifdef __cplusplus
 }
