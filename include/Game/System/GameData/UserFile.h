@@ -24,7 +24,7 @@ public:
 	void setMiiOrIconId(const void *, const u32 *);
 	void updateLastModified();
 	void setUserName(const wchar_t *);
-	const char getGameDataName() const;
+	const char* getGameDataName() const;
 	void makeGameDataBinary(u8 *, u32) const;
 	void loadFromGameDataBinary(const char *, const u8 *, u32);
 	const char* getConfigDataName() const;
