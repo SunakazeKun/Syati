@@ -3,14 +3,17 @@
 #include "revolution.h"
 #include "Game/NameObj/NameObj.h"
 
+typedef NameObj* (CreateActorFunc)(const char *);
+typedef void (PostCreationFunc)(const JMapInfoIter &);
+
 struct CreateActorEntry {
-    const char* pActorName; // _0
-    NameObj* (*mCreationFunc)(const char *); // _4
+    const char* pActorName;        // _0
+    CreateActorFunc* mCreationFunc; // _4
 };
 
 struct PostCreationEntry {
-    const char* pActorName; // _0
-    void (*mPostCreationFunc)(const JMapInfoIter &); // _4
+    const char* pActorName;             // _0
+    PostCreationFunc* mPostCreationFunc; // _4
 };
 
 class NameObjFactory {

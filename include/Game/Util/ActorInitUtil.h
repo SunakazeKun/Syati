@@ -11,7 +11,7 @@ class JUTTexture;
 class LiveActor;
 
 namespace MR {
-    bool isInitfunctionBoolSet(const JMapInfo *pCsvData, const char *pIdentifier);
+    bool isInitFunctionBoolSet(const JMapInfo *pCsvData, const char *pIdentifier);
     bool getInitSwitchType(const char **pSwitchType, const JMapInfo *pCsvData, const char *pIdentifier);
 
     void processInitFunction(LiveActor *pActor, const JMapInfoIter &rIter, bool unk);
