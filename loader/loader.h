@@ -4,8 +4,8 @@
 #define KAMEK_BINARY_NAME "/CustomCode/CustomCode_PAL.bin"
 #elif defined(USA)
 #define KAMEK_BINARY_NAME "/CustomCode/CustomCode_USA.bin"
-#elif defined(JAP)
-#define KAMEK_BINARY_NAME "/CustomCode/CustomCode_JAP.bin"
+#elif defined(JPN)
+#define KAMEK_BINARY_NAME "/CustomCode/CustomCode_JPN.bin"
 #elif defined(TWN)
 #define KAMEK_BINARY_NAME "/CustomCode/CustomCode_TWN.bin"
 #elif defined(KOR)

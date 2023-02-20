@@ -16,7 +16,7 @@ def dep(path, name):
     return path
 
 
-REGIONS = ["PAL", "USA", "JAP", "TWN", "KOR"]
+REGIONS = ["PAL", "USA", "JPN", "TWN", "KOR"]
 
 MWCCEPPC = dep("deps/CodeWarrior/mwcceppc.exe", "CodeWarrior compiler")
 KAMEK = dep("deps/Kamek/Kamek.exe", "Kamek linker")
