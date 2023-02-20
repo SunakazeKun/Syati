@@ -3,31 +3,38 @@
 #include "revolution.h"
 #include "JSystem.h"
 
-class LiveActor;
+/* FINISHED */
+
+class JMapInfo;
+class JMapInfoIter;
 class JUTTexture;
+class LiveActor;
 
 namespace MR {
-    // two unknown functions here
-    void processInitFunction(LiveActor * pActor, const JMapInfoIter & rIter, bool unk2);
-    void processInitFunction(LiveActor * pActor, const JMapInfoIter & rIter, const char * modelName, bool unk2);
-    void processInitFunction(LiveActor * pActor, const JMapInfoIter & rIter, const char * modelName, const char * funcName, bool unk2);
-    void processInitFunction(LiveActor * pActor, const char * modelName, bool unk2);
-    void processInitFunction(LiveActor * pActor, const char * modelName, const char * funcName, bool unk2);
+    bool isInitfunctionBoolSet(const JMapInfo *pCsvData, const char *pIdentifier);
+    bool getInitSwitchType(const char **pSwitchType, const JMapInfo *pCsvData, const char *pIdentifier);
+
+    void processInitFunction(LiveActor *pActor, const JMapInfoIter &rIter, bool unk);
+    void processInitFunction(LiveActor *pActor, const JMapInfoIter &rIter, const char *pModelName, bool unk);
+    void processInitFunction(LiveActor *pActor, const JMapInfoIter &rIter, const char *pModelName, const char *pFuncName, bool unk);
+    void processInitFunction(LiveActor *pActor, const char *pModelName, bool unk);
+    void processInitFunction(LiveActor *pActor, const char *pModelName, const char *pFuncName, bool unk);
     
-    // ??? makeInitActorPath(const char *, const char *);
-    bool isValidInitActorPath(const char *, const char *);
+    JMapInfo* createInitActorCsvParser(const char *pModelName, const char *pFuncName);
+    bool isValidInitActorCsv(const char *pModelName, const char *pFuncName);
 
-    void processInitFunction(LiveActor * pActor, const JMapInfoIter & rIter, const char * modelName, bool unk1, const char * funcName, bool unk2);
-    void processInitFunction(LiveActor * pActor, const char * modelName, bool unk1, bool unk2);
-    void processInitFunction(LiveActor * pActor, const char * modelName, bool unk1, const char * funcName, bool unk2);
+    void processInitFunctionWithAnimArc(LiveActor *pActor, const JMapInfoIter &rIter, const char *pModelName, const char *pAnimArcName, const char *pFuncName, bool unk);
+    void processInitFunctionWithAnimArc(LiveActor *pActor, const char *pModelName, const char *pAnimArcName, bool unk);
+    void processInitFunctionWithAnimArc(LiveActor *pActor, const char *pModelName, const char *pAnimArcName, const char *pFuncName, bool unk);
 
-    void initDefaultPos(LiveActor * pActor, const JMapInfoIter & rIter);
-    void getDefaultPos(LiveActor * pActor, const JMapInfoIter & rIter);
-    bool tryInitFromRestartPos(LiveActor * pActor, const JMapInfoIter & rIter);
-    // unknown function here
-    void initSensors(LiveActor * pActor, const char * modelName, const char * funcName);
-    void initSwitches(LiveActor * pActor, const JMapInfoIter & rIter, const char * modelName, const char * funcName);
+    void initDefaultPos(LiveActor *pActor, const JMapInfoIter &rIter);
+    void initDefaultPosNoRepeat(LiveActor *pActor, const JMapInfoIter &rIter);
+    bool tryInitDefaultPosFromRestartPos(LiveActor *pActor, const JMapInfoIter &rIter);
+    void getDefaultRotation(TVec3f *pDest, const JMapInfoIter &rIter);
 
-    JUTTexture* loadTexFromArc(LiveActor * pActor, const char *, const char *);
-    JUTTexture* loadTexFromArc(LiveActor * pActor, const char *);
+    void initSensors(LiveActor *pActor, const char *pModelName, const char *pFuncName);
+    void initSwitches(LiveActor *pActor, const JMapInfoIter &rIter, const char *pModelName, const char *pFuncName);
+
+    JUTTexture* loadTexFromArc(LiveActor *pActor, const char *pArcName, const char *pBtiName);
+    JUTTexture* loadTexFromArc(LiveActor *pActor, const char *pBtiName);
 };
