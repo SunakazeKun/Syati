@@ -55,8 +55,8 @@ namespace MR {
 	void setAnimCameraLastFrame(const LiveActor *pActor, const ActorCameraInfo *pCameraInfo, const char *pAnimCameraName);
 	bool isAnimCameraEnd(const LiveActor *pActor, const ActorCameraInfo *pInfo, const char *pAnimCameraName);
 
-	u32* getActorCameraFrames(const LiveActor *pActor, const ActorCameraInfo *pInfo);
-	u32* getMultiActorCameraFrames(const LiveActor *pActor, const ActorCameraInfo *pInfo, const char *pClassifier);
+	s32 getActorCameraFrames(const LiveActor *pActor, const ActorCameraInfo *pInfo);
+	s32 getMultiActorCameraFrames(const LiveActor *pActor, const ActorCameraInfo *pInfo, const char *pClassifier);
 	bool isExistActorCamera(const ActorCameraInfo *pInfo);
 
 	void startRumbleWithShakeCameraWeak(const LiveActor *pActor, const char *, const char *, f32, f32);

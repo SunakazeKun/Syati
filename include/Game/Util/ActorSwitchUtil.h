@@ -49,10 +49,10 @@ namespace MR {
 	void listenStageSwitchOnAppear(LiveActor *pActor, const MR::FunctorBase &rFunctor);
 	void listenStageSwitchOnOffAppear(LiveActor *pActor, const MR::FunctorBase &rFunctor);
 	void listenStageSwitchOnA(LiveActor *pActor, const MR::FunctorBase &rFunctor);
-	void listenStageSwitchOnOffA(LiveActor *pActor, const MR::FunctorBase &rFunctor, const MR::FunctorBase &rFunctor);
+	void listenStageSwitchOnOffA(LiveActor *pActor, const MR::FunctorBase &rFunctorOn, const MR::FunctorBase &rFunctorOff);
 	void listenStageSwitchOnB(LiveActor *pActor, const MR::FunctorBase &rFunctor);
 	void listenStageSwitchOffB(LiveActor *pActor, const MR::FunctorBase &rFunctor);
-	void listenStageSwitchOnOffB(LiveActor *pActor, const MR::FunctorBase &rFunctor, const MR::FunctorBase &rFunctor);
+	void listenStageSwitchOnOffB(LiveActor *pActor, const MR::FunctorBase &rFunctorOn, const MR::FunctorBase &rFunctorOff);
 	bool useStageSwitchReadParam(LiveActor *pActor, const JMapInfoIter &rIter);
 	bool isValidSwitchParam(const LiveActor *pActor);
 	bool isOnSwitchParam(const LiveActor *pActor);
