@@ -8,6 +8,7 @@
 class ActorCameraInfo;
 class CameraTargetArg;
 class CameraTargetMtx;
+class JMapInfoIter;
 class LiveActor;
 class ResourceHolder;
 

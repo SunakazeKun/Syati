@@ -2,6 +2,7 @@
 
 #include "Game/NameObj/NameObj.h"
 #include "Game/NameObj/NameObjAdaptor.h"
+#include "Game/NameObj/NameObjExecuteHolder.h"
 #include "Game/NameObj/NameObjGroup.h"
 #include "Game/NameObj/NameObjHolder.h"
 #include "Game/NameObj/MovementOnOffGroupHolder.h"

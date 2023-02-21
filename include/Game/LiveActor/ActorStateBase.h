@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/System/NerveExecutor.h"
 
+/* FINISHED */
+
 class ActorStateBaseInterface : public NerveExecutor {
 public:
     virtual void init();

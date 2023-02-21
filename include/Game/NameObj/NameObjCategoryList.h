@@ -268,7 +268,7 @@ public:
         MR::AssignableArray<NameObj*> mObjs; // _0
         u32 _8;
         MR::FunctorBase* _C;
-        s32 mChecks;                        // _10
+        s32 mChecks;                         // _10
     };
 
     NameObjCategoryList(u32, const CategoryListInitialTable *, TNameObjFunc, bool, const char *);

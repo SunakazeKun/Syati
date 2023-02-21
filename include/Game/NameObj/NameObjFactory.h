@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/NameObj/NameObj.h"
 
+/* FINISHED */
+
 typedef NameObj* (CreateActorFunc)(const char *);
 typedef void (PostCreationFunc)(const JMapInfoIter &);
 
