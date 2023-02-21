@@ -36,4 +36,7 @@ public:
 	LayoutActor* mStarCounter;
 	LayoutActor* mMarioMeter;
 	LayoutActor* mCometMedalCounter;
+
+	// Below are variables of PTD
+	LayoutActor* mPTDBlueCoinCounter;
 };
