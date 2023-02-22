@@ -54,7 +54,7 @@ public:
 
     ~NameObjCategoryList();
 
-    void execute(s32);
+    void execute(int categoryType);
     void incrementCheck(NameObj *pObj, int categoryType);
     void allocateBuffer();
     void add(NameObj *pObj, int categoryType);

@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/Gravity/PlanetGravity.h"
 
+/* FINISHED */
+
 class DiskGravity : public PlanetGravity {
 public:
 	DiskGravity();
@@ -19,14 +21,14 @@ public:
 	void setEnableEdgeGravity(bool val);
 	void updateLocalParam();
 
-	TVec3f mLocalPosition;   // _28
-	TVec3f mTranslation;     // _34
-	TVec3f mLocalDirection;  // _40
-	TVec3f mRotation;        // _4C
+	TVec3f mLocalPos;        // _28
+	TVec3f mGlobalPos;       // _34
+	TVec3f mLocalDir;        // _40
+	TVec3f mGlobalDir;       // _4C
 	TVec3f mSideDirection;   // _58
 	TVec3f mSideVecOrtho;    // _64
 	TVec3f mWorldSideDir;    // _70
-	f32 mRadius;             // _7C
+	f32 mLocalRadius;        // _7C
 	f32 mWorldRadius;        // _80
 	f32 mValidDegree;        // _84
 	f32 mValidCos;           // _88

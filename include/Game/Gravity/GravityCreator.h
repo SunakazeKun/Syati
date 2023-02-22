@@ -13,6 +13,8 @@
 #include "Game/LiveActor/RailRider.h"
 #include "Game/Util/JMapInfo.h"
 
+/* FINISHED */
+
 class GravityCreator {
 public:
 	GravityCreator();
@@ -23,7 +25,7 @@ public:
 	virtual void settingFromJMapArgs(s32 arg0, s32 arg1, s32 arg2);
 	virtual void settingFromJMapOtherParam(const JMapInfoIter &rIter);
 
-	void createFromJMap(const JMapInfoIter &);
+	void createFromJMap(const JMapInfoIter &rIter);
 };
 
 class BarrelGravityCreator : public GravityCreator {
@@ -178,6 +180,6 @@ public:
 	virtual PlanetGravity* createInstance();
 	virtual void settingFromJMapOtherParam(const JMapInfoIter &rIter);
 
-	RailRider* mRailRider; // _4
+	RailRider* mRailRider;         // _4
 	WireGravity* mGravityInstance; //_8
 };
