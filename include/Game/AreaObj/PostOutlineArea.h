@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/ImageEffectArea.h"
 
+/* FINISHED */
+
 class PostOutlineArea : public ImageEffectArea {
 public:
 	PostOutlineArea(const char *pName);

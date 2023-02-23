@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Game/Util/AreaObjUtil.h"
 #include "Game/Util/Array.h"
 #include "Game/Util/BaseMatrixFollowTargetHolder.h"
 #include "Game/Util/BothDirPtrList.h"
@@ -25,7 +26,6 @@
 #include "Game/Util/ActorStateUtil.h"
 #include "Game/Util/ActorSwitchUtil.h"
 #include "Game/Util/BgmUtil.h"
-#include "Game/Util/AreaObjUtil.h"
 #include "Game/Util/CameraUtil.h"
 #include "Game/Util/DemoUtil.h"
 #include "Game/Util/EffectUtil.h"
@@ -55,3 +55,4 @@
 #include "Game/Util/StarPointerUtil.h"
 #include "Game/Util/StringUtil.h"
 #include "Game/Util/SupportPlayUtil.h"
+#include "Game/Util/TalkUtil.h"

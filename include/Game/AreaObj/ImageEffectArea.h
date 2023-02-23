@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 #define IMAGE_EFFECT_BLOOM 0
 #define IMAGE_EFFECT_SCREEN_BLUR 1
 #define IMAGE_EFFECT_DOF 2

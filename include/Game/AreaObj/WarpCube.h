@@ -4,6 +4,8 @@
 #include "Game/AreaObj/AreaObj.h"
 #include "Game/LiveActor/ActorCameraInfo.h"
 
+/* FINISHED */
+
 class WarpCube : public AreaObj {
 public:
 	inline WarpCube(const char *pName) : AreaObj(pName), mLinkInfo(NULL) {}
@@ -13,10 +15,10 @@ public:
 	virtual void movement();
 	virtual void draw();
 
-	JMapIdInfo* mLinkInfo; // _48
+	JMapIdInfo* mLinkInfo;        // _48
 	ActorCameraInfo* mCameraInfo; // _4C
-	const char* mCameraName; // _50
-	u16 mInvalidateTimer; // _54
+	const char* mCameraName;      // _50
+	u16 mInvalidateTimer;         // _54
 };
 
 class WarpCubeMgr : public AreaObjMgr {
@@ -25,9 +27,9 @@ public:
 
 	virtual ~WarpCubeMgr();
 
-	AreaObj* getPairCube(const AreaObj *);
-	void setInvalidateTimer(AreaObj*, u16);
-	void startEventCamera(const AreaObj *);
+	AreaObj* getPairCube(const AreaObj *pCube);
+	void setInvalidateTimer(AreaObj *pCube, u16 timer);
+	void startEventCamera(const AreaObj *pCube);
 	void endEventCamera();
 
 	AreaObj* mEventCameraArea; // _24
