@@ -44,7 +44,7 @@ public:
     JMapInfoIter end() const;
 
     const JMapData* mData; // _0
-    const char* mName; // _4
+    const char* mName;     // _4
 };
 
 class JMapInfoIter {

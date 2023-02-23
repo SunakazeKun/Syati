@@ -5,6 +5,8 @@
 
 class JMapInfoIter;
 
+/* FINISHED */
+
 namespace MR {
     bool isValidInfo(const JMapInfoIter &rIter);
     void getObjectName(const char **pDest, const JMapInfoIter &rIter);

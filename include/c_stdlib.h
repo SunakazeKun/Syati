@@ -16,7 +16,7 @@ double asin(double x);
 double atan(double x);
 double atan2(double y, double x);
 
-double frexp(double x, int * exp);
+double frexp(double x, int *exp);
 double ldexp(double x, int exp);
 double log10(double x);
 double scalbn(double x, int n);

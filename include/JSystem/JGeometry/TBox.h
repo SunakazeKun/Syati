@@ -7,12 +7,31 @@ namespace JGeometry {
     struct TBox2 {
         inline TBox2() { }
 
-        T _0, _4, _8, _C;
+        TVec2<T> mPointMin;
+        TVec2<T> mPointMax;
+    };
+
+    template<typename T>
+    struct TBox3 {
+        inline TBox3() { }
+
+        TVec3<T> mPointMin;
+        TVec3<T> mPointMax;
+    };
+
+    template<typename T>
+    struct TDirBox3 {
+        inline TDirBox3() { }
+
+        TVec3<T> mDirectionX;
+        TVec3<T> mDirectionY;
+        TVec3<T> mDirectionZ;
+        TVec3<T> mCenterPos;
+        TVec3<T> mTranslation;
     };
 
     template<>
     struct TBox2<f32> {
-    public:
         inline TBox2() { }
         TBox2(const TBox2<f32> &);
         TBox2(f32, f32, f32, f32);
@@ -23,6 +42,11 @@ namespace JGeometry {
 
         void operator=(const TBox2<f32> &);
 
-        f32 _0, _4, _8, _C;
+        TVec2<f32> mPointMin;
+        TVec2<f32> mPointMax;
     };
 };
+
+typedef JGeometry::TBox2<f32> TBox2f;
+typedef JGeometry::TBox3<f32> TBox3f;
+typedef JGeometry::TDirBox3<f32> TDirBox3f;

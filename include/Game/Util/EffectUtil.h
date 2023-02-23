@@ -10,53 +10,68 @@ class MultiEmitterCallBackBase;
 class MultiEmitterParticleCallBack;
 class Triangle;
 
-namespace MR {
-	bool isExistEffect(const LiveActor *, const char *);
+/* FINISHED */
 
+namespace MR {
+	bool isExistEffect(const LiveActor *pActor, const char *pEffectName);
+
+	void requestEffectStopSceneStartAndDelete();
 	void requestEffectStopSceneStart();
 	void requestEffectStopSceneEnd();
-	void addEffect(LiveActor *, const char *);
-	void getEffect(const LiveActor *, const char *);
-	void getEffect(const LayoutActor *, const char *);
-	bool isExistEffectKeeper(const LiveActor *);
-	bool isExistEffectKeeper(const LayoutActor *);
-	void emitEffect(LiveActor *, const char *);
-	void emitEffectWithScale(LiveActor *, const char *, f32, s32);
-	void emitEffectWithEmitterCallBack(LiveActor *, const char *, MultiEmitterCallBackBase *);
-	void emitEffectWithParticleCallBack(LiveActor *, const char *, MultiEmitterParticleCallBack *);
-	bool tryEmitEffect(LiveActor *, const char *);
-	bool tryDeleteEffect(LiveActor *, const char *);
 
-	void deleteEffect(LiveActor *, const char *);
-	void forceDeleteEffect(LiveActor *, const char *);
-	void deleteEffectAll(LiveActor *);
-	void forceDeleteEffectAll(LiveActor *);
-	bool isRegisteredEffect(const LiveActor *, const char *);
-	bool isEffectValid(const LiveActor *, const char *);
-	void onDrawEffect(LiveActor *);
-	void offDrawEffect(LiveActor *);
-	void onCalcEmitter(LiveActor *);
-	void offCalcEmitter(LiveActor *);
-	void pauseOffEffectAll(LiveActor *);
-	void setAllEffectDrawOrder(LiveActor *, s32);
-	void onEmitEffectSyncClipping(LiveActor *, const char *);
-	void onForceDeleteEffectSyncClipping(LiveActor *, const char *);
-	void setEffectName(LiveActor *, const char *, const char *);
-	void setEffectHostSRT(LiveActor *, const char *, const TVec3f *, const TVec3f *, const TVec3f *);
-	void setEffectHostMtx(LiveActor *, const char *, MtxPtr);
-	void setAllEffectHostMtx(LiveActor *, MtxPtr);
-	void setEffectBaseScale(LiveActor *, const char *, f32);
-	void setEffectColor(LiveActor *, const char *, u8, u8, u8, u8, u8, u8);
-	void setEffectPrmColor(LiveActor *, const char *, u8, u8, u8);
-	void setEffectEnvColor(LiveActor *, const char *, u8, u8, u8);
-	void setEffectLocalScale(LiveActor *, const char *, const TVec3f &);
-	void addEffectHitNormal(LiveActor *, const char *);
-	void emitEffectHit(LiveActor *, const TVec3f &, const char *);
-	void emitEffectHit(LiveActor *, const TVec3f &, const TVec3f &, const char *);
-	void emitEffectHit(LiveActor *, MtxPtr, const char *);
-	void emitEffectHitBetweenSensors(LiveActor *, const HitSensor *, const HitSensor *, f32, const char *);
-	void initEffectAfterPlacement(LiveActor *, bool);
-	void updateEffectFloorCode(LiveActor *, const Triangle *);
-	void updateEffectFloorCodeLineToMap(LiveActor *, const TVec3f &, const TVec3f &);
-	void updateEffectFloorCodeLineToMap(LiveActor *, f32, f32);
+	void addEffect(LiveActor *pActor, const char *pEffectName);
+	void getEffect(const LiveActor *pActor, const char *pEffectName);
+	void getEffect(const LayoutActor *pLayout, const char *pEffectName);
+	bool isExistEffectKeeper(const LiveActor *pActor);
+	bool isExistEffectKeeper(const LayoutActor *pLayout);
+
+	void emitEffect(LiveActor *pActor, const char *pEffectName);
+	void emitEffectWithScale(LiveActor *pActor, const char *pEffectName, f32 scale, s32 emitterIndex);
+	void emitEffectWithEmitterCallBack(LiveActor *pActor, const char *pEffectName, MultiEmitterCallBackBase *mEmitterCallBack);
+	void emitEffectWithParticleCallBack(LiveActor *pActor, const char *pEffectName, MultiEmitterParticleCallBack *mParticleCallBack);
+	bool tryEmitEffect(LiveActor *pActor, const char *pEffectName);
+
+	bool tryDeleteEffect(LiveActor *pActor, const char *pEffectName);
+	bool tryForceDeleteEffect(LiveActor *pActor, const char *pEffectName);
+	bool tryDeleteEffectall(LiveActor *pActor);
+	bool tryForceDeleteEffectall(LiveActor *pActor);
+	void deleteEffect(LiveActor *pActor, const char *pEffectName);
+	void forceDeleteEffect(LiveActor *pActor, const char *pEffectName);
+	void deleteEffectAll(LiveActor *pActor);
+	void forceDeleteEffectAll(LiveActor *pActor);
+
+	bool isRegisteredEffect(const LiveActor *pActor, const char *pEffectName);
+	bool isEffectValid(const LiveActor *pActor, const char *pEffectName);
+
+	void onDrawEffect(LiveActor *pActor);
+	void offDrawEffect(LiveActor *pActor);
+	void onCalcEmitter(LiveActor *pActor);
+	void offCalcEmitter(LiveActor *pActor);
+	void pauseOffEffectAll(LiveActor *pActor);
+
+	void setAllEffectDrawOrder(LiveActor *pActor, s32 drawOrder);
+
+	void onEmitEffectSyncClipping(LiveActor *pActor, const char *pEffectName);
+	void onForceDeleteEffectSyncClipping(LiveActor *pActor, const char *pEffectName);
+
+	void setEffectName(LiveActor *pActor, const char *pOldEffectName, const char *pNewEffectName);
+	void setEffectHostSRT(LiveActor *pActor, const char *pEffectName, const TVec3f *pTranslation, const TVec3f *pRotation, const TVec3f *pScale);
+	void setEffectHostMtx(LiveActor *pActor, const char *pEffectName, MtxPtr pMtx);
+	void setAllEffectHostMtx(LiveActor *pActor, MtxPtr pMtx);
+	void setEffectBaseScale(LiveActor *pActor, const char *pEffectName, f32 baseScale);
+	void setEffectColor(LiveActor *pActor, const char *pEffectName, u8 prmR, u8 prmG, u8 prmB, u8 envR, u8 envG, u8 envB);
+	void setEffectPrmColor(LiveActor *pActor, const char *pEffectName, u8 r, u8 g, u8 b);
+	void setEffectEnvColor(LiveActor *pActor, const char *pEffectName, u8 r, u8 g, u8 b);
+	void setEffectLocalScale(LiveActor *pActor, const char *pEffectName, const TVec3f &rLocalScale);
+	void addEffectHitNormal(LiveActor *pActor, const char *pEffectName);
+
+	void emitEffectHit(LiveActor *pActor, const TVec3f &rPosition, const char *pEffectName);
+	void emitEffectHit(LiveActor *pActor, const TVec3f &rPosition, const TVec3f &rUpVec, const char *pEffectName);
+	void emitEffectHit(LiveActor *pActor, MtxPtr, const char *pEffectName);
+	void emitEffectHitBetweenSensors(LiveActor *pActor, const HitSensor *pSensorA, const HitSensor *pSensorB, f32 offset, const char *pEffectName);
+
+	void initEffectAfterPlacement(LiveActor *pActor, MtxPtr pMtx);
+	void updateEffectFloorCode(LiveActor *pActor, const Triangle *pTriangle);
+	void updateEffectFloorCodeLineToMap(LiveActor *pActor, const TVec3f &pStart, const TVec3f &pEnd);
+	void updateEffectFloorCodeLineToMap(LiveActor *pActor, f32 pStart, f32 pEnd);
 };
