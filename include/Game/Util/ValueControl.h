@@ -2,9 +2,11 @@
 
 #include "revolution.h"
 
+/* FINISHED */
+
 class ValueControl {
 public:
-	ValueControl(int);
+	ValueControl(int maxFrame);
 
 	void setDirToOneResetFrame();
 	void setDirToZero();

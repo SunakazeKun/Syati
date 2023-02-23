@@ -1,5 +1,7 @@
 #pragma once
 
+/* FINISHED */
+
 #include "Game/NameObj/NameObj.h"
 #include "Game/NameObj/NameObjAdaptor.h"
 #include "Game/NameObj/NameObjExecuteHolder.h"

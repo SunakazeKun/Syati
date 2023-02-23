@@ -1,5 +1,7 @@
 #pragma once
 
+/* FINISHED */
+
 template<typename T>
 class SingletonHolder {
 public:
