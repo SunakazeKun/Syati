@@ -15,8 +15,6 @@ namespace {
         s32 mPadRumbleDelay;
     };
 
-    static EffectDataEntry sEffectDataTable[13];
-
     const EffectDataEntry* findDataElement(const char *pEffectName);
 };
 

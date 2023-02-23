@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -16,6 +17,12 @@ def dep(path, name):
     return path
 
 
+def prepare_bin():
+    if os.path.exists("bin"):
+        shutil.rmtree("bin")
+    os.makedirs("bin")
+
+
 REGIONS = ["PAL", "USA", "JPN", "TWN", "KOR"]
 
 MWCCEPPC = dep("deps/CodeWarrior/mwcceppc.exe", "CodeWarrior compiler")
@@ -29,15 +36,16 @@ def build(region: str):
                   f"-i include -I- -i loader -D{region} loader/loader.cpp -o loader/loader.o"
 
     kamek_cmd = f"{KAMEK} loader/loader.o -static=0x80001800 -externals={SYMBOLS}/{region}.txt " \
-                f"-output-riiv=loader/riivo_{region}.xml"
+                f"-output-riiv=bin/riivo_{region}.xml"
 
     print(f"Building target {region}!")
 
-    if os.path.exists(f"dols/{region}.dol"):
-        kamek_cmd += f" -input-dol=dols/{region}.dol -output-dol=loader/{region}.dol"
+    if os.path.exists(f"deps/{region}.dol"):
+        kamek_cmd += f" -input-dol=deps/{region}.dol -output-dol=bin/{region}.dol"
 
     if subprocess.call(compile_cmd, shell=True) != 0:
         err("Compiling failed.")
+
     if subprocess.call(kamek_cmd, shell=True) != 0:
         err("Linking failed.")
 
@@ -48,12 +56,16 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("Did not specify a target region, building all targets!")
 
+        prepare_bin()
+
         for region in REGIONS:
             build(region)
+
     else:
         region = sys.argv[1]
 
         if region not in REGIONS:
             err(f"Invalid build target found: {region}")
 
+        prepare_bin()
         build(region)

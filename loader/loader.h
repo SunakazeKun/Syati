@@ -27,7 +27,7 @@ namespace syati {
     void LoaderOpenBinary(void **binaryPtr, u32 *sizePtr, const char *binaryName);
     void LoaderCloseBinary(void *binary, u32 size);
     void LoaderVerifyHeader(KamekHeader *header);
-    void LoaderAllocatePatch(void *binary, u32 size, u8 **patchBufferPtr, u32 *patchSizePtr,  u8 **linkingInfoPtr, u32 *linkingSizePtr);
+    void LoaderAllocatePatch(void *binary, u32 size, u8 **patchBufferPtr, u32 *patchSizePtr, u8 **linkingInfoPtr, u32 *linkingSizePtr);
     void LoaderRuntimeLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize);
 };
 

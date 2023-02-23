@@ -9,12 +9,12 @@ typedef NameObj* (CreateActorFunc)(const char *);
 typedef void (PostCreationFunc)(const JMapInfoIter &);
 
 struct CreateActorEntry {
-    const char* pActorName;        // _0
+    const char* pActorName;         // _0
     CreateActorFunc* mCreationFunc; // _4
 };
 
 struct PostCreationEntry {
-    const char* pActorName;             // _0
+    const char* pActorName;              // _0
     PostCreationFunc* mPostCreationFunc; // _4
 };
 

@@ -7,7 +7,7 @@
 * - It uses a single sensor to interact with other objects, specifically the player.
 * - The sensor's radius can be specified using Obj_arg0.
 * - The sensor forcibly pushes the player away, preventing them from going *inside* the sensor.
-* - When the sensor is attack with a Spin Attack by the player or the Orange Luma, the actor gets killed.
+* - When the sensor is attacked with a Spin Attack by the player or the Orange Luma, the actor gets killed.
 */
 
 SampleActor::SampleActor(const char *pName) : LiveActor(pName) {

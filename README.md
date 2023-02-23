@@ -1,5 +1,5 @@
 # Syati
-**Syati** is a coding toolkit for custom code injections in **Super Mario Galaxy 2**. It is able to compile code, link to existing functions and structures in the game and load the actual changes ingame. It was originally created by **shibbo**.
+**Syati** provides C++ headers and symbols for writing custom code injections in **Super Mario Galaxy 2**. With this, you can write code, compile code, link to existing functions and structures in the game and load the actual changes. It was originally created by **shibbo**, however, the original repository has been deleted.
 
 # Requirements
 In order to use this toolkit, you need to prepare some software and skills:
