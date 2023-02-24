@@ -32,6 +32,7 @@ void SampleActor::init(const JMapInfoIter &rIter) {
     f32 radius = 1000.0f;
     MR::getJMapInfoArg0NoInit(rIter, &radius);
 
+    // Prevent negative radius
     if (radius < 0.0f) {
         radius = 1000.0;
     }

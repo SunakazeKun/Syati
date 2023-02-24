@@ -6,7 +6,7 @@
 namespace MR {
     class CurrentHeapRestorer {
     public:
-        CurrentHeapRestorter(JKRHeap *pHeap);
+        CurrentHeapRestorer(JKRHeap *pHeap);
 
         ~CurrentHeapRestorer();
 

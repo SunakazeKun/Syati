@@ -1,10 +1,31 @@
 #include "loader.h"
 
+// Adjust this value for your CustomCode binaries
+#define CUSTOM_CODE_EXPANSION_KB 256
 
 /**********************************************************************************************************************/
 /* Initialization                                                                                                     */
 /**********************************************************************************************************************/
+
 namespace {
+	u32 getSystemHeapSize() {
+		u32 expandKB = CUSTOM_CODE_EXPANSION_KB;
+
+		if (expandKB < 128) {
+			return 0x40000;
+		}
+		else {
+			return 0x40000 + (expandKB - 128) * 1000;
+		}
+	}
+
+#if defined(TWN) || defined(KOR)
+	kmCall(0x804BCED8, getSystemHeapSize);
+#else
+	kmCall(0x804BCE68, getSystemHeapSize);
+#endif
+
+	// -------------------------------------------------------------------------------------------------------------------
 
 #if defined(TWN) || defined(KOR)
 	kmWrite32(0x804B7E00, 0x60000000);
@@ -24,13 +45,8 @@ namespace {
 	kmBranch(0x804B7D38, LoadCustomCode);
 #endif
 
-	void createCustomCodeHeap(HeapMemoryWatcher *pHeapWatcher) {
-		sCustomCodeHeap = HeapMemoryWatcherFunction::createSolidHeap(256000, HeapMemoryWatcher::sRootHeapGDDR3);
-		pHeapWatcher->createGameHeap();
-	}
-
 	void LoadCustomCode() {
-		OSReport("SYATI INITIALIZATION\n");
+		OSReport("SYATI_INIT\n");
 
 		u32 fg = 0xFFFFFFFF;
 		u32 bg = 0x00000000;
@@ -38,27 +54,22 @@ namespace {
 
 		// Create handle and read Kamek header
 		DVDFileInfo fileHandle;
-		const char* fileName = KAMEK_BINARY_NAME;
-		int pathID = DVDConvertPathToEntrynum(fileName);
+		int pathID = DVDConvertPathToEntrynum(KAMEK_BINARY_NAME);
 
 		if (pathID < 0) {
-			OSFatal(&fg, &bg, "ERROR\n\nCan't locate %s\n", fileName);
+			OSFatal(&fg, &bg, "SYA_ERR\n\nCan't locate CustomCode binary\n");
 		}
 
 		if (!DVDFastOpen(pathID, &fileHandle)) {
-			OSFatal(&fg, &bg, "ERROR\n\nCan't create file handle for %s\n", fileName);
+			OSFatal(&fg, &bg, "SYA_ERR\n\nCan't create file handle\n");
 		}
 
-		OSReport("File handle: faddr = %p, fsize = %d\n", fileHandle.mStartAddr, fileHandle.mLength);
-
 		if (fileHandle.mLength < sizeof(KamekHeader)) {
-			OSFatal(&fg, &bg, "ERROR\n\nBinary file is too small\n");
+			OSFatal(&fg, &bg, "SYA_ERR\n\nBinary too small\n");
 		}
 
 
 		// Read binary file and close handle
-		MR::CurrentHeapRestorer heapRestorer(MR::getHeapGDDR3());
-
 		u8* kamekBinary = new (32) u8[fileHandle.mLength];
 		KamekHeader* kamekHeader = (KamekHeader*)kamekBinary;
 
@@ -69,10 +80,10 @@ namespace {
 
 		// Verify header contents
 		if (kamekHeader->magic1 != 'Kame' || kamekHeader->magic2 != 'k\0') {
-			OSFatal(&fg, &bg, "ERROR\n\nInvalid header!\n");
+			OSFatal(&fg, &bg, "SYA_ERR\n\nInvalid header\n");
 		}
 		if (kamekHeader->version != 1) {
-			OSFatal(&fg, &bg, "ERROR\n\nIncompatible version %d!", kamekHeader->version);
+			OSFatal(&fg, &bg, "SYA_ERR\n\nIncompatible version");
 		}
 
 		OSReport("codeSize = %d, bssSize = %d\n", kamekHeader->codeSize, kamekHeader->bssSize);
@@ -85,7 +96,7 @@ namespace {
 		u32 linkingSize = fileHandle.mLength - sizeof(KamekHeader) - codeSize;
 
 		u8* srcPtr = kamekBinary + sizeof(KamekHeader);
-		u8* binary = new (32) u8[totalSize];
+		u8* binary = new (JKRHeap::sSystemHeap, 4) u8[totalSize];
 
 
 		// Copy text and clear BSS
