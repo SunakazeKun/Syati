@@ -4,6 +4,15 @@
 #include "JSystem.h"
 
 namespace MR {
+    class CurrentHeapRestorer {
+    public:
+        CurrentHeapRestorter(JKRHeap *pHeap);
+
+        ~CurrentHeapRestorer();
+
+        JKRHeap* mCurrentHeap; // _0
+    };
+
     JKRHeap* getCurrentHeap();
     JKRHeap* getStationedHeapNapa();
     JKRHeap* getStationedHeapGDDR3();
