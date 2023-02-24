@@ -36,4 +36,19 @@ public:
 
     void memoryErrorCallback(void *, u32, int);
     void checkRestMemory();
+
+    static JKRHeap* sRootHeapGDDR3;
+
+    JKRHeap *mStationedHeapNapa;
+    JKRHeap *mStationedHeapGDDR3;
+    JKRHeap *mHeapNapa;
+    JKRHeap *mHeapGDDR3;
+    JKRHeap *mWorldMapHeap;
+    JKRHeap *mFileCacheHeap;
+    JKRHeap *_18;
+    JKRHeap *mSceneHeapNapa;
+    JKRHeap *mSceneHeapGDDR3;
+    JKRHeap *mWPadHeap;
+    JKRHeap *mHomeButtonLayoutHeap;
+    JKRHeap *_2C;
 };
