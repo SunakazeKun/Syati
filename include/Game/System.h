@@ -7,6 +7,7 @@
 #include "Game/System/GameSystemDataHolder.h"
 #include "Game/System/GameSystemDimmingWatcher.h"
 #include "Game/System/GameSequenceInGame.h"
+#include "Game/System/HeapMemoryWatcher.h"
 #include "Game/System/Language.h"
 #include "Game/System/NerveExecutor.h"
 #include "Game/System/PlayResultInStageHolder.h"
