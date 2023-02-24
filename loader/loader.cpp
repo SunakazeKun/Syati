@@ -24,6 +24,11 @@ namespace {
 	kmBranch(0x804B7D38, LoadCustomCode);
 #endif
 
+	void createCustomCodeHeap(HeapMemoryWatcher *pHeapWatcher) {
+		sCustomCodeHeap = HeapMemoryWatcherFunction::createSolidHeap(256000, HeapMemoryWatcher::sRootHeapGDDR3);
+		pHeapWatcher->createGameHeap();
+	}
+
 	void LoadCustomCode() {
 		OSReport("SYATI INITIALIZATION\n");
 
