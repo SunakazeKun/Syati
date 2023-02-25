@@ -21,8 +21,8 @@ namespace {
         u32 codeSize;
     };
 
-    void LoadCustomCode();
-    void RuntimeLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize);
+    void syati_LoadCustomCode();
+    void syati_RuntimeLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize);
 };
 
 

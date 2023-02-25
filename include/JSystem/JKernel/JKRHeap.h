@@ -36,6 +36,7 @@ public:
     void freeTail();
     void fillFreeArea();
     void resize(void *, u32);
+    u32 getMaxAllocatableSize(int);
 
     // ... more functions
 
