@@ -70,7 +70,7 @@ namespace {
 
 
 		// Read binary file and close handle
-		u8* kamekBinary = new (32) u8[fileHandle.mLength];
+		u8* kamekBinary = new (JKRHeap::sSystemHeap, 32) u8[fileHandle.mLength];
 		KamekHeader* kamekHeader = (KamekHeader*)kamekBinary;
 
 		DVDReadPrio(&fileHandle, kamekBinary, fileHandle.mLength, 0, 2);
@@ -118,7 +118,7 @@ namespace {
 		OSReport("Patch addr = %p, size = %d\n", binary, totalSize);
 		RuntimeLink(binary, totalSize, srcPtr, linkingSize);
 
-		delete kamekBinary;
+		JKRHeap::free(kamekBinary, JKRHeap::sCurrentHeap);
 	}
 
 
