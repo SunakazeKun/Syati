@@ -106,7 +106,7 @@ namespace {
 		// ------------------------------------------------------------------------------------------------------------
 		// Read temporary binary file and close handle
 
-		// This is... questionable.
+		// This is... questionable. Allocating memory on a heap and freeing it later on doesn't seem to work on console
 		u8* binary = (u8*)(((u32)SingletonHolder<HeapMemoryWatcher>::sInstance->mHeapNapa + 0x200 + 31) & ~31);
 		u32 binarySize = fileHandle.mLength;
 		KamekHeader* kamekHeader = (KamekHeader*)binary;
@@ -122,7 +122,7 @@ namespace {
 			OSFatal(&fg, &bg, "SYA_ERR\n\nInvalid header\n");
 		}
 		if (kamekHeader->version != 1) {
-			OSFatal(&fg, &bg, "SYA_ERR\n\nIncompatible version");
+			OSFatal(&fg, &bg, "SYA_ERR\n\nIncompatible version\n");
 		}
 
 		u32 codeSize = kamekHeader->codeSize;
