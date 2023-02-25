@@ -29,7 +29,8 @@ namespace {
     void reimplSceneChangeAreaControl(SceneChangeArea *pArea) {
         if (pArea->isInVolume(*MR::getPlayerPos())) {
             // Freeze the screen & fade to white
-            MR::closeSystemWipeFadeWithCaptureScreen(pArea->mObjArg1 == -1 ? 0 : pArea->mObjArg1);
+            s32 fadeTime = pArea->mObjArg1 < 0 ? 120 : pArea->mObjArg1;
+            MR::closeSystemWipeFadeWithCaptureScreen(fadeTime);
 
             // Access Star Select for desired galaxy
             const char* stageName;
@@ -44,7 +45,7 @@ namespace {
             GameSequenceFunction::changeToScenarioSelect(stageName);
 
             // Invalidate the area
-            pArea->mValidate = 0;
+            pArea->mValidate = false;
         }
     }
 
