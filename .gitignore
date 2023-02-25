@@ -1,6 +1,5 @@
 deps/CodeWarrior/*
 deps/Kamek/*
-*.dol
 
 /.private
 /.vs
@@ -9,6 +8,8 @@ deps/Kamek/*
 
 *.o
 *.d
+CustomCode*.bin
+*.dol
 *.elf
 *.map
 
