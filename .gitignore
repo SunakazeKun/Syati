@@ -19,3 +19,5 @@ CustomCode*.bin
 *.id2
 *.nam
 *.til
+Loader*.bin
+Loader*.xml
