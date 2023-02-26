@@ -38,4 +38,5 @@ namespace MR {
 
     JUTTexture* loadTexFromArc(LiveActor *pActor, const char *pArcName, const char *pBtiName);
     JUTTexture* loadTexFromArc(LiveActor *pActor, const char *pBtiName);
+    ResTIMG* loadTexFromArc(const char*, const char*, ResTIMG*);
 };
