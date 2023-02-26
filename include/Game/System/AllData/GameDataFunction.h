@@ -93,3 +93,8 @@ public:
 	static wchar_t* getUserName();
 	static wchar_t* setUserName(const wchar_t *);
 };
+
+	// temporary!
+namespace GameSystemFunction {
+	void prepareResetSystem();
+};

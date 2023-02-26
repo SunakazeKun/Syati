@@ -4,6 +4,7 @@
 #include "Game/Screen/LayoutActor.h"
 
 class MarioMeter;
+class RedCoinCounter;
 
 class CounterLayoutController : public LayoutActor {
 public:
@@ -35,4 +36,7 @@ public:
 	LayoutActor* mStarCounter;
 	LayoutActor* mMarioMeter;
 	LayoutActor* mCometMedalCounter;
+
+	// Below are variables of PTD
+	LayoutActor* mPTDBlueCoinCounter;
 };

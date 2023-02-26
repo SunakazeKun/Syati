@@ -71,9 +71,9 @@ public:
     NoteCounter* mNoteCounter; // 0x30
     CounterLayoutController* mCounterLayoutController; // 0x34
 
-    //#ifdef ALL
+    #ifdef ALL
     LayoutActor* mTimerLayout;
-    //#endif
+    #endif
 };
 
 namespace MR {

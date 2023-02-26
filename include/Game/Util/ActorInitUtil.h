@@ -2,6 +2,7 @@
 
 #include "revolution.h"
 #include "JSystem.h"
+#include "JSystem/JUtility/JUTTexture.h"
 
 /* FINISHED */
 
