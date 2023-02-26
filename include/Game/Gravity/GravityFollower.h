@@ -4,6 +4,8 @@
 #include "Game/Gravity/GlobalGravityObj.h"
 #include "Game/Util/BaseMatrixFollowTargetHolder.h"
 
+/* FINISHED */
+
 class GravityFollower : public BaseMatrixFollower {
 public:
 	GravityFollower(GlobalGravityObj *pGravityObj, const JMapInfoIter &rIter);

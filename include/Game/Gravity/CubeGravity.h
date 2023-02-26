@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/Gravity/PlanetGravity.h"
 
+/* FINISHED */
+
 class CubeGravity : public PlanetGravity {
 	CubeGravity();
 
@@ -17,8 +19,8 @@ class CubeGravity : public PlanetGravity {
 
 	TMtx34f mLocalMtx;  // _28
 	TMtx34f mGlobalMtx; // _58
-	f32 _88;
-	f32 _8C;
-	f32 _90;
+	f32 mExtentX;       // _88
+	f32 mExtentY;       // _8C
+	f32 mExtentZ;       // _90
 	u8 mActiveFaces;    // _94
 };

@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 class SwitchArea : public AreaObj {
 public:
 	SwitchArea(const char *pName);
@@ -16,6 +18,6 @@ public:
 	bool isUpdate() const;
 	bool checkPlayerDrillRush() const;
 
-	s32 mRiddleSound; // _48
+	s32 mRiddleSound;   // _48
 	bool mRiddlePlayed; // _4C
 };

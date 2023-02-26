@@ -2,17 +2,19 @@
 
 #include "revolution.h"
 
+/* FINISHED */
+
 namespace MR {
 	class BothDirPtrList;	
 
 	class BothDirPtrLink {
-		BothDirPtrLink(void * pData);
+		BothDirPtrLink(void *pData);
 		~BothDirPtrLink();
 
-		void* mData; // _0
-		BothDirPtrList* mList; // _4
+		void* mData;               // _0
+		BothDirPtrList* mList;     // _4
 		BothDirPtrLink* mPrevious; // _8
-		BothDirPtrLink* mNext; // _C
+		BothDirPtrLink* mNext;     // _C
 	};
 
 	class BothDirPtrList {
@@ -20,12 +22,12 @@ namespace MR {
 		~BothDirPtrList();
 
 		void initiate();
-		void setFirst(BothDirPtrLink *);
-		void append(BothDirPtrLink *);
-		void remove(BothDirPtrLink *);
+		void setFirst(BothDirPtrLink *pLink);
+		void append(BothDirPtrLink *pLink);
+		void remove(BothDirPtrLink *pLink);
 		
 		BothDirPtrLink* mFirst; // _0
-		BothDirPtrLink* mLast; // _4
-		s32 mNumElements; // _8
+		BothDirPtrLink* mLast;  // _4
+		s32 mNumElements;       // _8
 	};
 };

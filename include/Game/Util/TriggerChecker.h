@@ -2,6 +2,8 @@
 
 #include "revolution.h"
 
+/* FINISHED */
+
 class TriggerChecker {
 public:
 	TriggerChecker();

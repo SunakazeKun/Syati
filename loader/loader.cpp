@@ -1,166 +1,191 @@
 #include "loader.h"
 
+/*
+* Custom code will be loaded into SystemHeap. However, the space that it provides is very limited, so the heaps need to
+* be expanded early on during the game's initialization process. By default, SystemHeap has enough space to fit more
+* than 80 KB of custom code (including .text and .bss from the CustomCode binaries). If our code requires more space,
+* the loader will expand SystemHeap's memory by taking away some from HeapNapa/SceneHeapNapa.
+*/
+#define CUSTOM_CODE_EXPANSION_KB 80
 
-/**********************************************************************************************************************/
-/* Entry point and crash debugger patches                                                                             */
-/**********************************************************************************************************************/
+namespace {
+	/*****************************************************************************************************************/
+	/* Enable crash debugger                                                                                         */
+	/*****************************************************************************************************************/
 #if defined(TWN) || defined(KOR)
-kmWrite32(0x804B7E00, 0x60000000);
-kmWrite32(0x804B7EC4, 0x60000000);
-kmWrite32(0x805B64A8, 0x60000000); // thanks Hackio
-kmWrite32(0x805B67B4, 0x60000000);
-
-// Entry point
-kmBranch(0x804B7DA8, syati::LoaderMain);
+	kmWrite32(0x804B7E00, 0x60000000);
+	kmWrite32(0x804B7EC4, 0x60000000);
+	kmWrite32(0x805B64A8, 0x60000000);
+	kmWrite32(0x805B67B4, 0x60000000);
 #else
-kmWrite32(0x804B7D90, 0x60000000);
-kmWrite32(0x804B7E54, 0x60000000);
-kmWrite32(0x805B63A8, 0x60000000); // thanks Hackio
-kmWrite32(0x805B66B4, 0x60000000);
-
-// Entry point
-kmBranch(0x804B7D38, syati::LoaderMain);
+	kmWrite32(0x804B7D90, 0x60000000);
+	kmWrite32(0x804B7E54, 0x60000000);
+	kmWrite32(0x805B63A8, 0x60000000);
+	kmWrite32(0x805B66B4, 0x60000000);
 #endif
 
 
-/**********************************************************************************************************************/
-/* Initialization                                                                                                     */
-/**********************************************************************************************************************/
-namespace syati {
-	void LoaderMain() {
-		OSReport("SYATI -- Initializing binary\n");
+	/*****************************************************************************************************************/
+	/* Adjust heaps to fit more custom code                                                                          */
+	/*****************************************************************************************************************/
+	u32 getSystemHeapSize() {
+		u32 expandKB = CUSTOM_CODE_EXPANSION_KB;
 
-		// 1 -- Load the binary and load it into memory
-		void *binary;
-		u32 size;
-
-		LoaderOpenBinary(&binary, &size, KAMEK_BINARY_NAME);
-		LoaderVerifyHeader((KamekHeader*)binary);
-
-		// 2 -- Allocate patch block and link custom code into the game
-		u8 *patchBuffer, *linkingInfo;
-		u32 patchSize, linkingSize;
-		LoaderAllocatePatch(binary, size, &patchBuffer, &patchSize, &linkingInfo, &linkingSize);
-		LoaderRuntimeLink(patchBuffer, patchSize, linkingInfo, linkingSize);
-
-		// 3 -- Clear the temporary binary data
-		LoaderCloseBinary(binary, size);
-
-		OSReport("SYATI -- Initialization done!\n");
+		if (expandKB < 80) {
+			return 0x40000;
+		}
+		else {
+			return 0x40000 + (expandKB - 80) * 1000;
+		}
 	}
 
-	void LoaderOpenBinary(void **binaryPtr, u32 *sizePtr, const char *binaryName) {
-		DVDFileInfo fileHandle;
+#if defined(TWN) || defined(KOR)
+	kmCall(0x804BCED8, getSystemHeapSize);
+#else
+	kmCall(0x804BCE68, getSystemHeapSize);
+#endif
 
-		// Setup OSFatal colors
+	u32 getStationedHeapNapaSize(JKRHeap *pHeap, int allocArg) {
+		u32 allocatableSize = pHeap->getMaxAllocatableSize(allocArg);
+		u32 expandKB = CUSTOM_CODE_EXPANSION_KB;
+
+		if (expandKB < 80) {
+			allocatableSize -= 5242880;
+		}
+		else {
+			allocatableSize -= (5242880 - (expandKB - 80) * 1000);
+		}
+
+		return allocatableSize;
+	}
+
+#if defined(TWN) || defined(KOR)
+	kmCall(0x804BCF40, getStationedHeapNapaSize);
+	kmWrite32(0x804BCF44, 0x7C7F1B78);
+#else
+	kmCall(0x804BCED0, getStationedHeapNapaSize);
+	kmWrite32(0x804BCED4, 0x7C7F1B78);
+#endif
+
+
+	/*****************************************************************************************************************/
+	/* Load and link code from CustomCode binary                                                                     */
+	/*****************************************************************************************************************/
+#if defined(TWN) || defined(KOR)
+	kmBranch(0x804B7DA8, syati_LoadCustomCode);
+#else
+	kmBranch(0x804B7D38, syati_LoadCustomCode);
+#endif
+
+	void syati_LoadCustomCode() {
+		OSReport("SYATI_INIT\n");
+
 		u32 fg = 0xFFFFFFFF;
 		u32 bg = 0x00000000;
 
-		// Verify that file exists and create file handle
-		int pathID = DVDConvertPathToEntrynum(binaryName);
+
+		// ------------------------------------------------------------------------------------------------------------
+		// Create handle & check file
+
+		DVDFileInfo fileHandle;
+		int pathID = DVDConvertPathToEntrynum(KAMEK_BINARY_NAME);
 
 		if (pathID < 0) {
-			OSFatal(&fg, &bg, "SYATI -- ERROR\n\nFailed to locate %s\n", binaryName);
+			OSFatal(&fg, &bg, "SYA_ERR\n\nCan't locate CustomCode binary\n");
 		}
 
 		if (!DVDFastOpen(pathID, &fileHandle)) {
-			OSFatal(&fg, &bg, "SYATI -- ERROR\n\nFailed to create file handle for %s\n", binaryName);
+			OSFatal(&fg, &bg, "SYA_ERR\n\nCan't create file handle\n");
 		}
 
-		OSReport("SYATI -- File handle: faddr = %p, fsize = %d\n", fileHandle.mStartAddr, fileHandle.mLength);
+		if (fileHandle.mLength < sizeof(KamekHeader)) {
+			OSFatal(&fg, &bg, "SYA_ERR\n\nBinary too small\n");
+		}
 
-		// Read entire binary into MEM2
-		u32 size = fileHandle.mLength;
-		void* rawBinary = (void*)(RAW_BINARY_ADDRESS_END - ((size + 31) & ~31));
 
-		DVDReadPrio(&fileHandle, rawBinary, fileHandle.mLength, 0, 2);
+		// ------------------------------------------------------------------------------------------------------------
+		// Read temporary binary file and close handle
+
+		// This is... questionable. Allocating memory on a heap and freeing it later on doesn't seem to work on console
+		u8* binary = (u8*)(((u32)SingletonHolder<HeapMemoryWatcher>::sInstance->mHeapNapa + 0x200 + 31) & ~31);
+		u32 binarySize = fileHandle.mLength;
+		KamekHeader* kamekHeader = (KamekHeader*)binary;
+
+		DVDReadPrio(&fileHandle, binary, binarySize, 0, 2);
 		DVDClose(&fileHandle);
 
-		OSReport("SYATI -- Raw binary at %p (MEM2 arena)\n", rawBinary);
 
-		// Return data
-		*binaryPtr = rawBinary;
-		*sizePtr = size;
-	}
+		// ------------------------------------------------------------------------------------------------------------
+		// Verify Kamek format & get info from header
 
-	void LoaderCloseBinary(void *binary, u32 size) {
-		u32 *start = (u32*)binary;
-
-		while (start < (u32*)RAW_BINARY_ADDRESS_END) {
-			*start++ = 0;
+		if (kamekHeader->magic1 != 'Kame' || kamekHeader->magic2 != 'k\0') {
+			OSFatal(&fg, &bg, "SYA_ERR\n\nInvalid header\n");
 		}
-	}
-
-	void LoaderVerifyHeader(KamekHeader *header) {
-		// Setup OSFatal colors
-		u32 fg = 0xFFFFFFFF;
-		u32 bg = 0x00000000;
-
-
-		// Verify magic and version
-		if (header->magic1 != 'Kame' || header->magic2 != 'k\0') {
-			OSFatal(&fg, &bg, "SYATI -- ERROR\n\nBinary appears to be corrupted!\n");
-		}
-		if (header->version != 1) {
-			OSFatal(&fg, &bg, "SYATI -- ERROR\n\nIncompatible version %d!", header->version);
+		if (kamekHeader->version != 1) {
+			OSFatal(&fg, &bg, "SYA_ERR\n\nIncompatible version\n");
 		}
 
-		OSReport("SYATI -- Patch details: codeSize = %d, bssSize = %d\n", header->codeSize, header->bssSize);
-	}
+		u32 codeSize = kamekHeader->codeSize;
+		u32 bssSize = kamekHeader->bssSize;
 
-	void LoaderAllocatePatch(void *binary, u32 size, u8 **patchBufferPtr, u32 *patchSizePtr, u8 **linkingInfoPtr, u32 *linkingSizePtr) {
-		KamekHeader *header = (KamekHeader*)binary;
 
-		// Setup OSFatal colors
-		u32 fg = 0xFFFFFFFF;
-		u32 bg = 0x00000000;
+		// ------------------------------------------------------------------------------------------------------------
+		// Allocate text & BSS memory
 
-		// Precalculations and allocation of patch memory
-		u32 patchSize = header->codeSize + header->bssSize;
-		u32 linkingSize = size - sizeof(KamekHeader) - header->codeSize;
+		u32 customCodeSize = codeSize + bssSize;
+		u8* customCodeLinked = new (JKRHeap::sSystemHeap, 4) u8[customCodeSize];
 
-		u8 *patchBuffer = new (JKRHeap::sSystemHeap, 32) u8[patchSize];
-		u8 *linkingInfo = (u8*)binary + sizeof(KamekHeader) + header->codeSize;
 
-		if (!patchBuffer) {
-			OSFatal(&fg, &bg, "SYATI -- ERROR\n\nOut of memory for patch.");
-		}
+		// ------------------------------------------------------------------------------------------------------------
+		// Copy text and clear BSS
 
-		// Copy code from binary and clear BSS section
-		u8 *codeStart = patchBuffer;
-		u8 *codeEnd = patchBuffer + header->codeSize;
-		u8 *codeSrc = (u8*)binary + sizeof(KamekHeader);
+		u8* codeStart = customCodeLinked;
+		u8* codeEnd = customCodeLinked + codeSize;
+		u8* bssStart = codeEnd;
+		u8* bssEnd = bssStart + bssSize;
+
+		u8* srcPtr = binary + sizeof(KamekHeader);
 
 		while (codeStart < codeEnd) {
-			*codeStart++ = *codeSrc++;
+			*codeStart++ = *srcPtr++;
 		}
-
-		u8 *bssStart = patchBuffer + header->codeSize;
-		u8 *bssEnd = patchBuffer + patchSize;
 
 		while (bssStart < bssEnd) {
 			*bssStart++ = 0;
 		}
 
-		// Return data
-		*patchBufferPtr = patchBuffer;
-		*patchSizePtr = patchSize;
-		*linkingInfoPtr = linkingInfo;
-		*linkingSizePtr = linkingSize;
+		OSReport("Patch addr = %p, size = %d\n", customCodeLinked, customCodeSize);
+
+
+		// ------------------------------------------------------------------------------------------------------------
+		// Linking
+
+		u32 linkingSize = binarySize - sizeof(KamekHeader) - codeSize;
+		syati_RuntimeLink(customCodeLinked, customCodeSize, srcPtr, linkingSize);
+
+
+		// ------------------------------------------------------------------------------------------------------------
+		// Clear temporary binary
+
+		u8* srcEnd = binary + binarySize;
+
+		while (binary < srcEnd) {
+			*binary++ = 0;
+		}
 	}
 
 
-/**********************************************************************************************************************/
-/* Runtime linking                                                                                                    */
-/**********************************************************************************************************************/
+	/*****************************************************************************************************************/
+	/* Runtime linking                                                                                               */
+	/*****************************************************************************************************************/
 	static inline u32 resolveAddress(u32 text, u32 address) {
 		return address & 0x80000000 ? address : (text + address);
 	}
 
 #define kCommandHandler(name) \
-	static inline const u8 *kHandle##name(const u8 *input, u32 text, u32 address)
+static inline const u8 *kHandle##name(const u8 *input, u32 text, u32 address)
 #define kDispatchCommand(name) \
-	case k##name: input = kHandle##name(input, text, address); break
+case k##name: input = kHandle##name(input, text, address); break
 
 	kCommandHandler(Addr32) {
 		u32 target = resolveAddress(text, *(const u32 *)input);
@@ -244,10 +269,7 @@ namespace syati {
 	}
 
 
-	void LoaderRuntimeLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize) {
-		OSReport("SYATI -- Patch block: addr = %p, size = %d\n", linkedBuffer, linkedSize);
-		OSReport("SYATI -- Linking info (tmp): addr = %p, size = %d\n", kamekBuffer, kamekSize);
-
+	void syati_RuntimeLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize) {
 		u32 text = (u32)linkedBuffer;
 		const u8* input = kamekBuffer;
 		const u8* end = input + kamekSize;

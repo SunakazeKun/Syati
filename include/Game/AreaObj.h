@@ -6,29 +6,30 @@
 #include "Game/AreaObj/AreaObjFollower.h"
 
 #include "Game/AreaObj/AudioEffectArea.h"
-#include "Game/AreaObj/BgmChangeArea.h"
-#include "Game/AreaObj/BgmVolumeFadeArea.h"
-#include "Game/AreaObj/BloomArea.h"
+#include "Game/AreaObj/BgmChangeArea.h"                // unfinished
+#include "Game/AreaObj/BgmVolumeFadeArea.h"            // unfinished
+#include "Game/AreaObj/BloomArea.h"                    // unfinished
 #include "Game/AreaObj/CancelBeeMorphArea.h"
 #include "Game/AreaObj/ClipDrawArea.h"
+// CollisionArea
 #include "Game/AreaObj/CubeCameraArea.h"
 #include "Game/AreaObj/CumulativeTimerSwitchArea.h"
 #include "Game/AreaObj/DeathArea.h"
 #include "Game/AreaObj/GlaringLightAreaMgr.h"
 #include "Game/AreaObj/HazeCube.h"
 #include "Game/AreaObj/ImageEffectArea.h"
-#include "Game/AreaObj/LightArea.h"
-#include "Game/AreaObj/MercatorTransformCube.h"
+#include "Game/AreaObj/LightArea.h"                    // unfinished
+#include "Game/AreaObj/MercatorTransformCube.h"        // unfinished
 #include "Game/AreaObj/MessageArea.h"
 #include "Game/AreaObj/MorphSwitchArea.h"
 #include "Game/AreaObj/PostFogArea.h"
 #include "Game/AreaObj/PostOutlineArea.h"
 #include "Game/AreaObj/SceneChangeArea.h"
 #include "Game/AreaObj/ShadowColorArea.h"
-#include "Game/AreaObj/SoundEmitterCube.h"
-#include "Game/AreaObj/SoundEmitterCubeWorldMapSync.h"
-#include "Game/AreaObj/SoundEmitterSphere.h"
-#include "Game/AreaObj/SoundPlayArea.h"
+#include "Game/AreaObj/SoundEmitterCube.h"             // unfinished
+#include "Game/AreaObj/SoundEmitterCubeWorldMapSync.h" // unfinished
+#include "Game/AreaObj/SoundEmitterSphere.h"           // unfinished
+#include "Game/AreaObj/SoundPlayArea.h"                // unfinished
 #include "Game/AreaObj/SpinGuidanceArea.h"
 #include "Game/AreaObj/SpinSwitchArea.h"
 #include "Game/AreaObj/SunLightArea.h"

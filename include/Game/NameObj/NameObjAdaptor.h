@@ -4,6 +4,8 @@
 #include "Game/NameObj/NameObj.h"
 #include "Game/Util/Functor.h"
 
+/* FINISHED */
+
 class NameObjAdaptor : public NameObj {
 public:
 	NameObjAdaptor(const char *pName);
@@ -18,8 +20,8 @@ public:
 	void connectToCalcAnim(const MR::FunctorBase &rFunc);
 	void connectToDraw(const MR::FunctorBase &rFunc);
 	
-	MR::FunctorBase* mMovementFunctor; // _14
-	MR::FunctorBase* mCalcAnimFunctor; // _18
+	MR::FunctorBase* mMovementFunctor;         // _14
+	MR::FunctorBase* mCalcAnimFunctor;         // _18
 	MR::FunctorBase* mCalcViewAndEntryFunctor; // _1C
-	MR::FunctorBase* mDrawFunctor; // _20
+	MR::FunctorBase* mDrawFunctor;             // _20
 };

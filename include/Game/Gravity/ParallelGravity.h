@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/Gravity/PlanetGravity.h"
 
+/* FINISHED */
+
 class ParallelGravity : public PlanetGravity {
 public:
 	enum RANGE_TYPE {
@@ -24,7 +26,7 @@ public:
 	virtual bool calcOwnGravityVector(TVec3f *pDest, f32 *pScalar, const TVec3f &rPosition) const;
 
 	void setPlane(const TVec3f &rPlaneUp, const TVec3f &rPlanePos);
-	void setRangeBox(const TMtx34f &);
+	void setRangeBox(const TMtx34f &localMtx);
 	void setRangeCylinder(f32 radius, f32 height);
 	void setRangeType(RANGE_TYPE rangeType);
 	void setBaseDistance(f32 val);
@@ -39,8 +41,8 @@ public:
 	f32 mExtentX;                         // _88
 	f32 mExtentY;                         // _8C
 	f32 mExtentZ;                         // _90
-	TVec3f mPlanePosition;                // _94
-	TVec3f mPlaneUpVec;                   // _A0
+	TVec3f mLocalPlanePosition;           // _94
+	TVec3f mLocalPlaneUpVec;              // _A0
 	TVec3f mWorldPlanePosition;           // _AC
 	TVec3f mWorldPlaneUpVec;              // _B8
 	f32 mCylinderHeight;                  // _C4

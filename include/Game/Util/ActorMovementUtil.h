@@ -16,6 +16,7 @@ namespace MR {
 	f32 calcDistanceVertical(const LiveActor *, const TVec3f &);
 	f32 calcDistanceToPlayer(const LiveActor *);
 	f32 calcDistanceToPlayerH(const LiveActor *);
+	f32 calcDistanceToPlayerVGravity(const LiveActor *);
 
 	bool isNear(const HitSensor *, const HitSensor *, f32);
 	bool isNear(const LiveActor *, const LiveActor *, f32);
@@ -25,11 +26,12 @@ namespace MR {
 	bool isNearPlayer(const TVec3f &, f32);
 	bool isNearPlayerPose(const LiveActor *, f32, f32);
 	bool isNearPlayerHorizontal(const LiveActor *, f32);
+	bool isNearPlayerVerticalGravity(const LiveActor *, f32);
 
 	void calcFrontVec(TVec3f *, const LiveActor *);
 	void calcUpVec(TVec3f *, const LiveActor *);
 	void calcSideVec(TVec3f *, const LiveActor *);
-
+	void calcPositionFrontOffset(TVec3f *, const LiveActor *, f32);
 	void calcPositionUpOffset(TVec3f *, const LiveActor *, f32);
 	void calcVecToPlayer(TVec3f *, const LiveActor *);
 
@@ -128,7 +130,7 @@ namespace MR {
 	void addVelocity(LiveActor *, const TVec3f &);
 	void attenuateVelocity(LiveActor *, f32);
 	f32 calcVelocityLength(const LiveActor *);
-
+	f32 calcGravitySpeedAbs(const LiveActor *);
 	f32 calcGravitySpeed(const LiveActor *);
 
 	void applyVelocityDampAndGravity(LiveActor *, f32, f32, f32, f32, f32);

@@ -20,4 +20,7 @@ namespace MR {
 	void start2PJumpAssistSound();
 	void start2PJumpAssistJustSound();
 	void start2PAttackAssistSound();
+	void limitedStarPieceHitSound();
+	void startStarGetJingle();
+	void startGrandStarGetJingle();
 };

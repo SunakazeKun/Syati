@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 class AudioEffectArea : public AreaObj {
 public:
 	AudioEffectArea(const char *pName);
@@ -14,4 +16,8 @@ public:
 
 	s32 mAudEffectArg0; // _48
 	s32 mAudEffectArg1; // _4C
+};
+
+namespace MR {
+	bool isStageTwisterTowerGalaxy();
 };

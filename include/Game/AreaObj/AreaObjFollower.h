@@ -4,13 +4,15 @@
 #include "Game/AreaObj/AreaObj.h"
 #include "Game/Util/BaseMatrixFollowTargetHolder.h"
 
+/* FINISHED */
+
 class AreaObjFollower : public BaseMatrixFollower {
 public:
 	AreaObjFollower(AreaObj *pArea, const JMapInfoIter &rIter);
 
 	virtual void update();
 
-	TMtx34f mFollowMtx; // _14
+	TMtx34f mFollowMtx;     // _14
 	AreaObj* mFollowerArea; // _44
 };
 

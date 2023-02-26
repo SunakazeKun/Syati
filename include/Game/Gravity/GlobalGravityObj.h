@@ -4,6 +4,8 @@
 #include "Game/Gravity/GravityCreator.h"
 #include "Game/LiveActor/LiveActor.h"
 
+/* FINISHED */
+
 class GlobalGravityObj : public LiveActor {
 public:
 	GlobalGravityObj(const char *pName);

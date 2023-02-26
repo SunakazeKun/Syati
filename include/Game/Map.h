@@ -1,17 +1,64 @@
 #pragma once
 
-#include "Game/Map/BezierRail.h"
-#include "Game/Map/CollisionCategorizedKeeper.h"
-#include "Game/Map/CollisionParts.h"
-#include "Game/Map/HitInfo.h"
-#include "Game/Map/KCollisionServer.h"
-#include "Game/Map/LightZoneDataHolder.h"
-#include "Game/Map/PlanetMapCreator.h"
+// ActorAppearSwitchListener
+// Air
+// AwakeController
+// AwakeControllerHolder
+#include "Game/Map/BezierRail.h"                 // unfinished
+// Butterfly
+#include "Game/Map/CollisionCategorizedKeeper.h" // unfinished
+// Collisioncode
+// CollisionDirector
+#include "Game/Map/CollisionParts.h"             // unfinished
+// FileSelectCameraController
+// FileSelectEffect
+// FileSelectFunc
+// FileSelectItem
+// FileSelectModel
+// FileSelector
+// FishGroup
+// Flag
+// GroundChecker
+// GroupSwitchWatcher
+// Halo
+#include "Game/Map/HitInfo.h"                    // unfinished
+#include "Game/Map/KCollisionServer.h"           // unfinished
+// KoopaBattlePlanet
+// KoopaFinalStarPlanet
+// LightDirector
+// LightFunction
+// LightPointCtrl
+#include "Game/Map/LightZoneDataHolder.h"        // unfinished
+// "unknown group of functions"
+// NamePosHolder
+// OceanSphere
+// OceanSpherePoint
+// OmoteuLandSky
+// PlanetMap
+#include "Game/Map/PlanetMapCreator.h"          // unfinished
 #include "Game/Map/ProductMapCreator.h"
-#include "Game/Map/RailGraph.h"
-#include "Game/Map/RailGraphEdge.h"
-#include "Game/Map/RailGraphIter.h"
-#include "Game/Map/RailGraphNode.h"
-#include "Game/Map/RailGraphNodeSelecter.h"
-#include "Game/Map/RailPart.h"
-#include "Game/Map/StageSwitch.h"
+// QuakeEffectGenerator
+// RaceManager
+// RaceRail
+#include "Game/Map/RailGraph.h"                 // unfinished
+#include "Game/Map/RailGraphEdge.h"             // unfinished
+#include "Game/Map/RailGraphIter.h"             // unfinished
+#include "Game/Map/RailGraphNode.h"             // unfinished
+#include "Game/Map/RailGraphNodeSelecter.h"     // unfinished
+#include "Game/Map/RailPart.h"                  // unfinished
+// RepeatTimerSwitch
+// ScenarioSelectStar
+// SeaGull
+// ShadowColorSetter
+// Sky
+// SoundSyncSwitch
+// SpaceInner
+#include "Game/Map/StageSwitch.h"               // unfinished
+// SunshadeMapHolder
+// SwitchWatcher
+// SwitchWatcherHolder
+// TimerSwitch
+// WaterAreaHolder
+#include "Game/Map/WaterInfo.h"                 // unfinished
+// WaterPlant
+// WaterStream

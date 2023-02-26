@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 class ShadowColorArea : public AreaObj {
 public:
 	ShadowColorArea(const char *pName);
