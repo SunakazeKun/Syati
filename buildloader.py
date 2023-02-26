@@ -24,7 +24,6 @@ def prepare_bin():
 
 
 REGIONS = ["PAL", "USA", "JPN", "TWN", "KOR"]
-REGIONS = ["PAL", "USA", "JAP", "TWN", "KOR"]
 LETTERS = ['P', 'E', 'J', 'W', 'K']
 
 MWCCEPPC = dep("deps/CodeWarrior/mwcceppc.exe", "CodeWarrior compiler")
