@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 class CubeCameraArea : public AreaObj {
 public:
 	CubeCameraArea(const char *pName);
@@ -19,8 +21,8 @@ public:
 	u16 getCameraID() const;
 	void setCurrentCategory(s32 category);
 
-	u16 mCameraId;
-	s32 mZoneId;
+	u16 mCameraId; // _48
+	s32 mZoneId;   // _4C
 };
 
 class CubeCameraMgr : public AreaObjMgr {

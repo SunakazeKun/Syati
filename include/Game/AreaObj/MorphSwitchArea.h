@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 class MorphSwitchArea : public AreaObj {
 public:
 	MorphSwitchArea(const char *pName);
@@ -13,5 +15,5 @@ public:
 	
 	bool checkCondition() const;
 
-	s32 mZoneId;
+	s32 mCondition; // _48
 };

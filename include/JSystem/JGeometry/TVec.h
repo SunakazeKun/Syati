@@ -110,6 +110,8 @@ namespace JGeometry {
         f32 dot(const TVec3<f32> &) const;
         f32 normalize(const TVec3<f32> &);
 
+        f32 angle(const TVec3<f32> &) const;
+
         /* Checkers */
         bool epsilonEquals(const TVec3<f32> &, f32) const;
         bool isZero() const;

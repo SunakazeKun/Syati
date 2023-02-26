@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/ImageEffectArea.h"
 
+/* FINISHED */
+
 class PostFogArea : public ImageEffectArea {
 public:
 	PostFogArea(const char *pName);

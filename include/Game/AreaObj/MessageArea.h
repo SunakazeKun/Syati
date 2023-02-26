@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 class MessageArea : public AreaObj {
 public:
 	MessageArea(const char *pName);

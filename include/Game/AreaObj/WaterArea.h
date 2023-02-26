@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 class WaterArea : public AreaObj {
 public:
 	WaterArea(const char *pName);

@@ -22,7 +22,7 @@ namespace MR {
     bool isInDeath(const TVec3f &);
     bool isInDarkMatter(const TVec3f &);
 
-    void connectToScene(NameObj *, int, int, int, int);
+    void connectToScene(NameObj *, int movementType, int calcAnimType, int drawBufferType, int drawType);
     void connectToSceneCollisionMapObj(LiveActor *);
     void connectToSceneCollisionMapObjWeakLight(LiveActor *);
     void connectToSceneCollisionMapObjStrongLight(LiveActor *);
