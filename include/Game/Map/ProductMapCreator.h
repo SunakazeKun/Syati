@@ -17,6 +17,7 @@ public:
 
 	ProductMapEntry* getProductMapEntry(const char *pModelName);
 	CreateActorFunc* getProductMapCreator(const char *pClassName);
+	void* getObjClassName(const char*);
 
 	ProductMapEntry** mEntries; // _14
 	s32 mCount;                 // _18
