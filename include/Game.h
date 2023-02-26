@@ -2,6 +2,7 @@
 
 #include "Game/Animation.h"
 #include "Game/AreaObj.h"
+#include "Game/Effect.h"
 #include "Game/Enemy.h"
 #include "Game/Gravity.h"
 #include "Game/LiveActor.h"

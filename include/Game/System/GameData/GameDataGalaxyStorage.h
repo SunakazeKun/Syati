@@ -43,7 +43,7 @@ class GameDataAllGalaxyStorage {
 public:
 	GameDataAllGalaxyStorage();
 
-	GameDataSomeGalaxyStorage* makeAccessor(const char *pStageName);
+	GameDataSomeGalaxyStorage* makeAccessor(const char *pStageName) const;
 	s32 calcCurrentPowerStarNum() const;
 	s32 calcNormalPowerStarNum() const;
 	s32 getPowerStarNumOwned(const char *pStageName) const;

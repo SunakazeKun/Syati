@@ -3,15 +3,19 @@
 #include "revolution.h"
 #include "JSystem.h"
 
-class JMapInfoIter;
-class PlanetGravity;
 class GravityInfo;
+class JMapInfoIter;
 class NameObj;
 class LiveActor;
+class PlanetGravity;
 
-void getJMapInfoArgPlus(const JMapInfoIter &rIter, const char *pField, f32 *pDest);
-void getJMapInfoArgPlus(const JMapInfoIter &rIter, const char *pField, s32 *pDest);
-void calcGravityVectorOrZero(const NameObj *pActor, const TVec3f &rPosition, u32 gravityType, TVec3f *pDest, GravityInfo *pInfo, u32 host);
+/* FINISHED */
+
+namespace {
+	void getJMapInfoArgPlus(const JMapInfoIter &rIter, const char *pFieldName, f32 *pDest);
+	void getJMapInfoArgPlus(const JMapInfoIter &rIter, const char *pFieldName, s32 *pDest);
+	void calcGravityVectorOrZero(const NameObj *pActor, const TVec3f &rPosition, u32 gravityType, TVec3f *pDest, GravityInfo *pInfo, u32 host);
+};
 
 namespace MR {
 	void registerGravity(PlanetGravity *pGravity);

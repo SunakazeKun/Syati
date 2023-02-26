@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 class SpinSwitchArea : public AreaObj {
 public:
 	SpinSwitchArea(const char *pName);

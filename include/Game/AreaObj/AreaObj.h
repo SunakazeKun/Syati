@@ -6,6 +6,8 @@
 #include "Game/Map/StageSwitch.h"
 #include "Game/Util/Array.h"
 
+/* FINISHED */
+
 class AreaObj : public NameObj {
 public:
     AreaObj(const char *pName);
@@ -62,5 +64,5 @@ public:
     void requestMovementOnAll();
 
     MR::Vector<MR::AssignableArray<AreaObj*> > mAreas; // 14
-    s32 mMaxAreasArg; // 20
+    s32 mMaxAreasArg;                                  // 20
 };

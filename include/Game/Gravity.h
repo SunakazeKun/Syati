@@ -14,5 +14,5 @@
 #include "Game/Gravity/DiskTorusGravity.h"
 #include "Game/Gravity/ParallelGravity.h"
 #include "Game/Gravity/PointGravity.h"
-#include "Game/Gravity/SegmentGravity.h"
+#include "Game/Gravity/SegmentGravity.h"       // unfinished
 #include "Game/Gravity/WireGravity.h"

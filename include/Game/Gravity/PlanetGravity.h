@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "JSystem.h"
 
+/* FINISHED */
+
 // Gravity vector calculation flags
 #define GRAVITY_TYPE_NORMAL 1
 #define GRAVITY_TYPE_SHADOW 2

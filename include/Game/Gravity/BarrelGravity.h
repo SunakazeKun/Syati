@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/Gravity/PlanetGravity.h"
 
+/* FINISHED */
+
 class BarrelGravity : public PlanetGravity {
 public:
 	BarrelGravity();
@@ -12,16 +14,16 @@ public:
 
 	void setLocalPosition(const TVec3f &rLocalPos);
 	void setUpDirection(const TVec3f &rUpDir);
-	void setRadius(f32);
-	void setUnusedArg0(f32);
-	// one unknown function
+	void setRadius(f32 val);
+	void setUnusedArg0(f32 val);
+	void setInwardsThreshold(f32 val);
 
-	TVec3f mLocalPos; // _28
-	TVec3f _34;
-	TVec3f mUpDir;    // _40
-	TVec3f _4C;
-	f32 mRadius;      // _58
-	f32 _5C;
-	f32 mUnusedArg0;  // _60
-	f32 _64;          // Obj_arg2
+	TVec3f mLocalPos;      // _28
+	TVec3f mGlobalPos;     // _34
+	TVec3f mLocalUpDir;    // _40
+	TVec3f mGlobalUpDir;   // _4C
+	f32 mLocalRadius;      // _58
+	f32 mGlobalRadius;     // _5C
+	f32 mUnusedArg0;       // _60
+	f32 mInwardsThreshold; // _64
 };

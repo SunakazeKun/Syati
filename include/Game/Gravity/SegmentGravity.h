@@ -16,15 +16,15 @@ public:
 	void setEdgeValid(u32 index, bool val);
 	void updateLocalParam();
 
-	TVec3f mGravityPoints[2]; // _28
-	TVec3f _40[2];
-	TVec3f mSideVec; // _58
-	TVec3f _64;
-	TVec3f _70;
-	TVec3f _7C;
-	f32 _88;
-	f32 mSideDegree; // _8C
-	f32 _90;
+	TVec3f mLocalGravityPoints[2];   // _28
+	TVec3f mGlobalGravityPoints[2];  // _40
+	TVec3f mLocalSideVec;            // _58
+	TVec3f mOrthonormalLocalSideVec; // _64
+	TVec3f mGlobalSideVec;           // _70
+	TVec3f mSegmentDir;              // _7C
+	f32 mSegmentLength;              // _88
+	f32 mValidSideDegree;            // _8C
+	f32 mValidSideCos;               // _90
 	f32 _94[2];
-	u8 mEdges[2]; // _9C
+	bool mValidEdges[2];             // _9C
 };

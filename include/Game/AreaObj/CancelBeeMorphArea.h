@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 class CancelBeeMorphArea : public AreaObj {
 public:
 	CancelBeeMorphArea(const char *pName);

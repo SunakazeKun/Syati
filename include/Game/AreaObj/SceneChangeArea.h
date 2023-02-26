@@ -3,6 +3,8 @@
 #include "revolution.h"
 #include "Game/AreaObj/AreaObj.h"
 
+/* FINISHED */
+
 class SceneChangeArea : public AreaObj {
 public:
 	SceneChangeArea(const char *pName);

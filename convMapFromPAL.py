@@ -1,8 +1,8 @@
 # All target regions
-REGIONS = ["PAL", "USA", "JAP", "TWN", "KOR"]
+REGIONS = ["PAL", "USA", "JPN", "TWN", "KOR"]
 
 # First, we define the offsets that we have to apply to some symbols to get the proper addresses in the other regions.
-# All of these offsets are relative to the symbol's location in the PAL map. For PAL, USA and JAP, all the code lines up
+# All of these offsets are relative to the symbol's location in the PAL map. For PAL, USA and JPN, all the code lines up
 # 1:1, however, the data and static data addresses are different due to the ErrorMessageArchive having a different size
 # in all regions.
 # Each entry is a pair consisting of the starting PAL address to apply an offset to and the offset to apply to all the
@@ -11,7 +11,7 @@ USA_OFFSETS = [
     (0x806599A0, -0x5700)  # After ErrorMessageArchive
 ]
 
-JAP_OFFSETS = [
+JPN_OFFSETS = [
     (0x806599A0, -0x5F20),  # After ErrorMessageArchive
     (0x8072DD80, -0x5F40)  # BSS Start
 ]
@@ -148,7 +148,7 @@ KOR_OFFSETS = [
 # to apply to addresses, second is the next index into the offsets table and third is the offsets table.
 CUR_OFFSET_INFO = {
     "USA": [0x0, 0, USA_OFFSETS],
-    "JAP": [0x0, 0, JAP_OFFSETS],
+    "JPN": [0x0, 0, JPN_OFFSETS],
     "TWN": [0x0, 0, TWN_OFFSETS],
     "KOR": [0x0, 0, KOR_OFFSETS]
 }
@@ -184,7 +184,7 @@ def get_offset(region: str) -> int:
 SYMBOLS = {
     "PAL": list(),
     "USA": list(),
-    "JAP": list(),
+    "JPN": list(),
     "TWN": list(),
     "KOR": list(),
 }

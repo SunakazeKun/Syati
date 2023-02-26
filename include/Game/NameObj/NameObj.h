@@ -5,6 +5,8 @@
 #include "Game/Util/JMapInfo.h"
 #include "Game/Util/JMapLinkInfo.h"
 
+/* FINISHED */
+
 #define NAMEOBJ_FLAG_MOVEMENT 1
 #define NAMEOBJ_FLAG_RESUME 2
 #define NAMEOBJ_FLAG_SUSPEND 4
@@ -33,7 +35,7 @@ public:
     void syncWithFlags();
 
     const char* mName;        // _4
-    u16 mFlags;               // _8
+    vu16 mFlags;              // _8
     s16 mExecuteIdx;          // _A
     JMapLinkInfo mLinkedInfo; // _C
 };

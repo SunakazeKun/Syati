@@ -143,7 +143,9 @@ namespace MR {
 	void rotAxisVecRad(const TVec3f &, const TVec3f &, const TVec3f *, f32);
 	void getFootPoint(const TVec3f &, const TVec3f &, const TVec3f &, const TVec3f *);
 	f32 sin(f32);
+	f32 sinDegree(f32);
 	f32 cos(f32);
+	f32 cosDegree(f32);
 	f32 min(f32, f32);
 	f32 max(f32, f32);
 	f32 repeat(f32, f32, f32);
