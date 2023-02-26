@@ -36,8 +36,6 @@ namespace MR {
     void initSensors(LiveActor *pActor, const char *pModelName, const char *pFuncName);
     void initSwitches(LiveActor *pActor, const JMapInfoIter &rIter, const char *pModelName, const char *pFuncName);
 
-    JUTTexture* loadTexFromArc(LiveActor *pActor, const char *pArcName, const char *pBtiName);
-    JUTTexture* loadTexFromArc(LiveActor *pActor, const char *pBtiName);
     ResTIMG* loadTexFromArc(const char*, const char*, ResTIMG*);
     ResTIMG* loadTexFromArc(LiveActor*, const char*, const char*);
 };
