@@ -20,4 +20,4 @@ CustomCode*.bin
 *.nam
 *.til
 Loader*.bin
-Loader*.xml
+riivo_*.xml
