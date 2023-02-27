@@ -5,6 +5,11 @@
 #include "Game/NameObj/NameObjFactory.h"
 #include "sample/SampleActor.h"
 
+/*
+* Expands the NameObjFactory to take into account our custom actors. You can freely extend the creation table below by
+* inserting new entries.
+*/
+
 namespace {
     template<typename T>
     NameObj* createExtActor(const char *pName) {
