@@ -1,16 +1,29 @@
 # Syati
 **Syati** provides C++ headers and symbols for writing custom code injections in **Super Mario Galaxy 2**. With this, you can write code, compile code, link to existing functions and structures in the game and load the actual changes. It was originally created by **shibbo**, however, the original repository has been deleted.
 
+# What is supplied
+Syati provides C++ headers, symbols, the CustomCode loader and five sample C++ code files.
+
+- **loader**: The source code for the CustomCode loader and crash debugger patches. The loader automatically adjusts the game's memory heaps to fit a large batch of new code. The CustomCode binary that it loads depends on the version of the game played. If a CustomCode binary doesn't exist, the loader initialization is aborted, however, the crash debugger will still be enabled.
+- **init.cpp**: Calls all linked static initializers. This is necessary to initialize static variables and constants in the BSS segment of your code. Custom Nerve instances will be stored there, for example.
+- **ExtNameObjFactory.cpp**: Extends the existing ``NameObjFactory`` by taking into account your table of new objects. The custom creation table with actor entries is defined in the respective header file.
+- **ExtSceneChangeArea.cpp**: A reimplementation of ``SceneChangeArea``'s "control" method. It takes two arguments in, *Obj_arg0* accesses a list to which Galaxy to go to, and *Obj_arg1* determines the white screen fade time.
+- **archive.cpp**: A simplified archive loader. It can be used to mount any archive from the game's filesystem and access its stored files. The files are stored in ``StationedHeapNapa``.
+
+# Future Plans
+The loader currently only supports ``Kamek`` version 1, which is outdated. Support for new hooks and the general format should be implemented in future versions.
+
 # Requirements
 In order to use this toolkit, you need to prepare some software and skills:
-- The **CodeWarrior PPC EABI C/C++ Compiler**, preferrably version 4.0.0. There is also a free version of that compiler, but you may have to modify the compiler options in the two build scripts.
-- A build of the [**Kamek**](https://github.com/Treeki/Kamek) linker.
-- **Python 3.7** or newer
-- Knowledge of *C** / **C++** / **PowerPC**
 
-Setup is easy. Put the CodeWarrior files (*mwcceppc.exe*, etc.) in ``deps/CodeWarrior`` and the Kamek files in ``deps/Kamek``. Now, try to run the build scripts to check if it recognizes the tools.
+- The **CodeWarrior PPC EABI C/C++ Compiler**, preferrably application version 4.3.0.172. There is also a free version of that compiler, but you may have to modify the compiler options in the two build scripts.
+- A build of the [**Kamek**](https://github.com/Treeki/Kamek) linker.
+- Knowledge of **C** / **C++** / **PowerPC**.
+- **Python 3.7** or newer.
 
 # Building
+Setup is easy. Put the CodeWarrior files (*mwcceppc.exe*, etc.) in ``deps/CodeWarrior`` and the Kamek files in ``deps/Kamek``. Now, try to run the build scripts to check if they recognize the tools.
+
 Provided you have all the requirements set up, building is very easy. To build a binary of your new custom code, run:
 ```python build.py REGION```, where REGION is the game's target region to build for.
 
@@ -20,15 +33,8 @@ To build the loader, run this instead:
 The following region targets exist:
 - **PAL**: European/Australian releases
 - **USA**: American releases
-- **JAP**: Japanese releases
+- **JPN**: Japanese releases
 - **TWN**: Taiwanese releases
 - **KOR**: Korean releases
 
-The generated XML patches for Riivolution can be found in the *loader* folder.
-
-# What is supplied
-Four C++ code files are supplied with this kit, as a starting point for your own custom code hacks:
-- **init.cpp** initializes static structures and instances when loading in the custom code.
-- **archive.cpp** is an implemention of a simplified archive loader. It can be used to mount any archive from the game's filesystem and access its stored files.
-- **factory.cpp** is an implementation of an extended actor list. Instead of replacing actors for new ones, we simply make our own separate table and load that if the first NameObj creation function finder fails.
-- **SceneChangeArea.cpp** is a complete reimplementation of SceneChangeArea::control. It takes two arguments in, *Obj_arg0* accesses a list to which Galaxy to go to, and **Obj_arg1** determines the white fade time.
+The generated XML patches for Riivolution can be found in the *bin* folder.
