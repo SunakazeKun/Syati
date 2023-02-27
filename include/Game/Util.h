@@ -11,15 +11,16 @@
 #include "Game/Util/ActorInitUtil.h"
 #include "Game/Util/ActorMovementUtil.h"            // unfinished
 #include "Game/Util/ActorSensorUtil.h"
-// ActorShadowLocalUtil
-#include "Game/Util/ActorShadowUtil.h"              // unfinished
-// "two unknown functions"
+#include "Game/Util/ActorShadowLocalUtil.h"         // unfinished
+#include "Game/Util/ActorShadowUtil.h"
+#include "Game/Util/ActorSoundUtil.h"
 #include "Game/Util/ActorStateUtil.h"
 #include "Game/Util/ActorSwitchUtil.h"
 #include "Game/Util/BgmUtil.h"                      // unfinished
-// BitArray
+#include "Game/Util/BitArray.h"
 #include "Game/Util/CameraUtil.h"                   // unfinished
-// "three groups of unknown util functions"
+#include "Game/Util/ChildObjUtil.h"
+// "two groups of unknown util functions"
 #include "Game/Util/DemoUtil.h"                     // unfinished
 // DrawUtil
 #include "Game/Util/EffectUtil.h"
@@ -47,7 +48,7 @@
 #include "Game/Util/ModelUtil.h"                    // unfinished
 #include "Game/Util/MtxUtil.h"                      // unfinished
 // MultiEventCamera
-// NerveUtil
+#include "Game/Util/NerveUtil.h"                    // unfinished
 #include "Game/Util/NPCUtil.h"                      // unfinished
 #include "Game/Util/ObjUtil.h"                      // unfinished
 #include "Game/Util/ParabolicPath.h"                // unfinished

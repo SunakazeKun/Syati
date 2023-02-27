@@ -3,80 +3,88 @@
 #include "revolution.h"
 #include "JSystem.h"
 
+/* FINISHED */
+
 class Color8;
 class HitSensor;
 class LiveActor;
 
-// Complete
 namespace MR {
-    // This belongs to ActorShadowLocalUtil
-    void initShadowFromCSV(LiveActor *, const char *, bool);
+    void initShadowFromCSVWithInitShadowVolumeSphere(LiveActor *pActor, const char *pShadowName);
+    void initShadowFromCSVWithoutInitShadowVolumeSphere(LiveActor *pActor, const char *pShadowName);
+    void initShadowControllerList(LiveActor *pActor, u32 shadowCount);
 
-    void initShadowFromCSVWithInitShadowVolumeSphere(LiveActor *, const char *);
-    void initShadowFromCSVWithoutInitShadowVolumeSphere(LiveActor *, const char *);
-    void initShadowControllerList(LiveActor *, u32);
-    void addShadowVolumeOval(LiveActor *, const char *, const TVec3f &, MtxPtr);
-    void addShadowVolumeCylinder(LiveActor *, const char *, f32);
-    void addShadowVolumeBox(LiveActor *, const char *, const TVec3f &);
-    void addShadowVolumeBox(LiveActor *, const char *, const TVec3f &, MtxPtr);
-    void addShadowVolumeLine(LiveActor *, const char *, LiveActor *, const char *, f32, LiveActor *, const char *, f32);
-    void addShadowVolumeFlatModel(LiveActor *, const char *, const char *, MtxPtr);
-    void initShadowSurfaceCircle(LiveActor *, f32);
-    void initShadowVolumeSphere(LiveActor *, f32);
-    void initShadowVolumeOval(LiveActor *, const TVec3f &);
-    void initShadowVolumeCylinder(LiveActor *, f32);
-    void initShadowVolumeFlatModel(LiveActor *, const char *, MtxPtr);
-    void setShadowDropPositionPtr(LiveActor *, const char *, const TVec3f *);
-    void setShadowDropPositionMtxPtr(LiveActor *, const char *, MtxPtr, const TVec3f &);
-    void setShadowDropPositionAtJoint(LiveActor *, const char *, const char *, const TVec3f &);
-    void setShadowDropDirectionPtr(LiveActor *, const char *, const TVec3f *);
-    void setShadowDropDirectionPtrAll(LiveActor *, const TVec3f *);
-    void setShadowProjectionPtr(LiveActor *, const char *, const TVec3f *, const TVec3f *);
-    void setShadowDropPosition(LiveActor *, const char *, const TVec3f &);
-    void setShadowDropDirection(LiveActor *, const char *, const TVec3f &);
-    void setShadowDropLength(LiveActor *, const char *, f32);
-    void setShadowProjection(LiveActor *, const char *, const TVec3f &, const TVec3f &, bool);
-    void setShadowSurfaceOvalColor(LiveActor *, const char *, Color8);
-    void setShadowSurfaceOvalAlpha(LiveActor *, const char *, u8);
-    void setShadowVolumeSphereRadius(LiveActor *, const char *, f32);
-    void setShadowVolumeCylinderRadius(LiveActor *, const char *, f32);
-    void setShadowVolumeBoxSize(LiveActor *, const char *, const TVec3f &);
-    void setShadowVolumeStartDropOffset(LiveActor *, const char *, f32);
-    void setShadowVolumeEndDropOffset(LiveActor *, const char *, f32);
-    void onShadowVolumeCutDropLength(LiveActor *, const char *);
-    void onCalcShadow(LiveActor *, const char *);
-    void offCalcShadow(LiveActor *, const char *);
-    void onCalcShadowOneTime(LiveActor *, const char *);
-    void onCalcShadowAll(LiveActor *);
-    void offCalcShadowAll(LiveActor *);
-    void onCalcShadowOneTimeAll(LiveActor *);
-    void onCalcShadowDropGravity(LiveActor *, const char *);
-    void onCalcShadowDropGravityOneTime(LiveActor *, const char *);
-    void onCalcShadowDropPrivateGravity(LiveActor *, const char *);
-    void onCalcShadowDropPrivateGravityOneTime(LiveActor *, const char *);
-    void offCalcShadowDropPrivateGravity(LiveActor *, const char *);
-    void excludeCalcShadowToMyCollision(LiveActor *, const char *);
-    void excludeCalcShadowToSensorAll(LiveActor *, const HitSensor *);
-    void excludeCalcShadowToActorAll(LiveActor *, const LiveActor *);
-    bool isExistShadow(const LiveActor *, const char *);
-    bool isExistShadows(const LiveActor *);
-    void invalidateShadow(LiveActor *, const char *);
-    void validateShadow(LiveActor *, const char *);
-    void validateShadowGroup(LiveActor *, const char *);
-    void invalidateShadowAll(LiveActor *);
-    void validateShadowAll(LiveActor *);
-    void offShadowVisibleSyncHost(LiveActor *, const char *);
-    void onShadowVisibleSyncHostAll(LiveActor *);
-    void offShadowVisibleSyncHostAll(LiveActor *);
-    void onShadowFollowHostScale(LiveActor *, const char *);
-    void onShadowFollowHostScaleAll(LiveActor *);
-    void calcClippingRangeIncludeShadow(TVec3f *, f32 *, const LiveActor *, f32);
-    void setClippingRangeIncludeShadow(LiveActor *, TVec3f *, f32);
-    bool isShadowProjected(const LiveActor *, const char *);
-    void getShadowProjectionPos(const LiveActor *, const char *, TVec3f *);
-    void getShadowProjectionNormal(const LiveActor *, const char *, TVec3f *);
-    f32 getShadowProjectionLength(const LiveActor *, const char *);
-    HitSensor* getShadowProjectedSensor(const LiveActor *, const char *);
-    bool isShadowProjectedAny(const LiveActor *);
-    f32 getShadowNearProjectionLength(const LiveActor *);
+    void addShadowVolumeOval(LiveActor *pActor, const char *pShadowName, const TVec3f &rSize, MtxPtr pDropPosMtx);
+    void addShadowVolumeCylinder(LiveActor *pActor, const char *pShadowName, f32 radius);
+    void addShadowVolumeBox(LiveActor *pActor, const char *pShadowName, const TVec3f &rSize);
+    void addShadowVolumeBox(LiveActor *pActor, const char *pShadowName, const TVec3f &rSize, MtxPtr pDropPosMtx);
+    void addShadowVolumeLine(LiveActor *pActor, const char *pShadowName, LiveActor *pStartActor, const char *pStartShadowName, f32 fromWidth, LiveActor *pEndActor, const char *pEndShadowName, f32 toWidth);
+    void addShadowVolumeFlatModel(LiveActor *pActor, const char *pShadowName, const char *pShadowModelName, MtxPtr pDropPosMtx);
+
+    void initShadowSurfaceCircle(LiveActor *pActor, f32 radius);
+    void initShadowVolumeSphere(LiveActor *pActor, f32 radius);
+    void initShadowVolumeOval(LiveActor *pActor, const TVec3f &rSize);
+    void initShadowVolumeCylinder(LiveActor *pActor, f32 radius);
+    void initShadowVolumeFlatModel(LiveActor *pActor, const char *pShadowModelName, MtxPtr pDropPosMtx);
+
+    void setShadowDropPositionPtr(LiveActor *pActor, const char *pShadowName, const TVec3f *pDropPos);
+    void setShadowDropPositionMtxPtr(LiveActor *pActor, const char *pShadowName, MtxPtr pDropPosMtx, const TVec3f &rOffset);
+    void setShadowDropPositionAtJoint(LiveActor *pActor, const char *pShadowName, const char *pJointName, const TVec3f &rOffset);
+    void setShadowDropDirectionPtr(LiveActor *pActor, const char *pShadowName, const TVec3f *pDropDir);
+    void setShadowDropDirectionPtrAll(LiveActor *pActor, const TVec3f *pDropDir);
+    void setShadowProjectionPtr(LiveActor *pActor, const char *pShadowName, const TVec3f *pProjPos, const TVec3f *pProjNormal);
+    void setShadowDropPosition(LiveActor *pActor, const char *pShadowName, const TVec3f &rDropPos);
+    void setShadowDropDirection(LiveActor *pActor, const char *pShadowName, const TVec3f &rDropDir);
+    void setShadowDropLength(LiveActor *pActor, const char *pShadowName, f32 length);
+    void setShadowProjection(LiveActor *pActor, const char *pShadowName, const TVec3f &rProjPos, const TVec3f &rProjNormal, bool fix);
+    void setShadowSurfaceOvalColor(LiveActor *pActor, const char *pShadowName, Color8 color);
+    void setShadowSurfaceOvalAlpha(LiveActor *pActor, const char *pShadowName, u8 alpha);
+    void setShadowVolumeSphereRadius(LiveActor *pActor, const char *pShadowName, f32 radius);
+    void setShadowVolumeCylinderRadius(LiveActor *pActor, const char *pShadowName, f32 radius);
+    void setShadowVolumeBoxSize(LiveActor *pActor, const char *pShadowName, const TVec3f &rSize);
+    void setShadowVolumeStartDropOffset(LiveActor *pActor, const char *pShadowName, f32 startDropOffset);
+    void setShadowVolumeEndDropOffset(LiveActor *pActor, const char *pShadowName, f32 endDropOffset);
+
+    void onShadowVolumeCutDropLength(LiveActor *pActor, const char *pShadowName);
+    void onCalcShadow(LiveActor *pActor, const char *pShadowName);
+    void offCalcShadow(LiveActor *pActor, const char *pShadowName);
+    void onCalcShadowOneTime(LiveActor *pActor, const char *pShadowName);
+    void onCalcShadowAll(LiveActor *pActor);
+    void offCalcShadowAll(LiveActor *pActor);
+    void onCalcShadowOneTimeAll(LiveActor *pActor);
+    void onCalcShadowDropGravity(LiveActor *pActor, const char *pShadowName);
+    void onCalcShadowDropGravityOneTime(LiveActor *pActor, const char *pShadowName);
+    void onCalcShadowDropPrivateGravity(LiveActor *pActor, const char *pShadowName);
+    void onCalcShadowDropPrivateGravityOneTime(LiveActor *pActor, const char *pShadowName);
+    void offCalcShadowDropPrivateGravity(LiveActor *pActor, const char *pShadowName);
+
+    void excludeCalcShadowToMyCollision(LiveActor *pActor, const char *pShadowName);
+    void excludeCalcShadowToSensorAll(LiveActor *pActor, const HitSensor *pExcludeSensor);
+    void excludeCalcShadowToActorAll(LiveActor *pActor, const LiveActor *pExcludeActor);
+
+    bool isExistShadow(const LiveActor *pActor, const char *pShadowName);
+    bool isExistShadows(const LiveActor *pActor);
+
+    void invalidateShadow(LiveActor *pActor, const char *pShadowName);
+    void validateShadow(LiveActor *pActor, const char *pShadowName);
+    void validateShadowGroup(LiveActor *pActor, const char *pShadowName);
+    void invalidateShadowAll(LiveActor *pActor);
+    void validateShadowAll(LiveActor *pActor);
+
+    void offShadowVisibleSyncHost(LiveActor *pActor, const char *pShadowName);
+    void onShadowVisibleSyncHostAll(LiveActor *pActor);
+    void offShadowVisibleSyncHostAll(LiveActor *pActor);
+    void onShadowFollowHostScale(LiveActor *pActor, const char *pShadowName);
+    void onShadowFollowHostScaleAll(LiveActor *pActor);
+
+    void calcClippingRangeIncludeShadow(TVec3f *pClippingPos, f32 *pClippingRadius, const LiveActor *pActor, f32 minRadius);
+    void setClippingRangeIncludeShadow(LiveActor *pActor, TVec3f *pClippingPos, f32 clippingRadius);
+
+    bool isShadowProjected(const LiveActor *pActor, const char *pShadowName);
+    void getShadowProjectionPos(const LiveActor *pActor, const char *pShadowName, TVec3f *pDest);
+    void getShadowProjectionNormal(const LiveActor *pActor, const char *pShadowName, TVec3f *pDest);
+    f32 getShadowProjectionLength(const LiveActor *pActor, const char *pShadowName);
+    HitSensor* getShadowProjectedSensor(const LiveActor *pActor, const char *pShadowName);
+    bool isShadowProjectedAny(const LiveActor *pActor);
+    f32 getShadowNearProjectionLength(const LiveActor *pActor);
 };
