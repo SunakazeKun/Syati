@@ -123,6 +123,7 @@ namespace MR {
     f32 calcNerveEaseOutValue(const LiveActor *, s32, s32, f32, f32);
     f32 calcNerveEaseInOutValue(const LiveActor *, s32, f32, f32);
     f32 calcNerveEaseInOutValue(const LiveActor *, s32, s32, f32, f32);
+    f32 calcNerveParabolaValue(const LiveActor *, s32);
 
     void setNerveAtStep(LiveActor *, const Nerve *, s32);
     void setNerveAtBckStopped(LiveActor *, const Nerve *);

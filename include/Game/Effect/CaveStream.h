@@ -9,4 +9,5 @@ public:
     CaveStream(const char *pName);
 
     virtual ~CaveStream();
+    virtual void init(const JMapInfoIter &rIter);
 };
