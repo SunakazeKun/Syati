@@ -3,6 +3,7 @@
 #include "revolution.h"
 #include "Game/Map/CollisionParts.h";
 #include "Game/Map/HitInfo.h";
+#include "Game/Util/CollisionPartsFilter.h"
 
 class Binder {
 public:

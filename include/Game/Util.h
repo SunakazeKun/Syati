@@ -73,7 +73,7 @@
 #include "Game/Util/AreaObjUtil.h"                  // unfinished
 #include "Game/Util/BaseMatrixFollowTargetHolder.h" // unfinished
 #include "Game/Util/BothDirPtrList.h"
-// CollisionPartsFilter
+#include "Game/Util/CollisionPartsFilter.h"
 // DirectDraw
 // DirectDrawUtil
 #include "Game/Util/FixedPosition.h"                // unfinished
