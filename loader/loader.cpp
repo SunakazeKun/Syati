@@ -6,7 +6,7 @@
 * than 80 KB of custom code (including .text and .bss from the CustomCode binaries). If our code requires more space,
 * the loader will expand SystemHeap's memory by taking away some from HeapNapa/SceneHeapNapa.
 */
-#define CUSTOM_CODE_EXPANSION_KB 80
+#define CUSTOM_CODE_EXPANSION_KB 100
 
 namespace {
 	/*****************************************************************************************************************/

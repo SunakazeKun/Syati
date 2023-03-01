@@ -15,6 +15,8 @@ namespace MR {
 	void setTextBoxNumberRecursive(LayoutActor* layout, const char* paneName, s32);
 	void showPaneRecursive(LayoutActor *pLayout, const char *pPaneName);
 	void hidePaneRecursive(LayoutActor *pLayout, const char *pPaneName);
+	void showPane(LayoutActor *pLayout, const char *pPaneName);
+	void hidePane(LayoutActor *pLayout, const char *pPaneName);
 
 	void calcScreenPosition(TVec2f*, const TVec3f&);
 
@@ -27,6 +29,8 @@ namespace MR {
 	void startAnimAndSetFrameAndStop(LayoutActor *, const char *, f32, u32);
 	void startPaneAnim(LayoutActor *, const char*, const char*, u32);
 	bool isAnimStopped(const LayoutActor *, u32);
+	void setAnimFrameAndStop(LayoutActor*, f32, u32);
+	void startAnimAtFirstStep(LayoutActor* actor, const char*, u32);
 
 	void setAnimRate(LayoutActor *pLayout, f32 f, u32 rate);
 	bool isStep(const LayoutActor *pLayout, s32 step);
