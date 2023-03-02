@@ -5,7 +5,7 @@
 #include "Game/Util/Color8.h"
 #include "Game/Util/Functor.h"                      // unfinished
 
-// ActionUtil(?)
+#include "Game/Util/ActionSoundUtil.h"              // unfinished
 #include "Game/Util/ActorAnimUtil.h"                // unfinished
 #include "Game/Util/ActorCameraUtil.h"
 #include "Game/Util/ActorInitUtil.h"

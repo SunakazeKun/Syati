@@ -4,164 +4,203 @@
 #include "JSystem.h"
 #include "Game/Util/Functor.h"
 
-class NameObj;
-class LayoutActor;
-class LiveActor;
-class ResourceHolder;
-class StageSwitchCtrl;
+class BenefitItemLifeUp;
+class BenefitItemOneUp;
 class JMapInfo;
 class JMapInfoIter;
+class LayoutActor;
+class LiveActor;
+class ModelObj;
+class NameObj;
+class NameObjAdaptor;
+class ResourceHolder;
+class StageSwitchCtrl;
 
 namespace MR {
-    bool isJudgedToClipFrustum(const TVec3f &, f32);
+    bool isJudgedToClipFrustum(const TVec3f &rPosition, f32 radius);
+    bool isJudgedToClipFrustum50m(const TVec3f &rPosition, f32 radius);
+    bool isJudgedToClipFrustum300m(const TVec3f &rPosition, f32 radius);
+    bool isJudgedToNearClip(const TVec3f &rPosition, f32 radius);
 
-    bool isJudgedToClipFrustum300m(const TVec3f &, f32);
-    bool isJudgedToNearClip(const TVec3f &, f32);
+    void initialize(NameObj *pObj, const JMapInfoIter &rIterrIter);
 
-    bool isInWater(const TVec3f &);
-    bool isInDeath(const TVec3f &);
-    bool isInDarkMatter(const TVec3f &);
+    bool isInWater(const TVec3f &rPosition);
+    bool isInDeath(const TVec3f &rPosition);
+    bool isInDarkMatter(const TVec3f &rPosition);
 
-    void connectToScene(NameObj *, int movementType, int calcAnimType, int drawBufferType, int drawType);
-    void connectToSceneCollisionMapObj(LiveActor *);
-    void connectToSceneCollisionMapObjWeakLight(LiveActor *);
-    void connectToSceneCollisionMapObjStrongLight(LiveActor *);
-    void connectToSceneCollisionEnemy(LiveActor *);
-    void connectToSceneCollisionEnemyStrongLight(LiveActor *);
-    void connectToSceneCollisionEnemyNoShadowedMapObjStrongLight(LiveActor *);
-    void connectToSceneNpc(LiveActor *);
-    void connectToSceneNpcMovement(LiveActor *);
-    void connectToSceneRide(LiveActor *);
-    void connectToSceneEnemy(LiveActor *);
-    void connectToSceneEnemyMovement(NameObj *);
-    void connectToSceneMapObj(LiveActor *);
-    void connectToSceneMapObjMovement(NameObj *);
-    void connectToSceneMapObjMovementCalcAnim(NameObj *);
-    void connectToSceneMapObjNoMovement(LiveActor *);
-    void connectToSceneMapObjNoCalcAnim(LiveActor *);
-    void connectToSceneMapObjNoCalcAnimStrongLight(LiveActor *);
-    void connectToSceneMapObjDecoration(LiveActor *);
-    void connectToSceneMapObjDecorationStrongLight(LiveActor *);
-    void connectToSceneMapObjDecorationMovement(NameObj *);
-    void connectToSceneMapObjStrongLight(LiveActor *);
-    void connectToScenePlanet(LiveActor *);
-    void connectToSceneEnvironment(LiveActor *);
-    void connectToSceneEnvironmentStrongLight(LiveActor *);
-    void connectToClippedMapParts(LiveActor *);
-    void connectToSceneEnemyDecoration(LiveActor *);
-    void connectToSceneEnemyDecorationMovement(NameObj *);
-    void connectToSceneEnemyDecorationMovementCalcAnim(NameObj *);
-    void connectToSceneItem(LiveActor *);
-    void connectToSceneItemStrongLight(LiveActor *);
-    void connectToSceneIndirectEnemy(LiveActor *);
-    void connectToSceneIndirectNpc(LiveActor *);
-    void connectToSceneIndirectMapObj(LiveActor *);
-    void connectToSceneIndirectMapObjStrongLight(LiveActor *);
-    void connectToSceneScreenEffectMovement(NameObj *);
-    void connectToSceneAreaObj(NameObj *);
-    void connectToScene3DModelFor2D(LiveActor *);
-    void connectToSceneLayout(NameObj *);
+    void connectToScene(LiveActor *pActor, int movementType, int calcAnimType, int drawBufferType, int drawType);
+    void connectToScene(NameObj *pObj, int movementType, int calcAnimType, int drawBufferType, int drawType);
+    void connectToSceneCollisionMapObj(LiveActor *pActor);
+    void connectToSceneCollisionMapObjWeakLight(LiveActor *pActor);
+    void connectToSceneCollisionMapObjStrongLight(LiveActor *pActor);
+    void connectToSceneCollisionEnemy(LiveActor *pActor);
+    void connectToSceneCollisionEnemyStrongLight(LiveActor *pActor);
+    void connectToSceneCollisionEnemyNoShadowedMapObjStrongLight(LiveActor *pActor);
+    void connectToSceneNpc(LiveActor *pActor);
+    void connectToSceneNpcMovement(LiveActor *pActor);
+    void connectToSceneRide(LiveActor *pActor);
+    void connectToSceneEnemy(LiveActor *pActor);
+    void connectToSceneEnemyMovement(NameObj *pObj);
+    void connectToSceneMapObj(LiveActor *pActor);
+    void connectToSceneMapObjMovement(NameObj *pObj);
+    void connectToSceneMapObjMovementCalcAnim(NameObj *pObj);
+    void connectToSceneMapObjNoMovement(LiveActor *pActor);
+    void connectToSceneMapObjNoCalcAnim(LiveActor *pActor);
+    void connectToSceneMapObjNoCalcAnimStrongLight(LiveActor *pActor);
+    void connectToSceneMapObjDecoration(LiveActor *pActor);
+    void connectToSceneMapObjDecorationStrongLight(LiveActor *pActor);
+    void connectToSceneMapObjDecorationMovement(NameObj *pObj);
+    void connectToSceneMapObjStrongLight(LiveActor *pActor);
+    void connectToScenePlanet(LiveActor *pActor);
+    void connectToSceneEnvironment(LiveActor *pActor);
+    void connectToSceneEnvironmentStrongLight(LiveActor *pActor);
+    void connectToClippedMapParts(LiveActor *pActor);
+    void connectToSceneEnemyDecoration(LiveActor *pActor);
+    void connectToSceneEnemyDecorationMovement(NameObj *pObj);
+    void connectToSceneEnemyDecorationMovementCalcAnim(NameObj *pObj);
+    void connectToSceneItem(LiveActor *pActor);
+    void connectToSceneItemStrongLight(LiveActor *pActor);
+    void connectToSceneIndirectEnemy(LiveActor *pActor);
+    void connectToSceneIndirectNpc(LiveActor *pActor);
+    void connectToSceneIndirectMapObj(LiveActor *pActor);
+    void connectToSceneIndirectMapObjStrongLight(LiveActor *pActor);
+    void connectToSceneScreenEffectMovement(NameObj *pObj);
+    void connectToSceneAreaObj(NameObj *pObj);
+    void connectToScene3DModelFor2D(LiveActor *pActor);
+    void connectToSceneLayout(NameObj *pObj);
+    // one unknown function
+    void connectToSceneLayoutMovementCalcAnim(NameObj *pObj);
+    void connectToSceneLayoutDecoration(NameObj *pObj);
+    void connectToSceneLayoutFileSelect(NameObj *pObj);
+    void connectToSceneTalkLayout(NameObj *pObj);
+    void connectToSceneWipeLayout(NameObj *pObj);
+    void connectToSceneLayoutOnPause(NameObj *pObj);
+    void connectToSceneLayoutMovement(NameObj *pObj);
+    void connectToSceneMirrorMapObj(LiveActor *pActor);
+    void connectToSceneMirrorMapObjDecoration(LiveActor *pActor);
+    void connectToSceneCamera(NameObj *pObj);
+    void connectToSceneNoShadowedMapObj(LiveActor *pActor);
+    void connectToSceneNoShadowedMapObjStrongLight(LiveActor *pActor);
+    void connectToSceneNoSilhouettedMapObj(LiveActor *pActor);
+    void connectToSceneNoSilhouettedMapObjStrongLight(LiveActor *pActor);
+    void connectToSceneNoSilhouettedMapObjStrongLightCalcAnim(LiveActor *pActor);
+    void connectToSceneNoSilhouettedMapObjWeakLightCalcAnim(LiveActor *pActor);
+    void connectToSceneSwitchingScreenEffect(LiveActor *pActor);
+    void connectToSceneSky(LiveActor *pActor);
+    void connectToSceneAir(LiveActor *pActor);
+    void connectToSceneSun(LiveActor *pActor);
+    void connectToSceneWorldMapMiniObj(LiveActor *pActor);
+    void connectToSceneWorldMapIcon(LiveActor *pActor);
+    void connectToSceneSuperDreamer(LiveActor *pActor);
 
-    void connectToSceneLayoutMovementCalcAnim(NameObj *);
-    void connectToSceneLayoutDecoration(NameObj *);
-    void connectToSceneLayoutFileSelect(NameObj *);
-    void connectToSceneTalkLayout(NameObj *);
-    void connectToSceneWipeLayout(NameObj *);
-    void connectToSceneLayoutOnPause(NameObj *);
-    void connectToSceneLayoutMovement(NameObj *);
-    void connectToSceneMirrorMapObj(LiveActor *);
-    void connectToSceneMirrorMapObjDecoration(LiveActor *);
-    void connectToSceneCamera(NameObj *);
-    void connectToSceneNoShadowedMapObj(LiveActor *);
-    void connectToSceneNoShadowedMapObjStrongLight(LiveActor *);
-    void connectToSceneNoSilhouettedMapObj(LiveActor *);
-    void connectToSceneNoSilhouettedMapObjStrongLight(LiveActor *);
-    void connectToSceneNoSilhouettedMapObjStrongLightCalcAnim(LiveActor *);
-    void connectToSceneNoSilhouettedMapObjWeakLightCalcAnim(LiveActor *);
-    void connectToSceneSwitchingScreenEffect(LiveActor *);
-    void connectToSceneSky(LiveActor *);
-    void connectToSceneAir(LiveActor *);
-    void connectToSceneSun(LiveActor *);
-    void connectToSceneWorldMapMiniObj(LiveActor *);
-    void connectToSceneWorldMapIcon(LiveActor *);
-    void connectToSceneSuperDreamer(LiveActor *);
-    void requestMovementOn(NameObj *);
-    void requestMovementOn(LiveActor *);
-    void requestMovementOn(LayoutActor *);
-    void requestMovementOff(NameObj *);
-    void requestMovementOff(LiveActor *);
-    void requestMovementOff(LayoutActor *);
-    void joinToNameObjGroup(NameObj *, const char *);
-    void registerPreDrawFunction(const MR::FunctorBase &, int);
+    void requestMovementOn(NameObj *pObj);
+    void requestMovementOn(LiveActor *pActor);
+    void requestMovementOn(LayoutActor *pLayout);
+    void requestMovementOff(NameObj *pObj);
+    void requestMovementOff(LiveActor *pActor);
+    void requestMovementOff(LayoutActor *pLayout);
 
-    void listenNameObjStageSwitchOnAppear(const NameObj *, const StageSwitchCtrl *, const MR::FunctorBase &);
-    void listenNameObjStageSwitchOnOffAppear(const NameObj *, const StageSwitchCtrl *, const MR::FunctorBase &, const MR::FunctorBase &);
-    void listenNameObjStageSwitchOnA(const NameObj *, const StageSwitchCtrl *, const MR::FunctorBase &);
-    void listenNameObjStageSwitchOnOffA(const NameObj *, const StageSwitchCtrl *, const MR::FunctorBase &, const MR::FunctorBase &);
-    void listenNameObjStageSwitchOnB(const NameObj *, const StageSwitchCtrl *, const MR::FunctorBase &);
-    void listenNameObjStageSwitchOffB(const NameObj *, const StageSwitchCtrl *, const MR::FunctorBase &);
-    void listenNameObjStageSwitchOnOffB(const NameObj *, const StageSwitchCtrl *, const MR::FunctorBase &, const MR::FunctorBase &);
+    void joinToNameObjGroup(NameObj *pObj, const char *pGroupName);
+    void registerPreDrawFunction(const MR::FunctorBase &rFunctor, int drawType);
+    void registerPreDrawFunctionIfNotExist(const MR::FunctorBase &rFunctor, int drawType);
 
-    // ResourceHolder stuff is found here
-    JMapInfo* createCsvParser(const ResourceHolder *, const char *, ...);
-    JMapInfo* createCsvParser(const char *, const char *, ...);
-    JMapInfo* tryCreateCsvParser(const ResourceHolder *, const char *, ...);
-    JMapInfo* tryCreateCsvParser(const LiveActor *, const char *, ...);
+    NameObjAdaptor* createDrawAdapter(const char *pName, int drawType, const MR::FunctorBase &rFunctor);
+    NameObjAdaptor* createAdaptorAndConnectToDrawBloomModel(const char *pName, const MR::FunctorBase &rFunctor);
 
-    s32 getCsvDataElementNum(const JMapInfo *);
-    bool getCsvDataStr(const char **, const JMapInfo *, const char *, s32);
-    void getCsvDataStrOrNULL(const char **, const JMapInfo *, const char *, s32);
-    bool getCsvDataS32(s32 *, const JMapInfo *, const char *, s32);
-    bool getCsvDataU32(s32 *, const JMapInfo *, const char *, s32);
-    bool getCsvDataS16(s16 *, const JMapInfo *, const char *, s32);
-    void getCsvDataU8(u8 *, const JMapInfo *, const char *, s32);
-    void getCsvDataF32(f32 *, const JMapInfo *, const char *, s32);
-    void getCsvDataBool(bool *, const JMapInfo *, const char *, s32);
-    void getCsvDataVec(Vec *, const JMapInfo *, const char *, s32);
+    void listenNameObjStageSwitchOnAppear(const NameObj *pObj, const StageSwitchCtrl *pStageSwitchCtrl, const MR::FunctorBase &rFunctor);
+    void listenNameObjStageSwitchOnOffAppear(const NameObj *pObj, const StageSwitchCtrl *pStageSwitchCtrl, const MR::FunctorBase &rFunctorOn, const MR::FunctorBase &rFunctorOff);
+    void listenNameObjStageSwitchOnA(const NameObj *pObj, const StageSwitchCtrl *pStageSwitchCtrl, const MR::FunctorBase &rFunctor);
+    void listenNameObjStageSwitchOnOffA(const NameObj *pObj, const StageSwitchCtrl *pStageSwitchCtrl, const MR::FunctorBase &rFunctorOn, const MR::FunctorBase &rFunctorOff);
+    void listenNameObjStageSwitchOnB(const NameObj *pObj, const StageSwitchCtrl *pStageSwitchCtrl, const MR::FunctorBase &rFunctor);
+    void listenNameObjStageSwitchOffB(const NameObj *pObj, const StageSwitchCtrl *pStageSwitchCtrl, const MR::FunctorBase &rFunctor);
+    void listenNameObjStageSwitchOnOffB(const NameObj *pObj, const StageSwitchCtrl *pStageSwitchCtrl, const MR::FunctorBase &rFunctorOn, const MR::FunctorBase &rFunctorOff);
 
-    void declarePowerStar(const NameObj *);
-    void declarePowerStar(const NameObj *, s32);
+    ResourceHolder* createAndAddResourceHolder(const char *pObjName);
+    // more ResourceHolder stuff...
+    bool isExistFileInArc(const ResourceHolder *pResArc, const char *pPathFormat, ...);
+
+    const JMapInfo* createCsvParser(const ResourceHolder *pResArc, const char *pPathFormat, ...);
+    const JMapInfo* createCsvParser(const char *pArcName, const char *pPathFormat, ...);
+    const JMapInfo* tryCreateCsvParser(const ResourceHolder *pResArc, const char *pPathFormat, ...);
+    const JMapInfo* tryCreateCsvParser(const LiveActor *pActor, const char *pPathFormat, ...);
+    const JMapInfo* tryCreateCsvParser(const char *pArcName, const char *pPathFormat, ...);
+
+    const JMapInfo* tryCreateStageCsvParser(const char *pStageName, const char *pArcName, const char *pPathFormat, ...);
+    const JMapInfo* tryCreateStageZoneInfoCsvParser(const char *pPathFormat, ...);
+    const JMapInfo* tryCreateStageUseResourceCsvParser(const char *pStageName, const char *pPathFormat, ...);
+
+    s32 getCsvDataElementNum(const JMapInfo *pCsvData);
+    void getCsvDataStr(const char **pDest, const JMapInfo *pCsvData, const char *pItemName, s32 dataRow);
+    void getCsvDataStrOrNULL(const char **pDest, const JMapInfo *pCsvData, const char *pItemName, s32 dataRow);
+    void getCsvDataS32(s32 *pDest, const JMapInfo *pCsvData, const char *pItemName, s32 dataRow);
+    void getCsvDataU32(s32 *pDest, const JMapInfo *pCsvData, const char *pItemName, s32 dataRow);
+    void getCsvDataS16(s16 *pDest, const JMapInfo *pCsvData, const char *pItemName, s32 dataRow);
+    void getCsvDataU8(u8 *pDest, const JMapInfo *pCsvData, const char *pItemName, s32 dataRow);
+    void getCsvDataF32(f32 *pDest, const JMapInfo *pCsvData, const char *pItemName, s32 dataRow);
+    void getCsvDataBool(bool *pDest, const JMapInfo *pCsvData, const char *pItemName, s32 dataRow);
+    void getCsvDataVec(Vec *pDest, const JMapInfo *pCsvData, const char *pItemName, s32 dataRow);
+    void getCsvDataColor(GXColor *pDest, const JMapInfo *pCsvData, const char *pItemName, s32 dataRow);
+
+    bool hasCsvItem(const JMapInfo *, const char *pItemName);
+    bool hasCsvDataItem(const JMapInfo *, const char *pItemName, const char *pDataName);
+    // more csv functions...
+
+    void declarePowerStar(const NameObj *pHost);
+    void declarePowerStar(const NameObj *pHost, s32 powerStarId);
     void declarePowerStarCoin100();
-    void appearPowerStarContinueCurrentDemo(const NameObj *, const TVec3f &);
-    void appearPowerStarWithoutDemo(const NameObj *);
-
-    void requestAppearPowerStar(const NameObj *, const TVec3f &);
-    void requestAppearPowerStar(const NameObj *, s32, const TVec3f &);
-    void requestAppearPowerStar(const NameObj *, const LiveActor *, f32);
-
+    void appearPowerStarContinueCurrentDemo(const NameObj *pHost, const TVec3f &rPosition);
+    void appearPowerStarWithoutDemo(const NameObj *pHost);
+    void requestAppearPowerStar(const NameObj *pHost);
+    void requestAppearPowerStar(const NameObj *pHost, const TVec3f & rPosition);
+    void requestAppearPowerStar(const NameObj *pHost, s32 powerStarId, const TVec3f &rPosition);
+    void requestAppearPowerStar(const NameObj *pHost, const LiveActor *pFromActor, f32);
+    void requestAppearPowerStarFromBelow(const NameObj *pHost);
     void requestAppearPowerStarCoin100();
-    bool isEndPowerStarAppearDemo(const NameObj *);
-    NameObj* createPowerStarDemoModel(const NameObj *, const char *, MtxPtr);
-    void declareCoin(const NameObj *, s32);
-    s32 getDeclareRemnantCoinCount(const NameObj *);
+    bool isEndPowerStarAppearDemo(const NameObj *pHost);
 
-    bool hopCoin(const NameObj *, const TVec3f &, const TVec3f &);
-    bool appearCoinPop(const NameObj *, const TVec3f &, s32);
-    bool appearCoinPopToDirection(const NameObj *, const TVec3f &, const TVec3f &, s32);
+    ModelObj* createPowerStarDemoModel(const NameObj *pHost, const char *pName, MtxPtr pMtx);
 
-    bool appearCoinToVelocity(const NameObj *, const TVec3f &, const TVec3f &, s32);
-    bool appearCoinCircle(const NameObj *, const TVec3f &, const TVec3f &, s32);
-    void declareStarPiece(const NameObj *, s32);
-    s32 getDeclareRemnantStarPieceCount(const NameObj *);
-    s32 getDeclareRemnantStarPieceCountNotExist(const NameObj *);
-    void declareStarPieceReceiver(const NameObj *, s32);
-    void clearGotCountStarPieceReceiver(const NameObj *);
-    bool hopStarPiece(const NameObj *, const TVec3f &, const TVec3f &);
+    void declareCoin(const NameObj *pHost, s32 numItems);
+    s32 getDeclareRemnantCoinCount(const NameObj *pHost);
+    s32 getUncollectedCoinCount(const NameObj *pHost);
+    bool hopCoin(const NameObj *pHost, const TVec3f &rPosition, const TVec3f &rDirection);
+    bool appearCoinPop(const NameObj *pHost, const TVec3f &, s32 numItems);
+    bool appearCoinPopToDirection(const NameObj *pHost, const TVec3f &rPosition, const TVec3f &rDirection, s32 numItems);
+    bool appearCoinAgainstGravity(const NameObj *pHost, const TVec3f &rPosition, s32 numItems);
+    bool appearCoinToVelocity(const NameObj *pHost, const TVec3f &rPosition, const TVec3f &rVelocity, s32 numItems);
+    bool appearCoinCircle(const NameObj *pHost, const TVec3f &rPosition, s32 numItems);
+
+    void declareStarPiece(const NameObj *pHost, s32 numItems);
+    s32 getDeclareRemnantStarPieceCount(const NameObj *pHost);
+    s32 getDeclareRemnantStarPieceCountNotExist(const NameObj *pHost);
+    void declareStarPieceReceiver(const NameObj *pHost, s32);
+    void clearGotCountStarPieceReceiver(const NameObj *pHost);
+    bool hopStarPiece(const NameObj *pHost, const TVec3f &, const TVec3f &);
     bool appearStarPiece(const NameObj * pHost, const TVec3f & rPosition, s32 numItems, f32 radius, f32 height, bool);
-    bool appearStarPieceToDirection(const NameObj *, const TVec3f &, const TVec3f &, s32, f32, f32, bool);
-
+    bool appearStarPieceToDirection(const NameObj *pHost, const TVec3f &rPosition, const TVec3f &rDirection, s32 numItems, f32 radius, f32 height, bool);
+    // one unknown StarPiece function
     void initStarPieceGetCSSound();
 
-    void stopScene(s32);
-    void stopSceneForDefaultHit(s32);
-    bool tryRumblePad(const void *, const char *, s32);
-    bool tryRumblePadVeryStrong(const void *, s32);
-    bool tryRumblePadStrong(const void *, s32);
-    bool tryRumblePadMiddle(const void *, s32);
-    bool tryRumblePadWeak(const void *, s32);
-    bool tryRumblePadVeryWeak(const void *, s32);
+    BenefitItemOneUp* createKinokoOneUp();
+    void appearKinokoOneUp(BenefitItemOneUp *pKinoko, MtxPtr pMtx);
+    void appearKinokoOneUpPop(BenefitItemOneUp *pKinoko, MtxPtr pMtx);
+    void appearKinokoOneUpHop(BenefitItemOneUp *pKinoko, MtxPtr pMtx);
 
-    bool tryRumbleDefaultHit(const void *, s32);
+    BenefitItemLifeUp* createKinokoSuper();
+    void appearKinokoSuperPop(BenefitItemLifeUp *pKinoko, MtxPtr pMtx);
+
+    void stopScene(s32 duration);
+    void stopSceneForDefaultHit(s32 duration);
+
+    bool tryRumblePad(const void *pHost, const char *pPatternName, s32 wiimote);
+    bool tryRumblePadVeryStrong(const void *pHost, s32 wiimote);
+    bool tryRumblePadStrong(const void *pHost, s32 wiimote);
+    bool tryRumblePadMiddle(const void *pHost, s32 wiimote);
+    bool tryRumblePadWeak(const void *pHost, s32 wiimote);
+    bool tryRumblePadVeryWeak(const void *pHost, s32 wiimote);
+    bool tryRumblePadWeakAndVeryWeak(const void *pHost, s32 wiimote);
+    bool tryRumbleDefaultHit(const void *pHost, s32 wiimote);
+
     void shakeCameraVeryStrong();
     void shakeCameraStrong();
     void shakeCameraNormalStrong();
@@ -169,18 +208,20 @@ namespace MR {
     void shakeCameraNormalWeak();
     void shakeCameraWeak();
     void shakeCameraVeryWeak();
-    void shakeCameraInfinity(NameObj *, f32, f32);
-    void stopShakingCamera(NameObj *);
-    bool isName(const NameObj *, const char *);
-    bool isSame(const NameObj *, const NameObj *);
-    bool tryRegisterNamePosLinkObj(const NameObj *, const JMapInfoIter &, const char *);
+    void shakeCameraInfinity(NameObj *pHost, f32, f32);
+    void stopShakingCamera(NameObj *pHost);
 
-    bool tryFindLinkNamePos(const NameObj *, const char *, MtxPtr);
-    bool findNamePos(const char *, TVec3f *, TVec3f *);
-    bool findNamePosOnGround(const char *, MtxPtr);
+    bool isName(const NameObj *pObj, const char *pName);
+    bool isSame(const NameObj *pObjA, const NameObj *pObjB);
 
-    bool tryFindNamePos(const char *, TVec3f *, TVec3f *);
-    
-    bool tryFindLinkNamePos(const NameObj *, const char *, TVec3f *, TVec3f *);
-    bool tryFindLinkNamePos(const NameObj *, const char *, MtxPtr);
+    bool registerNamePosLinkObj(const NameObj *pLinkedObj, const JMapInfoIter &rIter, const char *pPosName);
+    bool tryRegisterNamePosLinkObj(const NameObj *pLinkedObj, const JMapInfoIter &rIter, const char *pPosName);
+    bool findNamePos(const char *pPosName, MtxPtr pMtx);
+    bool findNamePos(const char *pPosName, TVec3f *pPosition, TVec3f *pRotation);
+    bool findNamePosOnGround(const char *pPosName, MtxPtr pMtx);
+    bool tryFindNamePos(const char *pPosName, MtxPtr pMtx);
+    bool tryFindNamePos(const char *pPosName, TVec3f *pPosition, TVec3f *pRotation);
+    bool findLinkNamePos(const NameObj *pLinkedObj, const char *pPosName, MtxPtr pMtx);
+    bool tryFindLinkNamePos(const NameObj *pLinkedObj, const char *pPosName, TVec3f *pPosition, TVec3f *pRotation);
+    bool tryFindLinkNamePos(const NameObj *pLinkedObj, const char *pPosName, MtxPtr pMtx);
 };

@@ -2,6 +2,8 @@
 
 #include "revolution.h"
 
+/* FINISHED */
+
 class JMapInfoIter;
 class LiveActorGroup;
 class NameObj;
