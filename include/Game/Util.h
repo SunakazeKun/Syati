@@ -20,7 +20,8 @@
 #include "Game/Util/BitArray.h"
 #include "Game/Util/CameraUtil.h"                   // unfinished
 #include "Game/Util/ChildObjUtil.h"
-// "two groups of unknown util functions"
+#include "Game/Util/CSSoundUtil.h"
+// "unknown JKRHeap implementation"
 #include "Game/Util/DemoUtil.h"                     // unfinished
 // DrawUtil
 #include "Game/Util/EffectUtil.h"
