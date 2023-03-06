@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Game/Util/ActorMoveParam.h"               // unfinished
 #include "Game/Util/Array.h"                        // unfinished
 #include "Game/Util/Color8.h"
 #include "Game/Util/Functor.h"                      // unfinished
@@ -9,6 +8,7 @@
 #include "Game/Util/ActorAnimUtil.h"                // unfinished
 #include "Game/Util/ActorCameraUtil.h"
 #include "Game/Util/ActorInitUtil.h"
+#include "Game/Util/ActorMoveParamUtil.h"           // unfinished
 #include "Game/Util/ActorMovementUtil.h"            // unfinished
 #include "Game/Util/ActorSensorUtil.h"
 #include "Game/Util/ActorShadowLocalUtil.h"         // unfinished
@@ -60,7 +60,7 @@
 #include "Game/Util/SceneUtil.h"                    // unfinished
 // SchedulerUtil
 #include "Game/Util/ScreenUtil.h"                   // unfinished
-// SequenceUtil
+#include "Game/Util/SequenceUtil.h"
 // ShareUtil
 #include "Game/Util/SoundUtil.h"                    // unfinished
 #include "Game/Util/StarPointerUtil.h"              // unfinished
