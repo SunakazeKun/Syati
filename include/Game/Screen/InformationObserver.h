@@ -57,9 +57,9 @@ public:
     static void explainDrill();
     static void explainLifeUp();
     static void explainOneUp();
-    static void explainYoshi();
-    static void explainCometMedal();
-    static void explainMarioFacePlanet();
+    static void explainYoshi(LiveActor *pHost);
+    static void explainCometMedal(LiveActor *pHost);
+    static void explainMarioFacePlanet(LiveActor *pHost);
 };
 
 namespace NrvInformationObserver {

@@ -3,23 +3,29 @@
 #include "revolution.h"
 #include "JSystem.h"
 
+class JMapIdInfo;
+class JMapInfoIter;
+class LiveActor;
 class NameObj;
 
 namespace MR {
 	void incPlayerAndTryScenarioMissNum();
 	s32 getPlayerLeft();
-	void addPlayerLeft(int);
+	void addPlayerLeft(int lives);
 	void decPlayerLeft();
 	void incPlayerMissNum();
+
 	bool isPlayerLuigi();
+
 	s32 getStarPieceNum();
-	void addStarPiece(int);
-	void incCoin(int, LiveActor *);
-	void decCoin(int);
+	void addStarPiece(int itemCount);
+	void incCoin(int itemCount, LiveActor *pHost);
+	void decCoin(int itemCount);
 	s32 getCoinNum();
 	void incPurpleCoin();
 	s32 getPurpleCoinNum();
 	bool isPurpleCoinNum100();
+
 	void explainBeeMarioIfAtFirst();
 	void explainTeresaMarioIfAtFirst();
 	void explainHopperMarioIfAtFirst();
@@ -32,9 +38,10 @@ namespace MR {
 	void explainDrillIfAtFirst();
 	void explainLifeUpIfAtFirst();
 	void explainOneUpIfAtFirst();
-	void explainYoshiIfAtFirst();
-	void explainCometMedalIfAtFirst();
-	void explainMarioFacePlanetAtFirst();
+	void explainYoshiIfAtFirst(LiveActor *pHost);
+	void explainCometMedalIfAtFirst(LiveActor *pHost);
+	void explainMarioFacePlanetAtFirst(LiveActor *pHost);
+
 	void onGameEventFlagBeeMarioAtFirst();
 	void onGameEventFlagTeresaMarioAtFirst();
 	void onGameEventFlagHopperMarioAtFirst();
@@ -53,6 +60,7 @@ namespace MR {
 	void onGameEventFlagCometMedalAtFirst();
 	void onGameEventFlagSupportTicoAtFirst();
 	void onGameEventFlagKinopioBankAtFirst();
+
 	bool isOnGameEventFlagBeeMarioAtFirst();
 	bool isOnGameEventFlagTeresaMarioAtFirst();
 	bool isOnGameEventFlagHopperMarioAtFirst();
@@ -74,42 +82,58 @@ namespace MR {
 	bool isOnGameEventFlagNormalEnding();
 	bool isOnGameEventFlag120PowerStarsEnding();
 
-	bool isAlreadyVisitedCurrentStageAndScenario();
-	bool hasPowerStarInCurrentStage(s32);
-	bool isPowerStarGreenInCurrentStage(s32);
-	bool isPowerStarBronzeInCurrentStage(s32);
-	bool isGrandStarInCurrentStage(s32);
-	bool hasPowerStarInCurrentStageWithDeclared(const char *, s32);
-	bool isPowerStarGreenInCurrentStageWithDeclarer(const char *, s32);
-	bool isPowerStarBronzeInCurrentStageWithDeclarer(const char *, s32);
-	bool isGrandStarInCurrentStageWithDeclarer(const char *, s32);
-	bool isScenarioOpenInCurrentStageWithDeclarer(const char *);
+	bool isPreventDisplayInformationMessage();
 
-	bool isOnGameEventFlagPowerStarSuccess(const char *, s32);
-	bool hasGrandStar(int);
-	s32 getPowerStarNumOwnedInStage(const char *);
-	bool isPowerStarGreen(const char *, s32);
+	// four unknown functions
+
+	bool isAlreadyVisitedCurrentStageAndScenario();
+
+	bool hasPowerStarInCurrentStage(s32 powerStarId);
+	bool isPowerStarGreenInCurrentStage(s32 powerStarId);
+	bool isPowerStarBronzeInCurrentStage(s32 powerStarId);
+	bool isGrandStarInCurrentStage(s32 powerStarId);
+	bool hasPowerStarInCurrentStageWithDeclared(const char *pDeclarer, s32 powerStarId);
+	bool isPowerStarGreenInCurrentStageWithDeclarer(const char *pDeclarer, s32 powerStarId);
+	bool isPowerStarBronzeInCurrentStageWithDeclarer(const char *pDeclarer, s32 powerStarId);
+	bool isGrandStarInCurrentStageWithDeclarer(const char *pDeclarer, s32 powerStarId);
+	bool isScenarioOpenInCurrentStageWithDeclarer(const char *pDeclarer);
+	bool isPowerStarWithDeclarer(const char *pDeclarer, s32 powerStarId);
+	bool isOnGameEventFlagPowerStarSuccess(const char *pDeclarer, s32 powerStarId);
+	bool hasGrandStar(int grandStarId);
+	s32 getPowerStarNumOwnedInStage(const char *pStageName);
+	bool isPowerStarGreen(const char *pStageName, s32 powerStarId);
 	bool isPowerStarGreenInCurrentStage();
-	bool isPowerStarBronze(const char *, s32);
+	bool isPowerStarBronze(const char *pStageName, s32 powerStarId);
 
 	s32 getPowerStarNum();
+	s32 getPowerStarStageNum(const char *pStageName);
 
-	void setRaceBestTime(int, s32);
-	s32 getRaceBestTime(int);
+	void setRaceBestTime(int raceId, s32 bestTime);
+	s32 getRaceBestTime(int raceId);
 	s32 getRaceCurrentTime();
-	s32 registerStorageSpinDriverPathDrawRange(const NameObj *, const JMapInfoIter &, int, f32 *);
-	void updateStorageSpinDriverPathDrawRange(int, f32);
+
+	s32 registerStorageSpinDriverPathDrawRange(const NameObj *, const JMapInfoIter &, int, f32 *); // useless
+	void updateStorageSpinDriverPathDrawRange(int, f32); // useless
+
 	bool isGalaxyDarkCometAppearInCurrentStage();
 	bool isGalaxyQuickCometAppearInCurrentStage();
 	bool isGalaxyPurpleCometAppearInCurrentStage();
 	bool isGalaxyHorrorInCurrentStage();
 	bool isGalaxyRainbowInCurrentStage();
 
-	bool isGalaxyCompletedNoGreen(const char *);
-	bool isGalaxyCompletedWithGreen(const char *);
+	void startGalaxyCometEvent();
 
-	void setRestartMarioNo(const JMapIdInfo &);
-	bool isGhostLuigiOpenInStage(const char *, s32);
+	// various unknown functions
+
+	bool isGalaxyCompletedNoGreen(const char *pStageName);
+	bool isGalaxyCompletedWithGreen(const char *pStageName);
+
+	const JMapIdInfo* getRestartMarioNo();
+	void setRestartMarioNo(const JMapIdInfo &rIdInfo);
+
+	bool isGhostLuigiOpenInStage();
+
+	// various PostmanEvent functions
 
 	bool isIslandFleetGalaxy1FirstTime();
 };
