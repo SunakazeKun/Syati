@@ -21,6 +21,7 @@ class Nerve;
 class HitSensor;
 class PartsModel;
 class RailObj;
+class ResTIMG;
 class ResourceHolder;
 class TriangleFilterBase;
 
@@ -76,8 +77,8 @@ namespace MR {
 
     ResourceHolder* getResourceHolder(const LiveActor *pActor);
     ResourceHolder* getModelResourceHolder(const LiveActor *pActor);
-    // getTexFromModel
-    // getTexFromArc
+    ResTIMG* getTexFromModel(const char *pTexName, const LiveActor *pActor);
+    ResTIMG* getTexFromArc(const char *pBtiName, const LiveActor *pActor);
     const char* getModelResName(const LiveActor *pActor);
     bool isExistTexture(const LiveActor *pActor, const char *pTexName);
     bool isExistIndirectTexture(const LiveActor *pActor, const char *pTexName);
