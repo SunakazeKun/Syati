@@ -16,6 +16,7 @@ public:
 	bool getMiiId(void *) const;
 	bool getIconId(u32 *) const;
 	void isView120StarsEnding() const;
+	bool isViewNormalEnding() const;
 	void isComplete() const;
 	void getLastModified() const;
 	void hasGrandStar(int) const;

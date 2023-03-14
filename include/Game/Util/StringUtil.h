@@ -8,7 +8,7 @@ namespace MR {
     void addFilePrefix(char *pDest, u32 size, const char *pFileName, const char *pPrefix);
 
     void makeDateString(wchar_t *pDest, s32 size, s32, s32, s32);
-    void makeTimeString(wchar_t *pDest, s32 size, s32, s32, s32);
+    void makeTimeString(wchar_t *pDest, s32, s32, s32);
     void makePlayTimeString(wchar_t *pDest, s32 size, u32 playTime);
     void makeClearTimeString(wchar_t *pDest, u32 clearTime);
     void makeRaceBestTimeString(wchar_t *pDest, int raceIndex);
