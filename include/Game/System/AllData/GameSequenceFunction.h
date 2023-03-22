@@ -14,7 +14,7 @@ public:
 	static void startGameDataSaveSequence(bool, bool, bool);
 
 	static void changeSceneStageMarioFaceShipGalaxy(s32 spawnId, s32 scenario);
-
+	static void restartCurrentStageAndClearAfterMiss();
 	static void changeToScenarioSelect(const char *pStageName);
 
 	static bool hasStageResultSequence();

@@ -2,9 +2,15 @@
 
 #include "revolution.h"
 #include "Game/LiveActor/LiveActor.h"
+#include "Game/LiveActor/LodCtrl.h"
+#include "Game/LiveActor/PartsModel.h"
+#include "Game/Enemy/AnimScaleController.h"
+#include "Game/Player/YoshiLockOnTarget.h"
+#include "Game/NPC/TalkMessageCtrl.h"
 
 class NPCActorItem;
 class NPCActorCaps;
+class JointController;
 class JointControllerInfo;
 
 class NPCActor : public LiveActor {
@@ -19,12 +25,12 @@ public:
     virtual void makeActorDead();
     virtual void control();
     virtual void calcAndSetBaseMtx();
-    virtual void attackSensor(HitSensor *, HitSensor *);
-    virtual bool receiveMsgPlayerAttack(u32, HitSensor *, HitSensor *);
-    virtual bool receiveMsgEnemyAttack(u32, HitSensor *, HitSensor *);
-    virtual bool receiveOtherMsg(u32, HitSensor *, HitSensor *);
+    virtual void attackSensor(HitSensor *pSender, HitSensor *pReceiver);
+    virtual bool receiveMsgPlayerAttack(u32 msg, HitSensor *pSender, HitSensor *pReceiver);
+    virtual bool receiveMsgEnemyAttack(u32 msg, HitSensor *pSender, HitSensor *pReceiver);
+    virtual bool receiveOtherMsg(u32 msg, HitSensor *pSender, HitSensor *pReceiver);
     virtual bool isReactionNerve() const;
-    virtual bool isSensorSpinCloudBlock(const HitSensor *) const;
+    virtual bool isSensorSpinCloudBlock(const HitSensor *pSensor) const;
 
     void setBaseMtx(const TMtx34f &);
     void setInitPose();
@@ -51,35 +57,33 @@ public:
     void exeWait();
     void exeTalk();
 
-    u32 _90;
-    u32 _94;
-    LiveActor* mGoods0; // _98
-    LiveActor* mGoods1; // _9C
-    u32 _A0;
-    TVec3f _A4;
-    u32 _B0;
-    TVec3f _B4;
-    u32 _C0;
+    LodCtrl* mLodCtrl;               // _90
+    TalkMessageCtrl* mTalkCtrl;      // _94
+    PartsModel* mGoodsModel0;        // _98
+    PartsModel* mGoodsModel1;        // _9C
+    s32 mTrampleAttackDelay;         // _A0
+    TQuat4f mTurnDir;                // _A4
+    TQuat4f _B4;
     TVec3f _C4;
     TVec3f _D0;
-    u8 _DC;
-    u8 _DD;
-    u8 _DE;
-    u8 _DF;
-    u8 _E0;
-    u8 _E1;
-    u8 _E2;
-    u8 _E3;
-    u8 _E4;
-    u8 _E5;
-    u8 _E6;
-    u8 _E7;
-    u8 _E8;
-    u8 _E9;
-    u8 _EA;
-    u8 _EB;
-    u8 _EC;
-    u8 _ED;
+    bool mReactTrampleAttack;        // _DC
+    bool mReactSpinAttack;           // _DD
+    bool mReact2PPointerAttached;    // _DE
+    bool mReactAttack;               // _DF
+    bool mReactJetTurtleAttack;      // _E0
+    bool mConsumedTrampleAttack;     // _E1
+    bool mConsumedSpinAttack;        // _E2
+    bool mConsumed2PPointerAttached; // _E3
+    bool mConsumedAttack;            // _E4
+    bool mConsumedJetTurtleAttack;   // _E5
+    bool mRequestTrampleAttack;      // _E6
+    bool mRequestSpinAttack;         // _E7
+    bool mRequest2PPointerAttached;  // _E8
+    bool mRequestAttack;             // _E9
+    bool mRequestJetTurtleAttack;    // _EA
+    bool mRequestSupportTicoSpin;    // _EB
+    bool _EC;
+    bool _ED;
     f32 _F0;
     f32 _F4;
     f32 _F8;
@@ -98,20 +102,20 @@ public:
     u8 _129;
     u8 _12A;
     u8 _12B;
-    u8 _12C;
+    bool _12C;
     f32 _130;
-    const char *mActionSpin;
-    const char *mActionTrampled;
-    const char *mActionPointing;
-    const char *mActionReaction;
-    u32 _144;
-    u32 _148;
-    u32 _14C;
-    u32 _150;
-    Nerve* _154;
-    Nerve* _158;
-    Nerve* _15C;
-    u32 _160;
+    const char *mActionSpinName;           // _134
+    const char *mActionTrampledName;       // _138
+    const char *mActionPointingName;       // _13C
+    const char *mActionReactionName;       // _140
+    AnimScaleController* mAnimScaleCtrl;   // _144
+    JointController* mJointCtrlParam;      // _148
+    YoshiLockOnTarget* mYoshiLockOnTarget; // _14C
+    const Nerve* mPushedNerve;             // _150
+    const Nerve* mWaitNerve;               // _154
+    const Nerve* mTalkNerve;               // _158
+    const Nerve* mReactionNerve;           // _15C
+    s32 mReact2PPointerAttachedDelay;      // _160
 };
 
 namespace NrvNPCActor {

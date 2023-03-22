@@ -5,6 +5,10 @@
 class LiveActor;
 
 namespace MR {
+	bool isDestroySceneKeepAllSound();
+	void onDestroySceneKeepAllSound();
+	void offDestroySceneKeepAllSound();
+
 	void startSystemSE(const char *, s32, s32);
 
 	void startSound(const LiveActor *, const char *, s32, s32);

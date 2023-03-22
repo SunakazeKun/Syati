@@ -44,7 +44,7 @@
 #include "Game/Util/MapUtil.h"                      // unfinished
 #include "Game/Util/MathUtil.h"                     // unfinished
 #include "Game/Util/MemoryUtil.h"                   // unfinished
-// MessageUtil
+#include "Game/Util/MessageUtil.h"                  // unfinished
 // MEUtil
 #include "Game/Util/ModelUtil.h"                    // unfinished
 #include "Game/Util/MtxUtil.h"                      // unfinished

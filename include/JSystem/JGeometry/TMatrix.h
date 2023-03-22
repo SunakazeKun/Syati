@@ -66,6 +66,7 @@ namespace JGeometry {
         void setEulerY(f32);
         void setQuat(const TQuat4f &);
         void setScale(f32, f32, f32);
+        void setScale(f32);
     };
 
     template<>
