@@ -39,10 +39,11 @@ extern "C" {
     // ----------------------------------------------------------------------------------------------------------------
 
 
-    struct LMS_Message : LMS_MessageBinary {
-        int labelsBlock; // _10
-        int textsBlock;  // _14
-        int attrsBlock;  // _18
+    struct LMS_Message {
+        LMS_MessageBinary binary; // _0
+        int labelsBlock;          // _10
+        int textsBlock;           // _14
+        int attrsBlock;           // _18
     };
 
     const LMS_Message* LMS_InitMessage(const char *data);
@@ -56,10 +57,11 @@ extern "C" {
     // ----------------------------------------------------------------------------------------------------------------
 
 
-    struct LMS_Flowchart : LMS_MessageBinary {
-        int flowsBlock;  // _10
-        int labelsBlock; // _14
-        int refsBlock;   // _18
+    struct LMS_Flowchart {
+        LMS_MessageBinary binary; // _0
+        int flowsBlock;           // _10
+        int labelsBlock;          // _14
+        int refsBlock;            // _18
     };
 
     struct LMS_Node {
