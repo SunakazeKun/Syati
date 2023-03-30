@@ -69,45 +69,45 @@ public:
     bool mReactTrampleAttack;        // _DC
     bool mReactSpinAttack;           // _DD
     bool mReact2PPointerAttached;    // _DE
-    bool mReactAttack;               // _DF
+    bool mReactStarPieceAttack;      // _DF
     bool mReactJetTurtleAttack;      // _E0
     bool mConsumedTrampleAttack;     // _E1
     bool mConsumedSpinAttack;        // _E2
     bool mConsumed2PPointerAttached; // _E3
-    bool mConsumedAttack;            // _E4
+    bool mConsumedStarPieceAttack;   // _E4
     bool mConsumedJetTurtleAttack;   // _E5
     bool mRequestTrampleAttack;      // _E6
     bool mRequestSpinAttack;         // _E7
     bool mRequest2PPointerAttached;  // _E8
-    bool mRequestAttack;             // _E9
+    bool mRequestStarPieceAttack;    // _E9
     bool mRequestJetTurtleAttack;    // _EA
     bool mRequestSupportTicoSpin;    // _EB
     bool _EC;
     bool _ED;
     f32 _F0;
-    f32 _F4;
-    f32 _F8;
-    f32 _FC;
-    const char* _100;
-    const char* _104;
-    const char* _108;
-    const char* _10C;
+    f32 _F4; // turning-related
+    f32 _F8; // turning-related
+    f32 _FC; // turning-related
+    const char* mActionWait;         // _100
+    const char* mActionWaitTurn;     // _104
+    const char* mActionTalk;         // _108
+    const char* mActionTalkTurn;     // _10C
     f32 _110;
     f32 _114;
     f32 _118;
     f32 _11C;
-    u32 _120;
-    u32 _124;
-    u8 _128;
-    u8 _129;
-    u8 _12A;
-    u8 _12B;
+    const char* _120;
+    const char* _124;
+    bool _128;
+    bool _129; // unused
+    bool _12A; // unused
+    bool _12B; // unused
     bool _12C;
     f32 _130;
-    const char *mActionSpinName;           // _134
-    const char *mActionTrampledName;       // _138
-    const char *mActionPointingName;       // _13C
-    const char *mActionReactionName;       // _140
+    const char* mActionSpinName;           // _134
+    const char* mActionTrampledName;       // _138
+    const char* mActionPointingName;       // _13C
+    const char* mActionReactionName;       // _140
     AnimScaleController* mAnimScaleCtrl;   // _144
     JointController* mJointCtrlParam;      // _148
     YoshiLockOnTarget* mYoshiLockOnTarget; // _14C

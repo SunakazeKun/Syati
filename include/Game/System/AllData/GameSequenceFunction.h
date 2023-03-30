@@ -19,6 +19,8 @@ public:
 
 	static bool hasStageResultSequence();
 
+	static bool isResultNotifyTicoCoin();
+
 	static const char* getClearedStageName();
 	static s32 getClearedPowerStarId();
 	static s32 getClearedStarPieceNum();
