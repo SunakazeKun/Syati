@@ -18,9 +18,6 @@ namespace {
         }
     }
 
-#if defined(TWN) || defined(KOR)
-    kmBranch(0x804B6758, init);
-#else
-    kmBranch(0x804B66E8, init);
-#endif
+    // Called after initAcosTable
+    kmBranch(0x8003B344, init);
 }
