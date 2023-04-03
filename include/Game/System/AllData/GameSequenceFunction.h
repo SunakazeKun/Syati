@@ -28,10 +28,30 @@ public:
 
 	static PlayInStageResultHolder* getPlayInStageResultHolder();
 
+	static s32 getCurrentClearedScenariosCount();
+	static void incCurrentClearedScenariosCount();
+	static void clearCurrentClearedScenariosCount();
+
+	static void setPadModeDreamer();
+	static void setPadModeSuperDreamer();
+	static void clearPadModeDreamer();
+	static void clearPadModeSuperDreamer();
+	static bool isPadModeDreamer();
+	static bool isPadModeSuperDreamer();
+	static bool isPadMode();
+	static bool isPadMode2();
+	static bool isAllowDreamerMissNum(s32 missNum);
+	static bool isAllowDreamerInStage();
+
+	static void forcePlayerLuigiAndGotoMarioFaceShipGalaxy();
+	static void forcePlayerMarioAndGotoMarioFaceShipGalaxy();
+
 	static void collectTicoCoinInStage();
 	static bool isCollectTicoCoinInStage();
 	static bool isCollectTicoCoinSaved();
-	static void tryCollectTicoCoinSaved();
+	static void collectTicoCoinIfSaved();
 
-	static void changeSceneStage(const char *, s32, s32, JMapIdInfo *);
+	static void changeSceneStage(const char *pStageName, s32 scenarioNo, s32, const JMapIdInfo &rStartIdInfo);
+
+	static void requestChangeScene(const char *pSceneName);
 };
