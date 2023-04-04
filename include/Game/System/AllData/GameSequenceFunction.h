@@ -4,7 +4,7 @@
 
 class JMapIdInfo;
 class GameSequenceInGame;
-class PlayInStageResultHolder;
+class PlayResultInStageHolder;
 
 class GameSequenceFunction {
 public:
@@ -26,11 +26,15 @@ public:
 	static s32 getClearedStarPieceNum();
 	static s32 getClearedCoinNum();
 
-	static PlayInStageResultHolder* getPlayInStageResultHolder();
+	static PlayResultInStageHolder* getPlayResultInStageHolder();
 
-	static s32 getCurrentClearedScenariosCount();
-	static void incCurrentClearedScenariosCount();
-	static void clearCurrentClearedScenariosCount();
+	static bool isFaceShipRespondGameOver();
+	static void setFaceShipRespondGameOver();
+	static void clearFaceShipRespondGameOver();
+
+	static s32 getFaceShipClearedScenariosCount();
+	static void incFaceShipClearedScenariosCount();
+	static void clearFaceShipClearedScenariosCount();
 
 	static void setPadModeDreamer();
 	static void setPadModeSuperDreamer();

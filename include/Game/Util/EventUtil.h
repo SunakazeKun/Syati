@@ -13,7 +13,7 @@ namespace MR {
 	s32 getPlayerLeft();
 	void addPlayerLeft(int lives);
 	void decPlayerLeft();
-	void incPlayerMissNum();
+	void incPlayerGameOverNum();
 
 	bool isPlayerLuigi();
 
@@ -106,7 +106,7 @@ namespace MR {
 	bool isPowerStarBronze(const char *pStageName, s32 powerStarId);
 
 	s32 getPowerStarNum();
-	s32 getPowerStarStageNum(const char *pStageName);
+	bool hasAllNormalPowerStarWithoutComet(const char *pStageName);
 
 	void setRaceBestTime(int raceId, s32 bestTime);
 	s32 getRaceBestTime(int raceId);
@@ -118,10 +118,12 @@ namespace MR {
 	bool isGalaxyDarkCometAppearInCurrentStage();
 	bool isGalaxyQuickCometAppearInCurrentStage();
 	bool isGalaxyPurpleCometAppearInCurrentStage();
-	bool isGalaxyHorrorInCurrentStage();
-	bool isGalaxyRainbowInCurrentStage();
+	bool isGalaxyHorrorCometAppearInCurrentStage(); // always false
+	bool isGalaxyRainbowCometAppearInCurrentStage(); // always false
 
 	void startGalaxyCometEvent();
+	void endGalaxyCometEvent();
+	bool isGalaxyCometEvent();
 
 	// various unknown functions
 
