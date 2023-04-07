@@ -60,4 +60,6 @@ namespace MR {
 	bool isExecuteDrawLayout(const LayoutActor *pLayout);
 
 	IconAButton* createAndSetupIconAButton(LayoutActor *pLayout, bool, bool);
+
+	LayoutActor* createSimpleLayout(const char*, const char*, u32);
 };
