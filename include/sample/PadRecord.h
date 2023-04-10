@@ -45,6 +45,8 @@ namespace pad {
         PadRecorderMode mRecorderMode;
         const char* mCurrentStageName;
         JMapIdInfo mCurrentRestartId;
+        u8* mBackupGameData;
+        u32 mBackupGameDataSize;
 
         static PadRecorderInfo sInstance;
     };
@@ -56,6 +58,7 @@ namespace pad {
     void resetPadRecorderNotPrepared();
     JMapIdInfo& getCurrentRestartId();
     void updateFrame();
+    void supplyCurrentGameData();
 
     // ----------------------------------------------------------------------------------------------------------------
 

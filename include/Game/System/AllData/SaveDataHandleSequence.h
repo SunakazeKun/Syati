@@ -7,4 +7,6 @@ class UserFile;
 class SaveDataHandleSequence {
 public:
 	UserFile* getCurrentUserFile();
+
+	void backupCurrentGameData();
 };

@@ -15,6 +15,8 @@ namespace pad {
         mCurrentStageName = NULL;
         mCurrentRestartId.mId = 0;
         mCurrentRestartId.mZoneId = 0;
+        mBackupGameData = NULL;
+        mBackupGameDataSize = 0;
     }
 
     PadRecorderInfo(PadRecorderInfo::sInstance);
@@ -45,6 +47,20 @@ namespace pad {
 
     void updateFrame() {
         PadRecorderInfo::sInstance.mUpdateFrame++;
+    }
+
+    void supplyCurrentGameData() {
+        register u8* backupGameData;
+        u32 backupGameDataSize = SaveDataHandler::getEnoughtTempBufferSize();
+        register SaveDataHandleSequence* saveSequence = GameSequenceFunction::getSaveDataHandleSequence();
+
+        saveSequence->backupCurrentGameData();
+        __asm {
+            lwz backupGameData, 0x3C(saveSequence);
+        }
+
+        PadRecorderInfo::sInstance.mBackupGameData = backupGameData;
+        PadRecorderInfo::sInstance.mBackupGameDataSize = backupGameDataSize;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -126,12 +142,16 @@ namespace pad {
         if (MR::isFirstStep(this)) {
             mIconAButton->term();
 
+            MR::offPlayerControl();
+
             PadRecorderInfo::sInstance.mCurrentStageName = MR::getCurrentStageName();
             PadRecorderInfo::sInstance.mCurrentRestartId = mRestartId;
+            supplyCurrentGameData();
             setPadRecorderMode(PadRecorderMode_Preparing);
+        }
 
+        if (MR::isStep(this, 2)) {
             MR::setRestartMarioNo(mRestartId);
-            MR::offPlayerControl();
             GameDataFunction::forceMarioPlayer();
             GameSequenceFunction::restartCurrentStageAndClearAfterMiss();
             MR::stopStageBGM(30);
