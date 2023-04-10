@@ -23,9 +23,15 @@ namespace pad {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    bool isEnableDebugPadRecordHelper() {
+    bool isEnableDebugPadRecorder() {
         return true;
     }
+
+    bool isDisableDreamerByPadRecord() {
+        return GameSequenceFunction::isPadMode2() || pad::getPadRecorderMode() != pad::PadRecorderMode_Waiting;
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     PadRecorderMode getPadRecorderMode() {
         return PadRecorderInfo::sInstance.mRecorderMode;
@@ -40,6 +46,14 @@ namespace pad {
             PadRecorderInfo::sInstance.mRecorderMode = PadRecorderMode_Waiting;
         }
     }
+
+    void startPadRecorderPrepared() {
+        if (PadRecorderInfo::sInstance.mRecorderMode == PadRecorderMode_Preparing) {
+            PadRecorderInfo::sInstance.mRecorderMode = PadRecorderMode_Recording;
+        }
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     JMapIdInfo& getCurrentRestartId() {
         return PadRecorderInfo::sInstance.mCurrentRestartId;
@@ -105,7 +119,7 @@ namespace pad {
     }
 
     void PadRecordHelper::makeActorAppeared() {
-        if (isEnableDebugPadRecordHelper()) {
+        if (isEnableDebugPadRecorder() && !GameSequenceFunction::isPadMode()) {
             LiveActor::makeActorAppeared();
         }
         else {
@@ -151,20 +165,12 @@ namespace pad {
         }
 
         if (MR::isStep(this, 2)) {
-            MR::setRestartMarioNo(mRestartId);
-            GameDataFunction::forceMarioPlayer();
-            GameSequenceFunction::restartCurrentStageAndClearAfterMiss();
-            MR::stopStageBGM(30);
-            MR::stopSubBGM(30);
-            MR::onDestroySceneKeepAllSound();
+            GameSequenceFunction::getGameSequenceInGame()->getPlayResultInStageHolder()->_74 = false;
+            GameSequenceFunction::closeWipeCircleAndPrepareDreamer(this, mRestartId.mId);
         }
     }
 
     void PadRecordHelper::exeRecording() {
-        if (MR::isFirstStep(this)) {
-            setPadRecorderMode(PadRecorderMode_Recording);
-        }
-
         if (MR::testCorePadTrigger2(0)) {
             setPadRecorderMode(PadRecorderMode_Stopped);
             makeActorDead();
@@ -203,6 +209,13 @@ namespace {
         pad::PadRecorderInfo::sInstance.mReadDataInfo = readDataInfo;
         return wpadHolder;
     }
+
+    // Dreamer and SuperDreamer shouldn't appear while recording
+    kmCall(0x80348E80, pad::isDisableDreamerByPadRecord); // check by Dreamer
+    kmCall(0x803618B0, pad::isDisableDreamerByPadRecord); // check by SuperDreamer
+
+    // Attempt to start recorder at the end of GameScene::start
+    kmBranch(0x80451888, pad::startPadRecorderPrepared);
 
 #if defined(TWN) || defined(KOR)
     // Registers WPadReadDataInfo after WPadHolder::ctor

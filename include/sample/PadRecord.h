@@ -51,11 +51,14 @@ namespace pad {
         static PadRecorderInfo sInstance;
     };
 
-    bool isEnableDebugPadRecordHelper();
+    bool isEnableDebugPadRecorder();
+    bool isDisableDreamerByPadRecord();
 
     PadRecorderMode getPadRecorderMode();
     void setPadRecorderMode(PadRecorderMode recorderMode);
     void resetPadRecorderNotPrepared();
+    void startPadRecorderPrepared();
+
     JMapIdInfo& getCurrentRestartId();
     void updateFrame();
     void supplyCurrentGameData();
