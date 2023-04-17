@@ -139,6 +139,19 @@ namespace JGeometry {
     };
 
     template<>
+    struct TVec3<s8> {
+        /* Constructors */
+        inline TVec3() { }
+
+        template<typename T>
+        TVec3(T);
+
+        s8 x;
+        s8 y;
+        s8 z;
+    };
+
+    template<>
     struct TVec3<s16> {
         /* Constructors */
         inline TVec3() { }
@@ -181,6 +194,7 @@ namespace JGeometry {
 };
 
 typedef JGeometry::TVec2<f32> TVec2f;
+typedef JGeometry::TVec3<s8> TVec3c;
 typedef JGeometry::TVec3<f32> TVec3f;
 typedef JGeometry::TVec3<s16> TVec3s;
 typedef JGeometry::TVec4<f32> TVec4f;

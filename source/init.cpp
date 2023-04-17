@@ -1,5 +1,6 @@
 #include "revolution.h"
 #include "kamek/hooks.h"
+#include "sample/GstRecord.h"
 #include "sample/PadRecord.h"
 
 typedef void (*Func)();
@@ -35,6 +36,7 @@ namespace {
     // Events to be handled after GameScene::~GameScene
 
     void handleGameSceneDestroy() {
+        gst::resetGstRecorder();
         pad::resetPadRecorderNotPrepared();
     }
 
