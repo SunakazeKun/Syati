@@ -1,4 +1,5 @@
 #include "sample/GstRecord.h"
+#include "Game/NameObj/NameObjCategories.h"
 #include "Game/System/AllData/GameSequenceFunction.h"
 #include "Game/Player/MarioAccess.h"
 #include "Game/Util.h"
@@ -83,12 +84,16 @@ namespace gst {
         mIconAButton = new IconAButton(true, false);
         mIconAButton->initWithoutIter();
 
-        initNerve(NrvGstRecordHelperWait, 0);
+        initNerve(NrvGstRecordHelperWait, getStateCount());
         makeActorAppeared();
     }
 
     void GstRecordHelper::initModelAndScene(const JMapInfoIter &rIter) {
         MR::connectToSceneNpcMovement(this);
+    }
+
+    s32 GstRecordHelper::getStateCount() const {
+        return 0;
     }
 
     void GstRecordHelper::makeActorAppeared() {
@@ -206,7 +211,7 @@ namespace gst {
 
     void GhostLuigiRecordHelper::initModelAndScene(const JMapInfoIter &rIter) {
         initModelManagerWithAnm("GhostAttackGhost", NULL, NULL, false);
-        MR::connectToSceneIndirectNpc(this);
+        MR::connectToScene(this, MR::MovementType_Npc, MR::CategoryList_Null, MR::DrawBufferType_IndirectNpc, MR::CategoryList_Null);
     }
 
     void GhostLuigiRecordHelper::handlePrepare() {

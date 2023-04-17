@@ -60,6 +60,7 @@ namespace gst {
         virtual void attackSensor(HitSensor *pSender, HitSensor *pReceiver);
 
         virtual GhostType getGhostType() const = 0;
+        virtual s32 getStateCount() const;
         virtual void initModelAndScene(const JMapInfoIter &rIter);
         virtual void handlePrepare();
         virtual void handleStopped();
