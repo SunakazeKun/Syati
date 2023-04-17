@@ -31,7 +31,8 @@ namespace gst {
         u32 mUpdateFrame;
         GstRecorderMode mRecorderMode;
         const char* mCurrentStageName;
-        s32 mGhostDataIndex;
+        s32 mCurrentStageScenario;
+        bool mIsSMG2;
         GhostType mGhostDataType;
         GhostPacketSyncData mGhostDataStruct;
 
@@ -40,11 +41,12 @@ namespace gst {
 
     bool isEnableDebugGstRecorder();
 
-    GstRecorderMode getGstRecorderMode();
-    void setGstRecorderMode(GstRecorderMode recorderMode);
-    void resetGstRecorder();
-
-    void resetGhostDataFrame();
+    void waitGstRecorder(); 
+    void prepareGstRecorder(const char *stageName, s32 scenarioId, GhostType ghostType);
+    void startGstRecorder();
+    void stopGstRecorder();
+    void supplyGstFrameSyncWithActor(const LiveActor *actor, bool syncAnims);
+    void supplyGstFrameSyncWithPlayer();
 
     // ----------------------------------------------------------------------------------------------------------------
 
@@ -58,7 +60,7 @@ namespace gst {
         virtual void attackSensor(HitSensor *pSender, HitSensor *pReceiver);
 
         virtual GhostType getGhostType() const = 0;
-        virtual void initModelAndScene(const JMapInfoIter &rIter) = 0;
+        virtual void initModelAndScene(const JMapInfoIter &rIter);
         virtual void handlePrepare();
         virtual void handleStopped();
         virtual void supplyGstFrame() const;

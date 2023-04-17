@@ -16,11 +16,12 @@ namespace gst {
 
     GstRecorderInfo::GstRecorderInfo() {
         *sPtrForScript = this;
-        mUpdateFrame = 0;
+        mIsSMG2 = true;
         mRecorderMode = GstRecorderMode_Waiting;
         mCurrentStageName = NULL;
-        mGhostDataIndex = -1;
+        mCurrentStageScenario = -1;
         mGhostDataType = GhostType_Invalid;
+        mUpdateFrame = 0;
         GhostPacketSyncData(mGhostDataStruct);
     }
 
@@ -32,25 +33,36 @@ namespace gst {
         return true;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
-
-    GstRecorderMode getGstRecorderMode() {
-        return GstRecorderInfo::sInstance.mRecorderMode;
-    }
-
-    void setGstRecorderMode(GstRecorderMode recorderMode) {
-        GstRecorderInfo::sInstance.mRecorderMode = recorderMode;
-    }
-
-    void resetGstRecorder() {
+    void waitGstRecorder() {
         GstRecorderInfo::sInstance.mRecorderMode = GstRecorderMode_Waiting;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
-
-    void resetGhostDataFrame() {
+    void prepareGstRecorder(const char *stageName, s32 scenarioId, GhostType ghostType) {
+        GstRecorderInfo::sInstance.mCurrentStageName = stageName;
+        GstRecorderInfo::sInstance.mCurrentStageScenario = scenarioId;
+        GstRecorderInfo::sInstance.mGhostDataType = ghostType;
         GstRecorderInfo::sInstance.mUpdateFrame = 0;
-        GhostPacketSyncData(GstRecorderInfo::sInstance.mGhostDataStruct);
+        GhostPacketSyncData(mGhostDataStruct);
+
+        GstRecorderInfo::sInstance.mRecorderMode = GstRecorderMode_Preparing;
+    }
+
+    void startGstRecorder() {
+        GstRecorderInfo::sInstance.mRecorderMode = GstRecorderMode_Recording;
+    }
+
+    void stopGstRecorder() {
+        GstRecorderInfo::sInstance.mRecorderMode = GstRecorderMode_Stopped;
+    }
+
+    void supplyGstFrameSyncWithActor(const LiveActor *actor, bool syncAnims) {
+        GstRecorderInfo::sInstance.mGhostDataStruct.syncWithActor(actor, syncAnims);
+        GstRecorderInfo::sInstance.mUpdateFrame++;
+    }
+
+    void supplyGstFrameSyncWithPlayer() {
+        GstRecorderInfo::sInstance.mGhostDataStruct.syncWithPlayer();
+        GstRecorderInfo::sInstance.mUpdateFrame++;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -73,6 +85,10 @@ namespace gst {
 
         initNerve(NrvGstRecordHelperWait, 0);
         makeActorAppeared();
+    }
+
+    void GstRecordHelper::initModelAndScene(const JMapInfoIter &rIter) {
+        MR::connectToSceneNpcMovement(this);
     }
 
     void GstRecordHelper::makeActorAppeared() {
@@ -118,11 +134,7 @@ namespace gst {
             MR::offPlayerControl();
             handlePrepare();
 
-            GstRecorderInfo::sInstance.mCurrentStageName = MR::getCurrentStageName();
-            GstRecorderInfo::sInstance.mGhostDataIndex = MR::getCurrentSelectedScenarioNo();
-            GstRecorderInfo::sInstance.mGhostDataType = getGhostType();
-            resetGhostDataFrame();
-            setGstRecorderMode(GstRecorderMode_Preparing);
+            prepareGstRecorder(MR::getCurrentStageName(), MR::getCurrentSelectedScenarioNo(), getGhostType());
         }
 
         if (MR::isStep(this, 60)) {
@@ -133,14 +145,13 @@ namespace gst {
     void GstRecordHelper::exeRecording() {
         if (MR::isFirstStep(this)) {
             MR::onPlayerControl(true);
-            setGstRecorderMode(GstRecorderMode_Recording);
+            startGstRecorder();
         }
 
         supplyGstFrame();
-        GstRecorderInfo::sInstance.mUpdateFrame++;
 
         if (MR::testCorePadTrigger2(0)) {
-            setGstRecorderMode(GstRecorderMode_Stopped);
+            stopGstRecorder();
             handleStopped();
             makeActorDead();
         }
@@ -155,7 +166,7 @@ namespace gst {
     }
 
     void GstRecordHelper::supplyGstFrame() const {
-        GstRecorderInfo::sInstance.mGhostDataStruct.syncWithActor(this, true);
+        supplyGstFrameSyncWithActor(this, true);
     }
 
     namespace NrvGstRecordHelper {
@@ -190,7 +201,7 @@ namespace gst {
     }
 
     void GhostLuigiRecordHelper::supplyGstFrame() const {
-        GstRecorderInfo::sInstance.mGhostDataStruct.syncWithPlayer();
+        supplyGstFrameSyncWithPlayer();
     }
 
     void GhostLuigiRecordHelper::initModelAndScene(const JMapInfoIter &rIter) {
@@ -202,7 +213,6 @@ namespace gst {
         MarioAccess::setBaseMtx(*getBaseMtx());
         MarioAccess::setStateWait();
         MR::startBckPlayer("Wait", NULL);
-
         MR::hideModel(this);
     }
 }
