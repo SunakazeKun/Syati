@@ -21,10 +21,8 @@
 * 4th: Once you are done, press 2 on the Wiimote to stop recording.
 */
 
-#include "syati.h"
-
-// This is the address from which galaxypad retrieves the pointer to PadRecorderInfo
-#define ADDR_PAD_RECORDER_INFO_PTR (0x80003FFC)
+#include "Game/LiveActor/LiveActor.h"
+#include "Game/Screen/IconAButton.h"
 
 class WPadReadDataInfo;
 class WPadHolder;

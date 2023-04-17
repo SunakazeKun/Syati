@@ -1,8 +1,18 @@
 #include "sample/PadRecord.h"
+#include "Game/System/GameSequenceInGame.h"
+#include "Game/System/PlayResultInStageHolder.h"
+#include "Game/System/AllData/GameSequenceFunction.h"
+#include "Game/System/AllData/SaveDataHandler.h"
+#include "Game/System/AllData/SaveDataHandleSequence.h"
+#include "Game/Util.h"
+#include "kamek/hooks.h"
 
 /*
 * Please refer to the respective header file for more information about how to use this!!!
 */
+
+// This is the address from which galaxypad retrieves the pointer to PadRecorderInfo
+#define ADDR_PAD_RECORDER_INFO_PTR (0x80003FFC)
 
 namespace pad {
     static PadRecorderInfo** sPtrForScript = (PadRecorderInfo**)ADDR_PAD_RECORDER_INFO_PTR;
@@ -210,30 +220,25 @@ namespace {
         return wpadHolder;
     }
 
-    // Dreamer and SuperDreamer shouldn't appear while recording
+    // Dreamer, SuperDreamer and GhostAttackGhost shouldn't appear while recording
     kmCall(0x80348E80, pad::isDisableDreamerByPadRecord); // check by Dreamer
     kmCall(0x803618B0, pad::isDisableDreamerByPadRecord); // check by SuperDreamer
 
-    // Attempt to start recorder at the end of GameScene::start
-    kmBranch(0x80451888, pad::startPadRecorderPrepared);
+#if defined(PAL) || defined(USA) || defined(JPN)
+    kmCall(0x804D805C, pad::isDisableDreamerByPadRecord); // check by GhostAttackGhost
+#elif defined(TWN) || defined(KOR)
+    kmCall(0x804D80EC, pad::isDisableDreamerByPadRecord);
+#endif
 
-#if defined(TWN) || defined(KOR)
-    // Registers WPadReadDataInfo after WPadHolder::ctor
-    kmBranch(0x804CF8C0, registerWPadReadDataInfo);
-
-    // Updates frame after calling WPadHolder::update
-    kmBranch(0x804CFB3C, pad::updateFrame);
-
-    // Reset recorder when destroying scene
-    kmBranch(0x804BABA0, pad::resetPadRecorderNotPrepared);
-#else
+#if defined(PAL) || defined(USA) || defined(JPN)
     // Registers WPadReadDataInfo after WPadHolder::ctor
     kmBranch(0x804CF830, registerWPadReadDataInfo);
 
     // Updates frame after calling WPadHolder::update
     kmBranch(0x804CFAAC, pad::updateFrame);
+#elif defined(TWN) || defined(KOR)
+    kmBranch(0x804CF8C0, registerWPadReadDataInfo);
 
-    // Reset recorder when destroying scene
-    kmBranch(0x804BAB30, pad::resetPadRecorderNotPrepared);
+    kmBranch(0x804CFB3C, pad::updateFrame);
 #endif
 }
