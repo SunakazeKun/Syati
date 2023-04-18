@@ -35,14 +35,14 @@ namespace {
     // ----------------------------------------------------------------------------------------------------------------
     // Events to be handled after any scene gets destroyed
 
-    void handleGameSceneDestroy() {
+    void handleAnySceneDestroyed() {
         gst::waitGstRecorder();
-        pad::resetPadRecorderNotPrepared();
+        pad::waitPadRecorderNotPrepared();
     }
 
 #if defined(PAL) || defined(USA) || defined(JPN)
-    kmBranch(0x804BAB30, handleGameSceneDestroy);
+    kmBranch(0x804BAB30, handleAnySceneDestroyed);
 #elif defined(TWN) || defined(KOR)
-    kmBranch(0x804BABA0, handleGameSceneDestroy);
+    kmBranch(0x804BABA0, handleAnySceneDestroyed);
 #endif
 }

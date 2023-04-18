@@ -51,15 +51,15 @@ namespace pad {
 
     bool isEnableDebugPadRecorder();
     bool isDisableDreamerByPadRecord();
+    bool isEnablePadRecorderAnytime();
+    bool isEnablePadRecorderForSpawn(const JMapIdInfo &spawnId);
 
-    PadRecorderMode getPadRecorderMode();
-    void setPadRecorderMode(PadRecorderMode recorderMode);
-    void resetPadRecorderNotPrepared();
+    void waitPadRecorderNotPrepared();
+    void preparePadRecorder(const char *stageName, const JMapIdInfo &spawnId);
     void startPadRecorderPrepared();
+    void stopPadRecorder();
 
-    JMapIdInfo& getCurrentRestartId();
     void updateFrame();
-    void supplyCurrentGameData();
 
     // ----------------------------------------------------------------------------------------------------------------
 

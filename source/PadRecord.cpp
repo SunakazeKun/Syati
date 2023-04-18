@@ -38,42 +38,28 @@ namespace pad {
     }
 
     bool isDisableDreamerByPadRecord() {
-        return GameSequenceFunction::isPadMode2() || pad::getPadRecorderMode() != pad::PadRecorderMode_Waiting;
+        return GameSequenceFunction::isPadMode2() || PadRecorderInfo::sInstance.mRecorderMode != PadRecorderMode_Waiting;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
-
-    PadRecorderMode getPadRecorderMode() {
-        return PadRecorderInfo::sInstance.mRecorderMode;
+    bool isEnablePadRecorderAnytime() {
+        return PadRecorderInfo::sInstance.mRecorderMode == PadRecorderMode_Waiting;
     }
 
-    void setPadRecorderMode(PadRecorderMode recorderMode) {
-        PadRecorderInfo::sInstance.mRecorderMode = recorderMode;
+    bool isEnablePadRecorderForSpawn(const JMapIdInfo &spawnId) {
+        return PadRecorderInfo::sInstance.mRecorderMode == PadRecorderMode_Preparing
+            && PadRecorderInfo::sInstance.mCurrentRestartId == spawnId;
     }
 
-    void resetPadRecorderNotPrepared() {
+    void waitPadRecorderNotPrepared() {
         if (PadRecorderInfo::sInstance.mRecorderMode != PadRecorderMode_Preparing) {
             PadRecorderInfo::sInstance.mRecorderMode = PadRecorderMode_Waiting;
         }
     }
 
-    void startPadRecorderPrepared() {
-        if (PadRecorderInfo::sInstance.mRecorderMode == PadRecorderMode_Preparing) {
-            PadRecorderInfo::sInstance.mRecorderMode = PadRecorderMode_Recording;
-        }
-    }
+    void preparePadRecorder(const char *stageName, const JMapIdInfo &spawnId) {
+        PadRecorderInfo::sInstance.mCurrentStageName = stageName;
+        PadRecorderInfo::sInstance.mCurrentRestartId = spawnId;
 
-    // ----------------------------------------------------------------------------------------------------------------
-
-    JMapIdInfo& getCurrentRestartId() {
-        return PadRecorderInfo::sInstance.mCurrentRestartId;
-    }
-
-    void updateFrame() {
-        PadRecorderInfo::sInstance.mUpdateFrame++;
-    }
-
-    void supplyCurrentGameData() {
         register u8* backupGameData;
         u32 backupGameDataSize = SaveDataHandler::getEnoughtTempBufferSize();
         register SaveDataHandleSequence* saveSequence = GameSequenceFunction::getSaveDataHandleSequence();
@@ -85,6 +71,22 @@ namespace pad {
 
         PadRecorderInfo::sInstance.mBackupGameData = backupGameData;
         PadRecorderInfo::sInstance.mBackupGameDataSize = backupGameDataSize;
+
+        PadRecorderInfo::sInstance.mRecorderMode = PadRecorderMode_Preparing;
+    }
+
+    void startPadRecorderPrepared() {
+        if (PadRecorderInfo::sInstance.mRecorderMode == PadRecorderMode_Preparing) {
+            PadRecorderInfo::sInstance.mRecorderMode = PadRecorderMode_Recording;
+        }
+    }
+
+    void stopPadRecorder() {
+        PadRecorderInfo::sInstance.mRecorderMode = PadRecorderMode_Stopped;
+    }
+
+    void updateFrame() {
+        PadRecorderInfo::sInstance.mUpdateFrame++;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -114,13 +116,11 @@ namespace pad {
         mRestartId.mZoneId = mLinkedInfo.mZoneId;
 
         // Initialize state and appearance
-        PadRecorderMode recorderMode = getPadRecorderMode();
-
-        if (recorderMode == PadRecorderMode_Preparing && getCurrentRestartId() == mRestartId) {
+        if (isEnablePadRecorderForSpawn(mRestartId)) {
             setNerve(NrvPadRecordHelperRecording);
             makeActorAppeared();
         }
-        else if (recorderMode == PadRecorderMode_Waiting) {
+        else if (isEnablePadRecorderAnytime()) {
             makeActorAppeared();
         }
         else {
@@ -168,10 +168,7 @@ namespace pad {
 
             MR::offPlayerControl();
 
-            PadRecorderInfo::sInstance.mCurrentStageName = MR::getCurrentStageName();
-            PadRecorderInfo::sInstance.mCurrentRestartId = mRestartId;
-            supplyCurrentGameData();
-            setPadRecorderMode(PadRecorderMode_Preparing);
+            preparePadRecorder(MR::getCurrentStageName(), mRestartId);
         }
 
         if (MR::isStep(this, 2)) {
@@ -182,7 +179,7 @@ namespace pad {
 
     void PadRecordHelper::exeRecording() {
         if (MR::testCorePadTrigger2(0)) {
-            setPadRecorderMode(PadRecorderMode_Stopped);
+            stopPadRecorder();
             makeActorDead();
         }
     }
