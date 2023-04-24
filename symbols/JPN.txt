@@ -40299,3 +40299,4 @@ typeInfo__Q34nw4r3lyt6Window=0x807D5DC8
 typeInfo__Q34nw4r3lyt8Bounding=0x807D5DD0
 __DVDLayoutFormat=0x807D60D8
 tryReleaseWithMsg__10MarioActorFUl=0x803D58B0
+requestOneUp__21GameSceneLayoutHolderFl=0x80471870

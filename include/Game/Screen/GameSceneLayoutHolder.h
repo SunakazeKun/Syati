@@ -59,6 +59,7 @@ public:
     void activateDefaultGameLayout();
     void deactivateDefaultGameLayout();
     void createPurpleCoinCounter();
+    void requestOneUp(s32);
     LayoutActor* getPurpleCoinCounter() const;
 
     InformationMessage* mInformationMessage; // 0x14
