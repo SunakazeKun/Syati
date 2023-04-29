@@ -28,8 +28,8 @@ public:
 	void exePlayerMoving();
 	void exePlayerNotMoving();
 
-	LayoutActor* _2C;
-	LayoutActor* _30;
+	s32 _2C;
+	s32 _30;
 	LayoutActor* mCoinCounter;
 	LayoutActor* mStarPieceCounter;
 	LayoutActor* mPlayerLeft;

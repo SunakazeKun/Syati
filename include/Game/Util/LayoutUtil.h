@@ -48,6 +48,8 @@ namespace MR {
 	void hideScreen(LayoutActor *pLayout);
 
 	// various more functions here...
+	void showPane(LayoutActor *pLayout, const char *pPaneName);
+	void hidePane(LayoutActor *pLayout, const char *pPaneName);
 
 	void calcScreenPosition(TVec2f*, const TVec3f&);
 
@@ -134,4 +136,5 @@ namespace MR {
 	// calcTextBoxRectRecursive
 	u32 getTextLineNumMaxRecursive(const LayoutActor *pLayout, const char *);
 	void invalidateParentAnim(LayoutActor *pLayout);
+	LayoutActor* createSimpleLayout(const char*, const char*, u32);
 };

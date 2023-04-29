@@ -47,14 +47,18 @@ def build(region: str):
 
     print(f"Building target {region}!")
 
-    if os.path.exists(f"deps/{region}.dol"):
-        kamek_cmd += f" -input-dol=deps/{region}.dol -output-dol=bin/{region}.dol"
 
     if subprocess.call(compile_cmd, shell=True) != 0:
         err("Compiling failed.")
 
     if subprocess.call(kamek_cmd, shell=True) != 0:
         err("Linking failed.")
+
+    if os.path.exists(f"deps/{region}.dol"):
+        kamek_cmd = f"{KAMEK} loader/loader.o -static=0x80001800 -externals={SYMBOLS}/{region}.txt" \
+        f" -input-dol=deps/{region}.dol -output-dol=bin/{region}.dol"
+        if subprocess.call(kamek_cmd, shell=True) != 0:
+            err("Linking failed.")
 
     print("Done!")
 
