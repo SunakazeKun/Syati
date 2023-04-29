@@ -42,7 +42,7 @@ namespace {
                 stageName = "IslandFleetGalaxy";
             }
 
-            GameSequenceFunction::changeToScenarioSelect(stageName);
+            GameSequenceFunction::requestChangeScenarioSelect(stageName);
 
             // Invalidate the area
             pArea->mValidate = false;

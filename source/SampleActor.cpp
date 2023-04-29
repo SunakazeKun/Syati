@@ -1,4 +1,5 @@
 #include "sample/SampleActor.h"
+#include "Game/Util.h"
 
 /*
 * A simple custom actor to help you get started with the game's LiveActor system. This actor functions as described:

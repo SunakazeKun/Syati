@@ -57,7 +57,9 @@ public:
 	static void onGameEventFlagOpenScenario(const char *pStageName, s32 scenario);
 	static bool isOnGameEventFlagOpenScenario(const char *pStageName, s32 scenario);
 	static bool existsGameEventFlagOpenScenario(const char *pStageName, s32 scenario);
-	static void onGameEventFlagLuigiPlayed();
+	static void forceLuigiPlayer();
+	static void forceMarioPlayer();
+	static bool isLuigiPlayer();
 
 	static bool isOnMessageAlreadyRead(signed char);
 

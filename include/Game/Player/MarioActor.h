@@ -75,6 +75,8 @@ public:
 	TVec3f* getGravityVec() const;
 	void setPlayerMode(u16, bool, bool);
 
+	bool isEnableNerveChange() const;
+
 	u8 _90;
 	s32 _94;
 	s32 _98[64];

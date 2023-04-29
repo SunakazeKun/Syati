@@ -12,6 +12,8 @@
 #define KAMEK_BINARY_NAME "/CustomCode/CustomCode_KOR.bin"
 #endif
 
+#define ALIGN_32(a) ((a + 31) & ~31)
+
 namespace {
     struct KamekHeader {
         u32 magic1;
@@ -21,8 +23,10 @@ namespace {
         u32 codeSize;
     };
 
-    void syati_LoadCustomCode();
-    void syati_RuntimeLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize);
+    void SyatiInit();
+    void SyatiLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize);
+
+    void SyatiError(const char *msg);
 };
 
 

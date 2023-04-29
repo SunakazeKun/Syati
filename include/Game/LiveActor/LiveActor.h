@@ -1,10 +1,10 @@
 #pragma once
 
 #include "revolution.h"
-#include "Game/AudioLib/AudAnmSoundObject.h"
 #include "Game/LiveActor/ActorActionKeeper.h"
 #include "Game/LiveActor/ActorLightCtrl.h"
 #include "Game/LiveActor/ActorPadAndCameraCtrl.h"
+#include "Game/LiveActor/ActorSoundHolder.h"
 #include "Game/LiveActor/Binder.h"
 #include "Game/LiveActor/EffectKeeper.h"
 #include "Game/LiveActor/ModelManager.h"
@@ -69,7 +69,7 @@ public:
     void initBinder(f32, f32, u32);
     void initRailRider(const JMapInfoIter &rIter);
     void initEffectKeeper(s32 effectCount, const char *pGroupName, bool);
-    void initSound(s32 soundCount, const char *pObjectName, const TVec3f *pSoundPos, const TVec3f &pSoundOffset);
+    void initSound(s32 soundCount, const char *pObjectName, const TVec3f *pSoundPos, const TVec3f &rSoundOffset);
     void initShadowControllerList(u32);
     void initActorCollisionParts(const char *, HitSensor *, ResourceHolder *, MtxPtr, bool, bool);
     void initStageSwitch(const JMapInfoIter &rIter);
@@ -97,7 +97,7 @@ public:
     Binder* mBinder;                         // _60
     RailRider* mRailRider;                   // _64
     EffectKeeper* mEffectKeeper;             // _68
-    AudAnmSoundObject* mSoundObj;            // _6C
+    ActorSoundHolder* mSoundHolder;          // _6C
     LiveActorFlag mFlags;                    // _70
     ShadowControllerList* mShadowController; // _7C
     CollisionParts* mCollisionParts;         // _80

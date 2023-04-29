@@ -1,8 +1,8 @@
 #pragma once
 
 #include "revolution.h"
+#include "Game/System/AllData/GameDataHolder.h"
 
-class GameDataHolder;
 class ConfigDataHolder;
 
 class UserFile {
