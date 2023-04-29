@@ -6,7 +6,6 @@
 * than 80 KB of custom code (including .text and .bss from the CustomCode binaries). If our code requires more space,
 * the loader will expand SystemHeap's memory by taking away some from HeapNapa/SceneHeapNapa.
 */
-#define CUSTOM_CODE_EXPANSION_KB 80
 
 namespace {
 	/*****************************************************************************************************************/
@@ -26,34 +25,77 @@ namespace {
 
 
 	/*****************************************************************************************************************/
-	/* Adjust heaps to fit more custom code                                                                          */
+	/* Get size of CustomCode and expand SystemHeap if necessary                                                     */
 	/*****************************************************************************************************************/
-	u32 getSystemHeapSize() {
-		u32 expandKB = CUSTOM_CODE_EXPANSION_KB;
+	static u32 sCustomCodeSize;
 
-		if (expandKB < 80) {
-			return 0x40000;
+	void initCustomCodeSize() {
+		DVDFileInfo fileHandle;
+		int pathID = DVDConvertPathToEntrynum(KAMEK_BINARY_NAME);
+
+		if (pathID < 0) {
+			sCustomCodeSize = 0;
+			return;
 		}
-		else {
-			return 0x40000 + (expandKB - 80) * 1000;
+
+		if (!DVDFastOpen(pathID, &fileHandle)) {
+			SyatiError("SYA_ERR\n\nCan't create file handle\n");
 		}
+
+		if (fileHandle.mLength < 32) {
+			SyatiError("SYA_ERR\n\nBinary too small\n");
+		}
+
+		u8 tempBuffer[ALIGN_32(sizeof(KamekHeader)) * 2];
+		KamekHeader *header = (KamekHeader*)ALIGN_32((u32)tempBuffer);
+
+		DVDReadPrio(&fileHandle, header, 32, 0, 2);
+		DVDClose(&fileHandle);
+
+		sCustomCodeSize = ALIGN_32(header->codeSize + header->bssSize);
+	}
+
+	void getCustomCodeSizeAndCreateHeaps(HeapMemoryWatcher *heapWatcher) {
+		initCustomCodeSize();
+		heapWatcher->createHeaps();
 	}
 
 #if defined(TWN) || defined(KOR)
-	kmCall(0x804BCED8, getSystemHeapSize);
+	kmCall(0x804BD058, getCustomCodeSizeAndCreateHeaps);
 #else
-	kmCall(0x804BCE68, getSystemHeapSize);
+	kmCall(0x804BCFE8, getCustomCodeSizeAndCreateHeaps);
 #endif
+
+
+	// ----------------------------------------------------------------------------------------------------------------
+	// Create SystemHeap with adjusted size
+
+	JKRHeap* createSystemHeap(u32 size, JKRHeap *root, bool allocArg) {
+		if (sCustomCodeSize > 81920) {
+			size += (sCustomCodeSize - 81920);
+		}
+
+		return HeapMemoryWatcherFunction::createExpHeap(size, root, allocArg);
+	}
+
+#if defined(TWN) || defined(KOR)
+	kmCall(0x804BCEE0, createSystemHeap);
+#else
+	kmCall(0x804BCE70, createSystemHeap);
+#endif
+
+
+	// ----------------------------------------------------------------------------------------------------------------
+	// Get proper size for StationedHeapNapa
 
 	u32 getStationedHeapNapaSize(JKRHeap *pHeap, int allocArg) {
 		u32 allocatableSize = pHeap->getMaxAllocatableSize(allocArg);
-		u32 expandKB = CUSTOM_CODE_EXPANSION_KB;
 
-		if (expandKB < 80) {
+		if (sCustomCodeSize < 81920) {
 			allocatableSize -= 5242880;
 		}
 		else {
-			allocatableSize -= (5242880 - (expandKB - 80) * 1000);
+			allocatableSize -= (5242880 - (sCustomCodeSize - 81920));
 		}
 
 		return allocatableSize;
@@ -72,16 +114,17 @@ namespace {
 	/* Load and link code from CustomCode binary                                                                     */
 	/*****************************************************************************************************************/
 #if defined(TWN) || defined(KOR)
-	kmBranch(0x804B7DA8, syati_LoadCustomCode);
+	kmBranch(0x804B7DA8, SyatiInit);
 #else
-	kmBranch(0x804B7D38, syati_LoadCustomCode);
+	kmBranch(0x804B7D38, SyatiInit);
 #endif
 
-	void syati_LoadCustomCode() {
-		OSReport("SYATI_INIT\n");
+	void SyatiInit() {
+		if (sCustomCodeSize == 0) {
+			return;
+		}
 
-		u32 fg = 0xFFFFFFFF;
-		u32 bg = 0x00000000;
+		OSReport("SYATI_INIT\n");
 
 
 		// ------------------------------------------------------------------------------------------------------------
@@ -90,24 +133,17 @@ namespace {
 		DVDFileInfo fileHandle;
 		int pathID = DVDConvertPathToEntrynum(KAMEK_BINARY_NAME);
 
-		if (pathID < 0) {
-			OSFatal(&fg, &bg, "SYA_ERR\n\nCan't locate CustomCode binary\n");
-		}
-
 		if (!DVDFastOpen(pathID, &fileHandle)) {
-			OSFatal(&fg, &bg, "SYA_ERR\n\nCan't create file handle\n");
-		}
-
-		if (fileHandle.mLength < sizeof(KamekHeader)) {
-			OSFatal(&fg, &bg, "SYA_ERR\n\nBinary too small\n");
+			SyatiError("SYA_ERR\n\nCan't create file handle\n");
 		}
 
 
 		// ------------------------------------------------------------------------------------------------------------
 		// Read temporary binary file and close handle
 
-		// This is... questionable. Allocating memory on a heap and freeing it later on doesn't seem to work on console
-		u8* binary = (u8*)(((u32)SingletonHolder<HeapMemoryWatcher>::sInstance->mHeapNapa + 0x200 + 31) & ~31);
+		// This is... questionable. Allocating memory on a heap and freeing it later on doesn't seem to work properly
+		// on console. However, GameHeapNapa gets destroyed very often, so this is actually very reliable.
+		u8* binary = (u8*)ALIGN_32((u32)SingletonHolder<HeapMemoryWatcher>::sInstance->mHeapNapa + 0x200);
 		u32 binarySize = fileHandle.mLength;
 		KamekHeader* kamekHeader = (KamekHeader*)binary;
 
@@ -119,10 +155,10 @@ namespace {
 		// Verify Kamek format & get info from header
 
 		if (kamekHeader->magic1 != 'Kame' || kamekHeader->magic2 != 'k\0') {
-			OSFatal(&fg, &bg, "SYA_ERR\n\nInvalid header\n");
+			SyatiError("SYA_ERR\n\nInvalid header\n");
 		}
 		if (kamekHeader->version != 1) {
-			OSFatal(&fg, &bg, "SYA_ERR\n\nIncompatible version\n");
+			SyatiError("SYA_ERR\n\nIncompatible version\n");
 		}
 
 		u32 codeSize = kamekHeader->codeSize;
@@ -132,8 +168,7 @@ namespace {
 		// ------------------------------------------------------------------------------------------------------------
 		// Allocate text & BSS memory
 
-		u32 customCodeSize = codeSize + bssSize;
-		u8* customCodeLinked = new (JKRHeap::sSystemHeap, 4) u8[customCodeSize];
+		u8* customCodeLinked = new (JKRHeap::sSystemHeap, 4) u8[sCustomCodeSize];
 
 
 		// ------------------------------------------------------------------------------------------------------------
@@ -154,14 +189,14 @@ namespace {
 			*bssStart++ = 0;
 		}
 
-		OSReport("Patch addr = %p, size = %d\n", customCodeLinked, customCodeSize);
+		OSReport("Patch addr = %p, size = %d\n", customCodeLinked, sCustomCodeSize);
 
 
 		// ------------------------------------------------------------------------------------------------------------
 		// Linking
 
 		u32 linkingSize = binarySize - sizeof(KamekHeader) - codeSize;
-		syati_RuntimeLink(customCodeLinked, customCodeSize, srcPtr, linkingSize);
+		SyatiLink(customCodeLinked, sCustomCodeSize, srcPtr, linkingSize);
 
 
 		// ------------------------------------------------------------------------------------------------------------
@@ -268,8 +303,7 @@ case k##name: input = kHandle##name(input, text, address); break
 		return kHandleRel24(input, text, address);
 	}
 
-
-	void syati_RuntimeLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize) {
+	void SyatiLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize) {
 		u32 text = (u32)linkedBuffer;
 		const u8* input = kamekBuffer;
 		const u8* end = input + kamekSize;
@@ -319,5 +353,15 @@ case k##name: input = kHandle##name(input, text, address); break
 
 		__sync();
 		__isync();
+	}
+
+
+	/*****************************************************************************************************************/
+	/*Helper functions                                                                                               */
+	/*****************************************************************************************************************/
+	void SyatiError(const char *msg) {
+		u32 fg = 0xFFFFFFFF;
+		u32 bg = 0x00000000;
+		OSFatal(&fg, &bg, msg);
 	}
 }

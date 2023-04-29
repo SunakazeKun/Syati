@@ -5,6 +5,7 @@
 
 class CollisionParts;
 class HitSensor;
+class JMapInfoIter;
 
 class Triangle {
 public:

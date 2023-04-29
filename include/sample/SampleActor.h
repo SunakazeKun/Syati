@@ -1,6 +1,6 @@
 #pragma once
 
-#include "syati.h"
+#include "Game/LiveActor/LiveActor.h"
 
 class SampleActor : public LiveActor {
 public:

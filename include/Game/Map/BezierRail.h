@@ -3,6 +3,9 @@
 #include "revolution.h"
 #include "Game/Map/RailPart.h"
 
+class JMapInfo;
+class JMapInfoIter;
+
 class BezierRail {
 public:
     BezierRail(const JMapInfoIter &, const JMapInfo *);

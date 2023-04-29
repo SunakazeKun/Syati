@@ -2,6 +2,9 @@
 
 #include "Game/Player/FireMarioBall.h"
 #include "Game/Player/FloorCode.h"
+#include "Game/Player/GhostPacketData.h"
+#include "Game/Player/GhostPacketReader.h"
+#include "Game/Player/GhostPacketSyncData.h"
 #include "Game/Player/HorrorDamageExecutor.h"
 #include "Game/Player/JetTurtleShadow.h"
 #include "Game/Player/MarioAccess.h"

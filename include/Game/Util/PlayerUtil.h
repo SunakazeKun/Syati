@@ -84,6 +84,8 @@ namespace MR {
 	void setPlayerPosOnGroundAndWait(const char *);
 	bool isPlayerHipDropFalling();
 	bool isPlayerHipDropLand();
+	s32 getPlayerLife();
+	bool isPlayerLifeOne();
 
 	void incPlayerLife(u32);
 	void incPlayerOxygen(u32);

@@ -4,6 +4,13 @@
 #include "Game/AreaObj/AreaObj.h"
 #include "Game/NameObj/NameObjFactory.h"
 #include "sample/SampleActor.h"
+#include "sample/PadRecord.h"
+#include "sample/GstRecord.h"
+
+/*
+* Expands the NameObjFactory to take into account our custom actors. You can freely extend the creation table below by
+* inserting new entries.
+*/
 
 namespace {
     template<typename T>
@@ -16,6 +23,8 @@ namespace {
     const CreateActorEntry cNewCreateNameObjTable[] = {
         // Custom
         { "SampleActor", createExtActor<SampleActor> },
+        { "PadRecordHelper", createExtActor<pad::PadRecordHelper> },
+        { "GhostLuigiRecordHelper", createExtActor<gst::GhostLuigiRecordHelper> },
 
         // AreaObj
         { "ExtraWallCheckCylinder", NameObjFactory::createBaseOriginCylinder<AreaObj> },

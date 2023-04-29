@@ -103,14 +103,6 @@ KOR_OFFSETS = [
     (0x8064CF80, 0x5A0),
     (0x806599A0, -0x68C0),  # After ErrorMessageArchive
     # .data
-    (0x806F920C, -0x5464),  # "TxtGalaxyNameU"
-    (0x806F9220, -0x5468),  # "Unknown"
-    (0x80700E18, -0x5458),  # "English"
-    (0x80700F00, -0x5460),
-    (0x807024B0, -0x5448),  # "/ObjectData/Yoshi.arc"
-    (0x8070260C, -0x5468),  # "/ObjectData/PlanetMapDataTable.arc"
-    (0x80702758, -0x5448),  # "/LayoutData/GameOver.arc"
-    # .data
     (0x806F920C, -0x68C4),  # "TxtGalaxyNameU"
     (0x806F9220, -0x68C8),  # "Unknown"
     (0x80700E18, -0x68B8),  # "English"

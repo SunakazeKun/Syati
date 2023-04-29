@@ -78,8 +78,8 @@ namespace MR {
         CalcAnimType_Particle              = 0x11,
         CalcAnimType_ParticleIgnorePause   = 0x12,
         CalcAnimType_13                    = 0x13,
-        CalcAnimType_14                    = 0x14,
-        CalcAnimType_15                    = 0x15,
+        CalcAnimType_WorldMapMiniObj       = 0x14,
+        CalcAnimType_WorldMapIcon          = 0x15,
         CalcAnimType_16                    = 0x16, // never executed
 
         CalcAnimType_MaxValue              = 0x17
@@ -126,7 +126,7 @@ namespace MR {
         DrawBufferType_TimeStopScreenEffect           = 0x25,
         DrawBufferType_StoryBook                      = 0x26,
         DrawBufferType_WorldMapMiniObj                = 0x27,
-        DrawBufferType_28                             = 0x28,
+        DrawBufferType_WorldMapIcon                   = 0x28,
         DrawBufferType_3DModelFor2D                   = 0x29,
         DrawBufferType_2A                             = 0x2A,
         DrawBufferType_SwitchingScreenEffect          = 0x2B,
