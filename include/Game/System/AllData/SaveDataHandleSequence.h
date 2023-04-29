@@ -8,4 +8,6 @@ class SaveDataHandleSequence {
 public:
 	UserFile* getCurrentUserFile();
 	void restoreUserFileConfigData(UserFile*, int);
+
+	void backupCurrentGameData();
 };

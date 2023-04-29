@@ -52,9 +52,9 @@ namespace MR {
 	void calcDistanceHorizonToCurrentPos(const LiveActor *);
 	void calcRailPosAtCoord(TVec3f *, const LiveActor *, f32);
 	void calcRailPosFrontCoord(TVec3f *, const LiveActor *, f32);
-	void calcRailDirection(TVec3f *, LiveActor *);
+	void calcRailDirection(TVec3f *, const LiveActor *);
 	void calcRailDirectionAtCoord(TVec3f *, const LiveActor *, f32);
-	void calcRailDirectionAtNextPoint(TVec3f *, LiveActor *);
+	void calcRailDirectionAtNextPoint(TVec3f *, const LiveActor *);
 
 	void calcRailPosAndDirectionAtCoord(TVec3f *, TVec3f *, const LiveActor *, f32);
 	void calcRailStartPos(TVec3f *, const LiveActor *);

@@ -19,7 +19,8 @@
 #include "Game/System/AllData/GameDataFunction.h"
 #include "Game/System/AllData/GameDataHolder.h"
 #include "Game/System/AllData/GameSequenceFunction.h"
-#include "Game/System/AllData/SaveHandleSequence.h"
+#include "Game/System/AllData/SaveDataHandleSequence.h"
+#include "Game/System/AllData/SaveDataHandler.h"
 
 #include "Game/System/GameData/GameDataGalaxyStorage.h"
 #include "Game/System/GameData/UserFile.h"

@@ -5,6 +5,7 @@
 #include "Game/LiveActor/ActorCameraInfo.h"
 #include "Game/LiveActor/ActorLightCtrl.h"
 #include "Game/LiveActor/ActorPadAndCameraCtrl.h"
+#include "Game/LiveActor/ActorSoundHolder.h"
 #include "Game/LiveActor/ActorStateBase.h"
 #include "Game/LiveActor/ActorStateKeeper.h"
 #include "Game/LiveActor/ActorStateParamScale.h"

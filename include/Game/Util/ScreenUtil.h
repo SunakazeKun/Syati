@@ -98,6 +98,13 @@ namespace MR {
 	void forceToBlankCinemaFrame();
 	bool isStopCinemaFrame();
 
+	void appearInformationMessageUp(const char *pMessageName, bool);
+	void appearInformationMessageCenter(const char *pMessageName, bool);
+	void appearInformationMessageDown(const char *pMessageName, bool);
+	void appearInformationMessage(const wchar_t *pMessage, bool);
+	void setInformationMessageReplaceString(const wchar_t *pReplaceString, s32 index);
+	void disappearInformationMessage();
+	void disableCloseInformationMessage();
 	bool isDeadInformationMessage();
 
 	bool isYesNoSelected();

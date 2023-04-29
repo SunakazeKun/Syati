@@ -4,6 +4,8 @@
 #include "JSystem.h"
 #include "Game/Util/JMapIdInfo.h"
 
+class NameObj;
+
 class BitFlag128 {
 public:
     inline BitFlag128() {
