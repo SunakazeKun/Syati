@@ -126,8 +126,6 @@ namespace MR {
 	bool isExecuteCalcAnimLayout(const LayoutActor *pLayout);
 	bool isExecuteDrawLayout(const LayoutActor *pLayout);
 
-	SimpleLayout* createSimpleLayout(const char *, const char *, u32);
-	SimpleLayout* createSimpleLayoutTalkParts(const char *, const char *, u32);
 	IconAButton* createAndSetupIconAButton(LayoutActor *pLayout, bool, bool);
 
 	// getPane
