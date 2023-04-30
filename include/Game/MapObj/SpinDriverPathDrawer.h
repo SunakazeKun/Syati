@@ -2,7 +2,7 @@
 
 #include "revolution.h"
 #include "Game/LiveActor/LiveActor.h"
-#include "JSystem/JUtility/JUTTexture.h"
+class JUTTexture;
 
 class SpinDriverShootPath;
 
