@@ -23,7 +23,7 @@ public:
 	s32 getPurpleCoinNum() const;
 	void setCollectTicoCoinSaved();
 
-	void setRestartMarioNo(const JMapIdInfo &);
+	//void setRestartMarioNo(const JMapIdInfo &);
 	void clearAfterMiss();
 	s32 getPlayerHealth() const;
 

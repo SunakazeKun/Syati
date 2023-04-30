@@ -7,5 +7,6 @@
 #include "Game/NPC/TalkMessageCtrl.h"
 #include "Game/NPC/TalkMessageInfo.h"
 #include "Game/NPC/TalkMessageFunc.h"
+#include "Game/NPC/TalkNodeCtrl.h"
 #include "Game/NPC/Tico.h"
 #include "Game/NPC/TicoEat.h"
