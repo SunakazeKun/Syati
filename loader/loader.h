@@ -22,6 +22,12 @@ namespace {
         u32 bssSize;
         u32 codeSize;
     };
+    /// @brief Added in Kamek 2.0, we dont need any of this info as we already have it elsewhere.
+    struct KamekExtra {
+        u32 ctorStart;
+        u32 ctorEnd;
+        u32 unk[2];
+    };
 
     void SyatiInit();
     void SyatiLink(u8 *linkedBuffer, u32 linkedSize, u8 *kamekBuffer, u32 kamekSize);
