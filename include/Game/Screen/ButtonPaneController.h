@@ -42,9 +42,9 @@ public:
     void exeDecided();
     void exeDecidedToDisappear();
 
-    LayoutActor* _8;
-    const char* _C;
-    const char* _10;
+    LayoutActor* mHost;
+    const char* mPaneName1;
+    const char* mPaneName2;
     u32 _14;
     s32 _18;
     bool _1C;

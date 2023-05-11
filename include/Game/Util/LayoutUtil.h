@@ -56,6 +56,8 @@ namespace MR {
 	void emitEffect(LayoutActor *pLayout, const char *pEffectName);
 
 	void setFollowPos(const TVec2f*, const LayoutActor*, const char*);
+	void setFollowTypeReplace(const LayoutActor* pLayout, const char* pStr);
+	void copyPaneTrans(TVec2f*, const LayoutActor*, const char*);
 
 	void startAnim(LayoutActor *, const char *, u32);
 
