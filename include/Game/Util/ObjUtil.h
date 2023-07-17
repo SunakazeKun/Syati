@@ -100,6 +100,9 @@ namespace MR {
     void requestMovementOff(LiveActor *pActor);
     void requestMovementOff(LayoutActor *pLayout);
 
+    void suspendAllSceneNameObj();
+    void resumeAllSceneNameObj();
+
     void joinToNameObjGroup(NameObj *pObj, const char *pGroupName);
     void registerPreDrawFunction(const MR::FunctorBase &rFunctor, int drawType);
     void registerPreDrawFunctionIfNotExist(const MR::FunctorBase &rFunctor, int drawType);
