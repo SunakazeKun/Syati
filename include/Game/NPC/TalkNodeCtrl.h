@@ -4,6 +4,7 @@
 
 class RecursiveHelper;
 
+// None of these return types are known.
 class TalkNodeCtrl {
 public:
     TalkNodeCtrl();
@@ -19,7 +20,7 @@ public:
     bool isCurrentNodeEvent();
     void initNodeRecursive(TalkMessageCtrl*, const JMapInfoIter&, ActorCameraInfo*, RecursiveHelper*);
     s32 getNextNode() const;
-    void* getNextNodeBranch() const;
+    s32 getNextNodeBranch() const;
     s32 getCurrentNodeBranch() const;
     s32 getCurrentNodeMessage() const;
     s32 getCurrentNodeEvent() const;
