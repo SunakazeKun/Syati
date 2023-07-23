@@ -43,6 +43,7 @@ public:
     void readMessage();
     bool isSelectYesNo();
     const char* getBranchID() const;
+    bool isExistNextNode() const;
 
     LiveActor* _14;
     TalkNodeCtrl* mTalkNodeCtrl;
