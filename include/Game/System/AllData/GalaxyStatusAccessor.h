@@ -33,7 +33,7 @@ public:
 	s32 getPowerStarNumOwnedTotal() const;
 	bool isOpened() const;
 	bool isOpenScenario(s32 scenario) const;
-
+    bool isExistPowerStarAtScenario(s32, s32) const;
 	s32 getWorldNo() const;
 	s32 getPowerStarNumOwned() const;
 	s32 getGreenStarNumOwned() const;

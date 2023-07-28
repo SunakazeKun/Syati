@@ -35,7 +35,7 @@ void SampleActor::init(const JMapInfoIter &rIter) {
 
     // Prevent negative radius
     if (radius < 0.0f) {
-        radius = 1000.0;
+        radius = 1000.0f;
     }
 
     // Create sensor with radius

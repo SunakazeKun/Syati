@@ -9,6 +9,11 @@ public:
 
     virtual bool receiveOtherMsg(u32 msg, HitSensor *pSender, HitSensor *pReceiver);
 
+    void initMapToolInfo(const JMapInfoIter &rIter);
+
+    void calcAppearDemoRiseTrans(TVec3f *pDest, f32 yOffset) const;
+    void applyAppearDemoRiseTrans(const TVec3f &rDest, f32 yOffset, f32);
+
     void processWait(f32);
     bool isEndAppearDemo() const;
 
