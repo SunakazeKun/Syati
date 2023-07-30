@@ -7,6 +7,7 @@
 #include "Game/Player/GhostPacketSyncData.h"
 #include "Game/Player/HorrorDamageExecutor.h"
 #include "Game/Player/JetTurtleShadow.h"
+#include "Game/Player/Mario.h"
 #include "Game/Player/MarioAccess.h"
 #include "Game/Player/MarioActor.h"
 #include "Game/Player/MarioAllModel.h"

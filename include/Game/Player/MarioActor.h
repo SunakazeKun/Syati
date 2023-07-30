@@ -4,6 +4,7 @@
 #include "Game/Player/FireMarioBall.h"
 #include "Game/Player/MarioMessenger.h"
 #include "Game/Player/JetTurtleShadow.h"
+#include "Game/Player/Mario.h"
 #include "Game/Player/MarioAllModel.h"
 #include "Game/Player/MarioNullBck.h"
 #include "Game/Player/MarioParts.h"
@@ -46,10 +47,7 @@
 #define PLAYER_MODEL_FLAG_CLOUD 0x1000
 #define PLAYER_MODEL_FLAG_ROCK 0x2000
 
-class Mario;
-
-class MarioActor : public LiveActor
-{
+class MarioActor : public LiveActor {
 public:
 	MarioActor(const char *);
 
