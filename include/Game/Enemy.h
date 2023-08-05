@@ -5,6 +5,7 @@
 #include "Game/Enemy/BegomanBaby.h"
 #include "Game/Enemy/BegomanBase.h"
 #include "Game/Enemy/BegomanSpike.h"
+#include "Game/Enemy/Dossun.h"
 #include "Game/Enemy/GliderShooterBullet.h"
 #include "Game/Enemy/JumpEmitter.h"
 #include "Game/Enemy/Kameck.h"
