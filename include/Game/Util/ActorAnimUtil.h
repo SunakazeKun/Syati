@@ -94,12 +94,12 @@ namespace MR {
 	bool isBvaPlayingIfExist(const LiveActor *, const char *);
 	bool isPlayingAnim(const LiveActor *, const char *);
 	bool isExistAnim(const LiveActor *, const char *);
-	bool isBckExist(const LiveActor *, const char *);
-	bool isBtkExist(const LiveActor *, const char *);
-	bool isBrkExist(const LiveActor *, const char *);
-	bool isBtpExist(const LiveActor *, const char *);
-	bool isBpkExist(const LiveActor *, const char *);
-	bool isBvaExist(const LiveActor *, const char *);
+	bool isExistBck(const LiveActor *, const char *);
+	bool isExistBtk(const LiveActor *, const char *);
+	bool isExistBrk(const LiveActor *, const char *);
+	bool isExistBtp(const LiveActor *, const char *);
+	bool isExistBpk(const LiveActor *, const char *);
+	bool isExistBva(const LiveActor *, const char *);
 	void* getBckCtrl(const LiveActor *);
 	void* getBtkCtrl(const LiveActor *);
 	void* getBrkCtrl(const LiveActor *);
