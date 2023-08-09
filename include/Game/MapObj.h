@@ -26,6 +26,7 @@
 #include "Game/MapObj/MorphItemObjNeo.h"
 #include "Game/MapObj/PowerStar.h"
 #include "Game/MapObj/RailMoveObj.h"
+#include "Game/MapObj/RotateMoveObj.h"
 #include "Game/MapObj/Shellfish.h"
 #include "Game/MapObj/SimpleBreakableObj.h"
 #include "Game/MapObj/SimpleMapObj.h"

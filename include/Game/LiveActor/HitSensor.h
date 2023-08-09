@@ -392,6 +392,7 @@
 #define ACTMES_HEAVENSDOOR_RUNAWAY_RABBIT_WAIT 0xF2
 #define ACTMES_HEAVENSDOOR_RUNAWAY_RABBIT_START 0xF3
 #define ACTMES_KOOPA_JR_CASTLE_BREAK_WIND 0xF4
+#define ACTMES_MARIO_LAUNCHER_HIT 0xF4
 #define ACTMES_PLANT_GROUP_EMIT_ITEM 0xF5
 #define ACTMES_UNUSED_246 0xF6
 #define ACTMES_DASH_YOSHI_ATTACK 0xF7
@@ -411,43 +412,43 @@ class SensorGroup;
 
 class HitSensor {
 public:
-    HitSensor(u32 sensorType, u16 sensorCount, f32 radius, LiveActor *pActor);
+	HitSensor(u32 sensorType, u16 sensorCount, f32 radius, LiveActor *pActor);
 
-    u32 receiveMessage(u32 msg, HitSensor *pSender);
-    void setType(u32 sensorType);
-    bool isType(u32 sensorType) const;
-    void validate();
-    void invalidate();
-    void validateBySystem();
-    void invalidateBySystem();
-    void addHitSensor(HitSensor *pSensor);
+	u32 receiveMessage(u32 msg, HitSensor *pSender);
+	void setType(u32 sensorType);
+	bool isType(u32 sensorType) const;
+	void validate();
+	void invalidate();
+	void validateBySystem();
+	void invalidateBySystem();
+	void addHitSensor(HitSensor *pSensor);
 
-    u32 mSensorType;           // _0
-    TVec3f mPosition;          // _4
-    f32 mRadius;               // _10
-    u16 mNumSensors;           // _14
-    u16 mGroupSize;            // _16
-    HitSensor** mSensors;      // _18
-    SensorGroup* mSensorGroup; // _1C
-    bool mValidBySystem;       // _20
-    bool mValidByHost;         // _21
-    LiveActor* mActor;         // _24
+	u32 mSensorType;           // _0
+	TVec3f mPosition;          // _4
+	f32 mRadius;               // _10
+	u16 mNumSensors;           // _14
+	u16 mGroupSize;            // _16
+	HitSensor** mSensors;      // _18
+	SensorGroup* mSensorGroup; // _1C
+	bool mValidBySystem;       // _20
+	bool mValidByHost;         // _21
+	LiveActor* mActor;         // _24
 };
 
 class HitSensorInfo {
 public:
-    HitSensorInfo(const char *, HitSensor *, const TVec3f *pFollowPos, MtxPtr pFollowMtx, const TVec3f &, bool);
+	HitSensorInfo(const char *, HitSensor *, const TVec3f *pFollowPos, MtxPtr pFollowMtx, const TVec3f &, bool);
 
-    void setFollowPos(const TVec3f *pFollowPos);
-    void setFollowMtx(MtxPtr pFollowMtx);
-    void update();
-    void doObjCol();
+	void setFollowPos(const TVec3f *pFollowPos);
+	void setFollowMtx(MtxPtr pFollowMtx);
+	void update();
+	void doObjCol();
 
-    const char* mName;        // _0
-    s32 mHashCode;            // _4
-    HitSensor* mSensor;       // _8
-    TVec3f mOffset;           // _C
-    const TVec3f* mFollowPos; // _18
-    MtxPtr mFollowMtx;        // _1C
-    bool _20;
+	const char* mName;        // _0
+	s32 mHashCode;            // _4
+	HitSensor* mSensor;       // _8
+	TVec3f mOffset;           // _C
+	const TVec3f* mFollowPos; // _18
+	MtxPtr mFollowMtx;        // _1C
+	bool _20;
 };
