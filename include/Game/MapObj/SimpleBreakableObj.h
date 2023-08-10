@@ -24,24 +24,20 @@ public:
 
 	virtual ~SimpleBreakableObj();
 	virtual void init(const JMapInfoIter &);
-
 	virtual void control();
-
 	virtual bool receiveMsgPlayerAttack(u32, HitSensor *, HitSensor *);
 	virtual bool receiveMsgEnemyAttack(u32, HitSensor *, HitSensor *);
 	virtual bool receiveOtherMsg(u32, HitSensor *, HitSensor *);
-
 	virtual void initCaseUseSwitchA(const MapObjActorInitInfo &);
 	virtual void initCaseNoUseSwitchA(const MapObjActorInitInfo &);
 	virtual void initCaseUseSwitchB(const MapObjActorInitInfo &);
 	virtual void initCaseNoUseSwitchB(const MapObjActorInitInfo &);
 
-	//Unknown nullsub at 0x802FE0B0 USA
-
 	void setStateBreak();
 	void startBreak();
+	void controlBreak();
 	void endBreak();
-	bool isStateBreaking();
+	bool isStateBreaking() const;
 	void appearItem();
 	void exeTryStartDemo();
 	void exeDemo();
@@ -57,4 +53,10 @@ public:
 	u8 _F0;
 	u8 _F1;
 	u8 _F2;
+};
+
+namespace NrvSimpleBreakableObj {
+	NERVE(HostTypeWait);
+	NERVE(HostTypeTryStartDemo);
+	NERVE(HostTypeDemo);
 };
