@@ -25,3 +25,8 @@ struct TalkMessageInfo {
     u8 mMessageLinkId;
     u8 mUnk7;
 };
+
+namespace MessageSystem {
+    const wchar_t* getSystemMessageDirect(TalkMessageInfo*, const char*);
+    const wchar_t* getGameMessageDirect(TalkMessageInfo*, const char*);
+};
