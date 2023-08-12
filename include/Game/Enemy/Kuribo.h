@@ -76,6 +76,8 @@ class Kuribo : public LiveActor {
     bool _CD;
     bool _CE;
 
+    #if defined USEBLUECOIN && !defined SM64BLUECOIN
     BlueCoin* mBlueCoin;
     s32 mBlueCoinArg;
+    #endif
 };

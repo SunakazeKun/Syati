@@ -47,6 +47,8 @@ public:
     s32 _B4;
     s32 _B8;
 
+    #if defined USEBLUECOIN && !defined SM64BLUECOIN
     BlueCoin* mBlueCoin;
     s32 mBlueCoinArg;
+    #endif
 };
