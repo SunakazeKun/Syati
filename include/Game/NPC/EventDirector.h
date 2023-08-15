@@ -9,5 +9,5 @@ public:
 };
 
 namespace MR {
-	void appearEventPowerStar(const char*, s32, const TVec3f *, bool, bool, s32);
+	void appearEventPowerStar(const char*, s32, const TVec3f *, bool, bool, bool);
 };

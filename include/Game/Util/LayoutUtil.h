@@ -48,6 +48,7 @@ namespace MR {
 	void hideScreen(LayoutActor *pLayout);
 
 	// various more functions here...
+	void calcScreenPosition(TVec2f*, const TVec3f&);
 
 	void startAnim(LayoutActor *, const char *, u32);
 	void startAnimAtFirstStep(LayoutActor *, const char *, u32);
