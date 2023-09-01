@@ -18,13 +18,15 @@ namespace MR {
         inline FunctorV0M(T caller, U callee)
             : mCaller(caller), mCallee(callee) {
         }
+        
+        inline FunctorV0M(const FunctorV0M& ref) : FunctorV0M(ref.mCaller, ref.mCallee) {}
 
         virtual void operator()() const {
             (mCaller->*mCallee)();
         }
 
         virtual FunctorBase* clone(JKRHeap *pHeap) const {
-            return new (pHeap, 0x14) FunctorV0M(*this);
+            return new (pHeap, 0) FunctorV0M(*this);
         };
 
         T mCaller;
@@ -46,12 +48,14 @@ namespace MR {
 
         }
 
+        inline FunctorV1M(const FunctorV1M& ref) : FunctorV1M(ref.mCaller, ref.mCallee, ref.mArg0) {}
+
         virtual void operator()() const {
             (mCaller->*mCallee)(mArg0);
         }
 
         virtual FunctorBase* clone(JKRHeap *pHeap) const {
-            return new (pHeap, 0x14) FunctorV1M(*this);
+            return new (pHeap, 0) FunctorV1M(*this);
         };
 
         T mCaller;
@@ -74,12 +78,15 @@ namespace MR {
 
         }
 
+        inline FunctorV2M(const FunctorV2M& ref) :
+        FunctorV2M(ref.mCaller, ref.mCallee, ref.mArg0, ref.mArg1) { }
+
         virtual void operator()() const {
             (mCaller->*mCallee)(mArg0, mArg1);
         }
 
         virtual FunctorBase* clone(JKRHeap *pHeap) const {
-            return new (pHeap, 0x1C) FunctorV2M(*this);
+            return new (pHeap, 0) FunctorV2M(*this);
         }
 
         T mCaller;
