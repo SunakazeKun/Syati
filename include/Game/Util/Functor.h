@@ -19,7 +19,8 @@ namespace MR {
             : mCaller(caller), mCallee(callee) {
         }
         
-        inline FunctorV0M(const FunctorV0M& ref) : FunctorV0M(ref.mCaller, ref.mCallee) {}
+        inline FunctorV0M(const FunctorV0M& ref)
+            : mCaller(ref.mCaller), mCallee(ref.mCallee) { }
 
         virtual void operator()() const {
             (mCaller->*mCallee)();
@@ -48,7 +49,8 @@ namespace MR {
 
         }
 
-        inline FunctorV1M(const FunctorV1M& ref) : FunctorV1M(ref.mCaller, ref.mCallee, ref.mArg0) {}
+        inline FunctorV1M(const FunctorV1M& ref) 
+            : mCaller(ref.mCaller), mCallee(ref.mCallee), mArg0(mArg0) {}
 
         virtual void operator()() const {
             (mCaller->*mCallee)(mArg0);
@@ -79,7 +81,7 @@ namespace MR {
         }
 
         inline FunctorV2M(const FunctorV2M& ref) :
-        FunctorV2M(ref.mCaller, ref.mCallee, ref.mArg0, ref.mArg1) { }
+        mCaller(ref.mCaller), mCallee(ref.mCallee), mArg0(ref.mArg0), mArg1(ref.mArg1) { }
 
         virtual void operator()() const {
             (mCaller->*mCallee)(mArg0, mArg1);
